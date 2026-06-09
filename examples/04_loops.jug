@@ -1,0 +1,12 @@
+# Loops in JugaadLang
+# Using for loop (ghumo)
+bolo("Counting from 1 to 5 using ghumo:")
+ghumo i mein range(1, 6):
+    bolo(str(i))
+
+# Using while loop (jabtak)
+bolo("Counting down from 3 using jabtak:")
+count = 3
+jabtak count > 0:
+    bolo(str(count))
+    count = count - 1

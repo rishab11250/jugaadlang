@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JugaadLang — Code karo Hindi mein 🚀</title>
+  <meta name="description" content="JugaadLang is a modern programming language with Hindi keywords. Code karo Hindi mein, Duniya hila do! Built for Indian developers who think in Hindi." />
+  <meta property="og:title" content="JugaadLang — Code karo Hindi mein 🚀" />
+  <meta property="og:description" content="A modern programming language with Hindi keywords for Indian developers." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== CSS RESET & VARIABLES ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0D0D1A;
+      --bg-secondary: #1A1A2E;
+      --bg-tertiary: #16213E;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.08);
+      --accent-saffron: #FF9933;
+      --accent-green: #2ECC71;
+      --accent-green-dark: #138808;
+      --accent-gold: #FFD700;
+      --accent-blue: #4FC3F7;
+      --accent-purple: #9B59B6;
+      --text-primary: #EEEEFF;
+      --text-secondary: #9999BB;
+      --text-muted: #5A5A7A;
+      --border: rgba(255, 153, 51, 0.15);
+      --border-hover: rgba(255, 153, 51, 0.4);
+      --glow: rgba(255, 153, 51, 0.3);
+      --glow-green: rgba(46, 204, 113, 0.2);
+      --gradient-hero: linear-gradient(135deg, #0D0D1A 0%, #1A1A2E 50%, #0D1A0D 100%);
+      --gradient-saffron: linear-gradient(135deg, #FF9933, #FF6600);
+      --gradient-green: linear-gradient(135deg, #2ECC71, #138808);
+      --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
+      --font-heading: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(255,153,51,0.15);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-heading);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-saffron); border-radius: 3px; }
+
+    /* ===== PARTICLE CANVAS ===== */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13, 13, 26, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(13, 13, 26, 0.98);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-logo-text {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: var(--gradient-saffron);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-logo-emoji { font-size: 1.4rem; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-saffron);
+      background: rgba(255, 153, 51, 0.1);
+    }
+
+    .nav-cta {
+      background: var(--gradient-saffron) !important;
+      color: #000 !important;
+      font-weight: 700 !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 50px !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px var(--glow) !important;
+      background: rgba(0,0,0,0) !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent-saffron);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: rgba(13, 13, 26, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem 2rem;
+      z-index: 999;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent-saffron);
+      background: rgba(255, 153, 51, 0.1);
+    }
+
+    /* ===== HERO SECTION ===== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 2rem 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(255,153,51,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(46,204,113,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 80%, rgba(79,195,247,0.05) 0%, transparent 60%),
+        var(--bg-primary);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .hero-text { 
+        max-width: 600px;
+
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 153, 51, 0.12);
+      border: 1px solid rgba(255, 153, 51, 0.3);
+      color: var(--accent-saffron);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: pulse-badge 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,153,51,0); }
+      50% { box-shadow: 0 0 0 6px rgba(255,153,51,0.1); }
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title-main {
+      background: linear-gradient(135deg, #FF9933 0%, #FFD700 40%, #FF6600 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .hero-title-sub {
+      font-family: var(--font-devanagari);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      display: block;
+      margin-top: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-bottom: 0.75rem;
+      min-height: 2rem;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.2em;
+      background: var(--accent-saffron);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gradient-saffron);
+      color: #000;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255, 153, 51, 0.5);
+    }
+
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid var(--border-hover);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 153, 51, 0.1);
+      border-color: var(--accent-saffron);
+      color: var(--accent-saffron);
+      transform: translateY(-2px);
+    }
+
+    .hero-code-preview {
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .code-window {
+      background: rgba(22, 22, 44, 0.95);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card), var(--shadow-glow), 0 0 80px rgba(255,153,51,0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .code-window-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #FF5F57; }
+    .dot-yellow { background: #FEBC2E; }
+    .dot-green { background: #28C840; }
+
+    .code-window-title {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-left: -3rem;
+    }
+
+    .code-window-body {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    /* ===== SYNTAX HIGHLIGHTING ===== */
+    .s-keyword { color: #FF9933; font-weight: 600; }
+    .s-string { color: #2ECC71; }
+    .s-comment { color: #5A5A7A; font-style: italic; }
+    .s-number { color: #4FC3F7; }
+    .s-function { color: #E8D44D; }
+    .s-operator { color: #FF6B6B; }
+    .s-plain { color: #EEEEFF; }
+
+    .code-line { display: flex; }
+    .line-num {
+      color: var(--text-muted);
+      user-select: none;
+      margin-right: 1.5rem;
+      min-width: 1.5rem;
+      text-align: right;
+    }
+
+    /* ===== FLOATING EMOJI PARTICLES ===== */
+    .emoji-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .emoji-particle {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: emoji-float var(--duration, 8s) var(--delay, 0s) ease-in-out infinite;
+    }
+
+    @keyframes emoji-float {
+      0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
+    }
+
+    /* ===== STATS SECTION ===== */
+    .stats-strip {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,153,51,0.05);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .stats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: var(--gradient-saffron);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-saffron);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-tag::before, .section-tag::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent-saffron);
+      opacity: 0.5;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===== FEATURES SECTION ===== */
+    #features { background: var(--bg-secondary); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,153,51,0.05), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient-saffron);
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card), 0 0 30px var(--glow);
+    }
+
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover::after { transform: scaleX(1); }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== CODE EXAMPLES SECTION ===== */
+    #examples { background: var(--bg-primary); }
+
+    .tabs-container {
+      max-width: 900px;
+      margin: 0 auto;
+     }
+
+    .tabs-header {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover {
+      color: var(--accent-saffron);
+      border-color: var(--accent-saffron);
+      background: rgba(255,153,51,0.08);
+    }
+
+    .tab-btn.active {
+      background: var(--gradient-saffron);
+      color: #000;
+      border-color: transparent;
+      font-weight: 700;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: tab-fade 0.3s ease;
+    }
+
+    .tab-panel.active { display: block; }
+
+    @keyframes tab-fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .examples-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .code-block-wrapper {
+      background: rgba(16, 16, 32, 0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-block-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .code-block-lang {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: rgba(255,153,51,0.15);
+      color: var(--accent-saffron);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .code-block-body {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.85;
+      overflow-x: auto;
+    }
+
+    .example-desc {
+      padding: 1.5rem 0;
+    }
+
+    .example-desc h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .example-desc p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .keyword-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 50px;
+      background: rgba(255, 153, 51, 0.12);
+      color: var(--accent-saffron);
+      border: 1px solid rgba(255,153,51,0.25);
+    }
+
+    /* ===== KEYWORD TABLE ===== */
+    #keywords { background: var(--bg-secondary); }
+
+    .search-container {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    #keyword-search {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.9rem 1.25rem 0.9rem 3rem;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    #keyword-search:focus {
+      border-color: var(--accent-saffron);
+      box-shadow: 0 0 0 3px rgba(255,153,51,0.15);
+      background: rgba(255,255,255,0.08);
+    }
+
+    #keyword-search::placeholder { color: var(--text-muted); }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: rgba(255,153,51,0.12);
+    }
+
+    th {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent-saffron);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 0.875rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: var(--transition);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tbody tr {
+      transition: var(--transition);
+    }
+
+    tbody tr:hover {
+      background: rgba(255,153,51,0.06);
+    }
+
+    tbody tr:hover td { color: var(--text-primary); }
+
+    .td-python {
+      font-family: var(--font-mono);
+      color: var(--accent-blue) !important;
+    }
+
+    .td-jugaad {
+      font-family: var(--font-mono);
+      color: var(--accent-saffron) !important;
+      font-weight: 600;
+    }
+
+    .td-meaning {
+      color: var(--accent-green) !important;
+      font-weight: 500;
+    }
+
+    .td-example {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* ===== ERRORS SECTION ===== */
+    #errors { background: var(--bg-primary); }
+
+    .errors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .error-card {
+      background: rgba(16, 16, 32, 0.9);
+      border: 1px solid rgba(255, 107, 107, 0.2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .error-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 107, 107, 0.4);
+      box-shadow: 0 8px 30px rgba(255, 107, 107, 0.1);
+    }
+
+    .error-header {
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 107, 107, 0.08);
+      border-bottom: 1px solid rgba(255, 107, 107, 0.15);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #FF6B6B;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .error-body {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.85;
+    }
+
+    .error-type { color: #FF6B6B; font-weight: 600; }
+    .error-arrow { color: var(--text-muted); }
+    .error-msg { color: var(--accent-saffron); }
+    .error-hint { color: var(--accent-green); }
+
+    /* ===== INSTALL SECTION ===== */
+    #install { background: var(--bg-secondary); }
+
+    .install-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .install-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-saffron);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .step-content h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .step-content p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===== FUN BUILTINS SECTION ===== */
+    #builtins { background: var(--bg-primary); }
+
+    .builtins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .builtin-card {
+      background: rgba(22, 22, 44, 0.8);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .builtin-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card), 0 0 20px var(--glow);
+    }
+
+    .builtin-call {
+      padding: 1rem 1.25rem;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .builtin-fn { color: #E8D44D; }
+    .builtin-paren { color: var(--text-muted); }
+
+    .builtin-output {
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-family: var(--font-mono);
+    }
+
+    /* ===== STDLIB SECTION ===== */
+    #stdlib { background: var(--bg-secondary); }
+
+    .stdlib-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .stdlib-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .stdlib-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-card);
+    }
+
+    .stdlib-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .stdlib-name {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-saffron);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .stdlib-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== CTA SECTION ===== */
+    #cta {
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 60% at 50% 50%, rgba(255,153,51,0.08), transparent);
+    }
+
+    .cta-inner {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      position: relative;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #FF9933, #FFD700, #2ECC71);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .cta-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: var(--transition);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(10,10,20,1);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: var(--gradient-saffron);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--accent-saffron); }
+
+    .footer-bottom {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== INDIAN FLAG DIVIDER ===== */
+    .flag-divider {
+      height: 4px;
+      background: linear-gradient(to right, #FF9933 33.33%, #FFFFFF 33.33% 66.66%, #138808 66.66%);
+      opacity: 0.4;
+    }
+
+    /* ===== TERMINAL STYLE ===== */
+    .terminal {
+      background: #0A0A14;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .terminal-bar {
+      background: rgba(255,255,255,0.05);
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .terminal-body {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+
+    .t-prompt { color: var(--accent-green); }
+    .t-cmd { color: var(--text-primary); }
+    .t-output { color: var(--text-secondary); }
+    .t-success { color: var(--accent-green); }
+    .t-highlight { color: var(--accent-saffron); }
+
+    /* ===== GLOW BADGE ===== */
+    .glow-text {
+      text-shadow: 0 0 20px rgba(255,153,51,0.5);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+
+      .hero-subtitle { margin: 0 auto 2.5rem; }
+      .hero-ctas { justify-content: center; }
+
+      .hero-code-preview { animation: none; }
+
+      .examples-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .install-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid { gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .features-grid { grid-template-columns: 1fr; }
+      .stdlib-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .section-container { padding: 3.5rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { gap: 1.5rem; }
+      .stat-number { font-size: 2rem; }
+      .stdlib-grid { grid-template-columns: 1fr 1fr; }
+      .errors-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SHIMMER EFFECT ===== */
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .shimmer-text {
+      background: linear-gradient(90deg, #FF9933 0%, #FFD700 25%, #2ECC71 50%, #FF9933 75%, #FFD700 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ===== GRADIENT BORDER CARD ===== */
+    .gradient-border-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255,153,51,0.5), rgba(46,204,113,0.3), rgba(79,195,247,0.3));
+    }
+
+    .gradient-border-inner {
+      background: var(--bg-secondary);
+      border-radius: calc(var(--radius-lg) - 2px);
+      padding: 2rem;
+      height: 100%;
+    }
+
+    /* ===== PILL TAG ===== */
+    .pill-tag {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pill-new {
+      background: rgba(46,204,113,0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(46,204,113,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== PARTICLE CANVAS ===== -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-emoji">⚡</span>
+    <span class="nav-logo-text">JugaadLang</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#examples">Examples</a></li>
+    <li><a href="#keywords">Keywords</a></li>
+    <li><a href="#errors">Errors</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#stdlib">Stdlib</a></li>
+    <li><a href="https://github.com" class="nav-cta" target="_blank" rel="noopener">GitHub ↗</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#features" onclick="closeMobileMenu()">Features</a>
+  <a href="#examples" onclick="closeMobileMenu()">Examples</a>
+  <a href="#keywords" onclick="closeMobileMenu()">Keywords</a>
+  <a href="#errors" onclick="closeMobileMenu()">Errors</a>
+  <a href="#install" onclick="closeMobileMenu()">Install</a>
+  <a href="#stdlib" onclick="closeMobileMenu()">Stdlib</a>
+  <a href="https://github.com" target="_blank" rel="noopener">GitHub ↗</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg-gradient"></div>
+
+  <!-- Floating Emoji Particles -->
+  <div class="emoji-particles" id="emoji-particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span>🇮🇳</span>
+        <span>Made in Bharat</span>
+        <span class="pill-tag pill-new">v1.0</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-title-main">JugaadLang</span>
+        <span class="hero-title-sub">जुगाड़लैंग</span>
+      </h1>
+      <p class="hero-tagline">
+        <span id="typewriter-text"></span><span class="typewriter-cursor"></span>
+      </p>
+      <p class="hero-subtitle">
+        A modern programming language with Hindi keywords for Indian developers. 
+        Code in the language you think, dream, and argue in. 
+        <strong style="color: var(--accent-saffron);">Jugaad-first. Always.</strong>
+      </p>
+      <div class="hero-ctas">
+        <a href="#install" class="btn-primary">
+          <span>⚡</span> Install Karo
+        </a>
+        <a href="#examples" class="btn-secondary">
+          <span>📖</span> Docs Padho
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-code-preview">
+      <div class="code-window">
+        <div class="code-window-bar">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+          <span class="code-window-title">namaste.jug</span>
+        </div>
+        <div class="code-window-body" id="hero-code">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats-strip">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <span class="stat-number" data-target="30" data-suffix="+">0</span>
+      <span class="stat-label">Hindi Keywords</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <span class="stat-number" data-target="15" data-suffix="+">0</span>
+      <span class="stat-label">Stdlib Modules</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <span class="stat-number" data-target="100" data-suffix="%">0</span>
+      <span class="stat-label">Python Compatible</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <span class="stat-number" data-target="Infinity" data-suffix="">∞</span>
+      <span class="stat-label">Jugaad Power</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<section id="features">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Features</div>
+      <h2 class="section-title">Kya kya milega tumhe? 🎁</h2>
+      <p class="section-subtitle">JugaadLang is packed with features that make it the most desi programming language on the planet.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-icon">🇮🇳</span>
+        <div class="feature-title">Hindi Keywords</div>
+        <p class="feature-desc">Code in the language you think in. <code class="s-keyword">banao</code>, <code class="s-keyword">bolo</code>, <code class="s-keyword">ghumo</code> — Hindi programming feels natural and fun.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Python Speed</div>
+        <p class="feature-desc">Full CPython performance and ecosystem. Every Python library — NumPy, Django, FastAPI — works out of the box.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-icon">😄</span>
+        <div class="feature-title">Funny Errors</div>
+        <p class="feature-desc">Error messages that make you laugh, not cry. "Zero se divide? Newton bhi confuse ho gaya!" — bugs become jokes.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feature-icon">📦</span>
+        <div class="feature-title">Package Manager</div>
+        <p class="feature-desc"><code style="color:var(--accent-saffron);font-family:var(--font-mono)">jug install</code> anything. Full pip compatibility with a desi twist. Install karo, use karo, repeat karo.</p>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">🔧</span>
+        <div class="feature-title">VS Code Extension</div>
+        <p class="feature-desc">Full IDE support — syntax highlighting, IntelliSense, auto-complete, and snippet support for all Hindi keywords.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feature-icon">🌐</span>
+        <div class="feature-title">Web Ready</div>
+        <p class="feature-desc">Build REST APIs, web apps, and microservices in JugaadLang. FastAPI, Flask, Django — sab kuch chalega.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feature-icon">🤖</span>
+        <div class="feature-title">AI Integration</div>
+        <p class="feature-desc">Use any AI/ML library — TensorFlow, PyTorch, scikit-learn. Indian developers building AI in Hindi. Wah!</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feature-icon">☕</span>
+        <div class="feature-title">Chai Built-in</div>
+        <p class="feature-desc">The most important feature. <code style="color:#E8D44D;font-family:var(--font-mono)">chai()</code> function built right in. Because no good code was ever written without chai.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="flag-divider"></div>
+
+<!-- ===== CODE EXAMPLES ===== -->
+<section id="examples">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Code Examples</div>
+      <h2 class="section-title">Dekho kaise likhte hain 👀</h2>
+      <p class="section-subtitle">Real JugaadLang code that actually runs. Click the tabs to explore different features.</p>
+    </div>
+
+    <div class="tabs-container reveal">
+      <div class="tabs-header">
+        <button class="tab-btn active" onclick="switchTab('namaste')" id="tab-namaste">🙏 Namaste Duniya</button>
+        <button class="tab-btn" onclick="switchTab('functions')" id="tab-functions">🔢 Functions</button>
+        <button class="tab-btn" onclick="switchTab('classes')" id="tab-classes">🎓 Classes</button>
+        <button class="tab-btn" onclick="switchTab('errors')" id="tab-errors-ex">⚠️ Error Handling</button>
+      </div>
+
+      <!-- Tab: Namaste Duniya -->
+      <div class="tab-panel active" id="panel-namaste">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-namaste"></div>
+          </div>
+          <div class="example-desc">
+            <h3>Namaste Duniya! 🙏</h3>
+            <p>The classic "Hello World" in JugaadLang. Notice how natural it feels — <strong style="color:var(--accent-saffron)">bolo</strong> means "say" and <strong style="color:var(--accent-saffron)">agar/warna</strong> mean "if/else".</p>
+            <p>This is the first program every JugaadLang developer writes. By tradition, you must also say "Namaste" to your chai before running it.</p>
+            <div class="keyword-chips">
+              <span class="chip">bolo</span>
+              <span class="chip">agar</span>
+              <span class="chip">warna</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Functions -->
+      <div class="tab-panel" id="panel-functions">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-functions"></div>
+          </div>
+          <div class="example-desc">
+            <h3>Functions — banao aur chalao 🔧</h3>
+            <p><strong style="color:var(--accent-saffron)">banao</strong> means "create" — you create functions. <strong style="color:var(--accent-saffron)">wapas</strong> means "return/back" — the value comes back to you.</p>
+            <p><strong style="color:var(--accent-saffron)">ghumo</strong> means "roam/iterate" — perfect for loops because you're literally roaming through the elements!</p>
+            <div class="keyword-chips">
+              <span class="chip">banao</span>
+              <span class="chip">wapas</span>
+              <span class="chip">ghumo</span>
+              <span class="chip">agar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Classes -->
+      <div class="tab-panel" id="panel-classes">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-classes"></div>
+          </div>
+          <div class="example-desc">
+            <h3>Classes — Ustad ka darbar 🎓</h3>
+            <p><strong style="color:var(--accent-saffron)">ustad</strong> means "master/teacher" — classes are masters who teach objects what to do.</p>
+            <p><strong style="color:var(--accent-saffron)">khud</strong> means "self" — because in JugaadLang, you always know yourself. <strong style="color:var(--accent-saffron)">shuru</strong> means "start/begin" for `__init__`.</p>
+            <div class="keyword-chips">
+              <span class="chip">ustad</span>
+              <span class="chip">banao</span>
+              <span class="chip">khud</span>
+              <span class="chip">bolo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Error Handling -->
+      <div class="tab-panel" id="panel-errors-ex">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-errors-ex"></div>
+          </div>
+          <div class="example-desc">
+            <h3>Error Handling — Gadbad ho gayi! ⚠️</h3>
+            <p><strong style="color:var(--accent-saffron)">koshish</strong> means "try/attempt". <strong style="color:var(--accent-saffron)">gadbad</strong> means "problem/trouble" — because when there's an exception, there's always gadbad!</p>
+            <p><strong style="color:var(--accent-saffron)">aakhir_me</strong> means "in the end" — the finally block that runs no matter what, like a responsible Indian parent.</p>
+            <div class="keyword-chips">
+              <span class="chip">koshish</span>
+              <span class="chip">gadbad</span>
+              <span class="chip">aakhir_me</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="flag-divider"></div>
+
+<!-- ===== KEYWORD TABLE ===== -->
+<section id="keywords">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Keywords</div>
+      <h2 class="section-title">Saare Keywords — Reference Guide 📚</h2>
+      <p class="section-subtitle">All 30+ Hindi keywords and their Python equivalents. Search karo, yaad karo, code karo.</p>
+    </div>
+
+    <div class="search-container reveal">
+      <span class="search-icon">🔍</span>
+      <input 
+        type="text" 
+        id="keyword-search" 
+        placeholder="Search keywords... (e.g., bolo, print, loop)"
+        oninput="filterKeywords()"
+        aria-label="Search keywords"
+      />
+    </div>
+
+    <div class="table-wrapper reveal">
+      <table id="keyword-table">
+        <thead>
+          <tr>
+            <th>Python</th>
+            <th>JugaadLang</th>
+            <th>Meaning</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody id="keyword-tbody">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+      <div id="no-results" class="no-results" style="display:none;">
+        🕵️ Kuch nahi mila... thoda aur dhundho!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FUNNY ERRORS ===== -->
+<section id="errors">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Funny Errors</div>
+      <h2 class="section-title">Errors jo hasate hain, rulane nahi 😂</h2>
+      <p class="section-subtitle">JugaadLang's unique error system ensures you smile even when your code breaks. Because debugging should be fun!</p>
+    </div>
+
+    <div class="errors-grid">
+      <div class="error-card reveal">
+        <div class="error-header">
+          <span>🤦</span>
+          <span>SyntaxError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">SyntaxError</span> <span class="error-arrow">at line 3:</span></div>
+          <div><span class="error-msg">🤦 Bhai kya likh diya?</span></div>
+          <div><span class="error-hint">→ Lagta hai keyboard pe sar rakh ke soye the.</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  &gt;&gt;&gt; <span style="color:#FF6B6B">banao(fibonacci</span></div>
+          <div style="color:var(--text-muted)">  &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent-saffron)">^ Yahan kya hua bhai?</span></div>
+        </div>
+      </div>
+
+      <div class="error-card reveal reveal-delay-1">
+        <div class="error-header">
+          <span>🕵️</span>
+          <span>NameError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">NameError</span> <span class="error-arrow">at line 7:</span></div>
+          <div><span class="error-msg">🕵️ Variable dhundte dhundte thak gaya</span></div>
+          <div><span class="error-hint">→ 'x' kahan hai? Define kiya tha ya sapna tha?</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  Checked in: locals, globals,</div>
+          <div style="color:var(--text-muted)">  under the couch, and behind the AC.</div>
+          <div style="color:var(--text-muted)">  <span style="color:#FF6B6B">Nahi mila. 😔</span></div>
+        </div>
+      </div>
+
+      <div class="error-card reveal reveal-delay-2">
+        <div class="error-header">
+          <span>💀</span>
+          <span>ZeroDivisionError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">ZeroDivisionError</span> <span class="error-arrow">at line 12:</span></div>
+          <div><span class="error-msg">💀 Zero se divide?!</span></div>
+          <div><span class="error-hint">→ Newton bhi confuse ho gaya tha yeh sochke.</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  Mathematicians ki consultation fee:</div>
+          <div style="color:var(--text-muted)">  <span style="color:var(--accent-saffron)">∞ rupees + ek cup chai</span></div>
+        </div>
+      </div>
+
+      <div class="error-card reveal reveal-delay-3">
+        <div class="error-header">
+          <span>😱</span>
+          <span>TypeError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">TypeError</span> <span class="error-arrow">at line 5:</span></div>
+          <div><span class="error-msg">😱 Apple aur Orange add nahi karte!</span></div>
+          <div><span class="error-hint">→ str + int? Yeh shaadi nahi ho sakti bhai.</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  Tip: <span style="color:var(--accent-green)">str(number)</span> use karo</div>
+          <div style="color:var(--text-muted)">  ya <span style="color:var(--accent-green)">int(string)</span> — ek ko convert karo.</div>
+        </div>
+      </div>
+
+      <div class="error-card reveal">
+        <div class="error-header">
+          <span>🐢</span>
+          <span>RecursionError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">RecursionError</span> <span class="error-arrow">at depth 1000:</span></div>
+          <div><span class="error-msg">🐢 Stack overflow... ugh.</span></div>
+          <div><span class="error-hint">→ Function apne aap ko itni baar bulaya ki thak gaya.</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  Like that uncle who tells the</div>
+          <div style="color:var(--text-muted)">  <span style="color:#FF6B6B">same story 1000 times. Bas karo!</span></div>
+        </div>
+      </div>
+
+      <div class="error-card reveal reveal-delay-1">
+        <div class="error-header">
+          <span>📭</span>
+          <span>IndexError</span>
+        </div>
+        <div class="error-body">
+          <div><span class="error-type">IndexError</span> <span class="error-arrow">at line 9:</span></div>
+          <div><span class="error-msg">📭 List mein itna nahi hai!</span></div>
+          <div><span class="error-hint">→ Index 10 maanga, list mein sirf 3 items. Hisaab lagao!</span></div>
+          <br/>
+          <div style="color:var(--text-muted)">  Your list: <span style="color:var(--accent-saffron)">[🍎, 🍌, 🍇]</span></div>
+          <div style="color:var(--text-muted)">  You asked for: <span style="color:#FF6B6B">index 10 😶</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="flag-divider"></div>
+
+<!-- ===== INSTALLATION ===== -->
+<section id="install">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Installation</div>
+      <h2 class="section-title">Install Karo, Shuru Karo! 🚀</h2>
+      <p class="section-subtitle">JugaadLang ko install karna utna hi aasaan hai jitna chai banana. Bas teen steps.</p>
+    </div>
+
+    <div class="install-layout">
+      <div>
+        <div class="terminal reveal" style="margin-bottom:1.5rem;">
+          <div class="terminal-bar">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="terminal-title">Terminal</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-prompt">$</span> <span class="t-cmd">pip install jugaadlang</span></div>
+            <div class="t-output">Collecting jugaadlang...</div>
+            <div class="t-output">  Downloading jugaadlang-1.0.0.tar.gz (42 kB)</div>
+            <div class="t-output">Installing collected packages: jugaadlang</div>
+            <div class="t-success">✓ Successfully installed jugaadlang-1.0.0</div>
+            <br/>
+            <div><span class="t-prompt">$</span> <span class="t-cmd">jug repl</span></div>
+            <div class="t-highlight">🙏 JugaadLang v1.0 — Namaste!</div>
+            <div class="t-output">Type karo aur enjoy karo. help() se help lao.</div>
+            <div><span class="t-prompt">&gt;&gt;&gt;</span> <span class="t-cmd">bolo("Namaste Duniya!")</span></div>
+            <div class="t-success">Namaste Duniya! 🎉</div>
+          </div>
+        </div>
+
+        <div class="terminal reveal">
+          <div class="terminal-bar">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <span class="terminal-title">Run a file</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-prompt">$</span> <span class="t-cmd">jug run namaste.jug</span></div>
+            <div class="t-success">Namaste Duniya! 🙏</div>
+            <div class="t-success">Legend mil gaya! 😎</div>
+            <br/>
+            <div><span class="t-prompt">$</span> <span class="t-cmd">jug install requests</span></div>
+            <div class="t-output">Laa raha hoon requests ko... ⏳</div>
+            <div class="t-success">✓ requests install ho gaya!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-steps reveal">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Python Install Karo</h4>
+            <p>Python 3.8+ chahiye. python.org se download karo ya <code style="color:var(--accent-saffron);font-family:var(--font-mono);font-size:0.85em">brew install python</code> chalaao. Already hai? Seedha step 2 pe jao.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>JugaadLang Install Karo</h4>
+            <p>Ek command bas: <code style="color:var(--accent-saffron);font-family:var(--font-mono);font-size:0.85em">pip install jugaadlang</code>. PyPI se aa jaayega sab kuch. Internet chahiye (aur thodi chai).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>VS Code Extension Lagao</h4>
+            <p>VS Code marketplace mein "JugaadLang" search karo. Install karo. Syntax highlighting, snippets, aur auto-complete — sab ready!</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Chai Banao, Code Likho!</h4>
+            <p><code style="color:var(--accent-saffron);font-family:var(--font-mono);font-size:0.85em">jug repl</code> ya <code style="color:var(--accent-saffron);font-family:var(--font-mono);font-size:0.85em">jug run file.jug</code>. Ab aap JugaadLang developer ho! 🎉</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FUN BUILTINS ===== -->
+<section id="builtins">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Built-ins</div>
+      <h2 class="section-title">Fun Built-in Functions 🎪</h2>
+      <p class="section-subtitle">JugaadLang comes with special built-ins that no other language has. Because productivity requires fun.</p>
+    </div>
+
+    <div class="builtins-grid">
+      <div class="builtin-card reveal">
+        <div class="builtin-call">
+          <span class="builtin-fn">chai</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          ☕ Ek cup masala chai bana raha hoon...<br/>
+          🍵 Chai ready! Ab code likhna aasaan hoga.<br/>
+          <span style="color:var(--accent-green)">→ Productivity +200%</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-1">
+        <div class="builtin-call">
+          <span class="builtin-fn">himmat</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          💪 Tu kar sakta hai! <br/>
+          🚀 Bharat ke behtareen developers tune dekhe hain,<br/>
+          <span style="color:var(--accent-saffron)">→ aur tu unme se ek hai!</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-2">
+        <div class="builtin-call">
+          <span class="builtin-fn">ghaas_chhoo</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🌿 Thoda bahar jao yaar...<br/>
+          💻 Screen se door, duniya se paas.<br/>
+          <span style="color:var(--accent-green)">→ Break reminder! 15 min walk karo.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal">
+        <div class="builtin-call">
+          <span class="builtin-fn">bachao</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🆘 HELP MODE ACTIVATED!<br/>
+          📞 Stack Overflow khul gaya...<br/>
+          <span style="color:var(--accent-saffron)">→ Top answers copy ho rahe hain 😂</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-1">
+        <div class="builtin-call">
+          <span class="builtin-fn">fortune</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🔮 Bhavishya dekh raha hoon...<br/>
+          ✨ "Aaj ka bug kal ka feature banega."<br/>
+          <span style="color:var(--accent-green)">→ Auspicious time to deploy: Never.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-2">
+        <div class="builtin-call">
+          <span class="builtin-fn">jugaad</span><span class="builtin-paren">(problem)</span>
+        </div>
+        <div class="builtin-output">
+          🛠️ Jugaad laga raha hoon...<br/>
+          🤔 Analyzing problem... found 17 hacks.<br/>
+          <span style="color:var(--accent-saffron)">→ Best jugaad: duct tape + recursion.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="flag-divider"></div>
+
+<!-- ===== STANDARD LIBRARY ===== -->
+<section id="stdlib">
+  <div class="section-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Standard Library</div>
+      <h2 class="section-title">JugaadLang Stdlib 📦</h2>
+      <p class="section-subtitle">A rich standard library with batteries included — and a few chai-cups included too.</p>
+    </div>
+
+    <div class="stdlib-grid">
+      <div class="stdlib-card reveal">
+        <span class="stdlib-icon">🔢</span>
+        <span class="stdlib-name">ganit</span>
+        <span class="stdlib-desc">Mathematics</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-1">
+        <span class="stdlib-icon">🌐</span>
+        <span class="stdlib-name">web</span>
+        <span class="stdlib-desc">HTTP Requests</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-2">
+        <span class="stdlib-icon">📁</span>
+        <span class="stdlib-name">faili</span>
+        <span class="stdlib-desc">File Operations</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-3">
+        <span class="stdlib-icon">📋</span>
+        <span class="stdlib-name">json</span>
+        <span class="stdlib-desc">JSON Handling</span>
+      </div>
+      <div class="stdlib-card reveal">
+        <span class="stdlib-icon">⏰</span>
+        <span class="stdlib-name">samay</span>
+        <span class="stdlib-desc">Date &amp; Time</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-1">
+        <span class="stdlib-icon">💻</span>
+        <span class="stdlib-name">tantra</span>
+        <span class="stdlib-desc">System &amp; OS</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-2">
+        <span class="stdlib-icon">🔐</span>
+        <span class="stdlib-name">crypto</span>
+        <span class="stdlib-desc">Cryptography</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-3">
+        <span class="stdlib-icon">🗄️</span>
+        <span class="stdlib-name">database</span>
+        <span class="stdlib-desc">SQLite ORM</span>
+      </div>
+      <div class="stdlib-card reveal">
+        <span class="stdlib-icon">☕</span>
+        <span class="stdlib-name">chai</span>
+        <span class="stdlib-desc">Essential ✨</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-1">
+        <span class="stdlib-icon">😂</span>
+        <span class="stdlib-name">jokes</span>
+        <span class="stdlib-desc">Morale Booster</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-2">
+        <span class="stdlib-icon">🔮</span>
+        <span class="stdlib-name">fortune</span>
+        <span class="stdlib-desc">Future Predictor</span>
+      </div>
+      <div class="stdlib-card reveal reveal-delay-3">
+        <span class="stdlib-icon">💪</span>
+        <span class="stdlib-name">motivation</span>
+        <span class="stdlib-desc">When Stuck</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="reveal">
+      <div class="section-tag" style="justify-content:center; margin-bottom:1.25rem;">Open Source</div>
+      <h2 class="cta-title shimmer-text">Open Source hai,<br/>contribute karo! 💪</h2>
+      <p class="cta-subtitle">
+        JugaadLang ek community project hai. Agar tumhe koi new keyword suggest karna hai, 
+        funny error message add karna hai, ya bugs fix karne hain — sab welcome hain.
+        <br/><br/>
+        <strong style="color:var(--accent-saffron)">Bharat ke developers, milke banao! 🇮🇳</strong>
+      </p>
+    </div>
+
+    <div class="cta-links reveal">
+      <a href="https://github.com" class="btn-primary" target="_blank" rel="noopener">
+        <span>⭐</span> GitHub pe Star karo
+      </a>
+      <a href="https://pypi.org" class="btn-ghost" target="_blank" rel="noopener">
+        <span>📦</span> PyPI
+      </a>
+      <a href="https://marketplace.visualstudio.com" class="btn-ghost" target="_blank" rel="noopener">
+        <span>🔧</span> VS Code Extension
+      </a>
+    </div>
+
+    <!-- Decorative line -->
+    <div style="margin-top:4rem; opacity:0.3; font-size:3rem; letter-spacing:0.5rem;">
+      🇮🇳 ☕ 🚀 💻 ⌨️ 🛠️ 🙏
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">⚡ JugaadLang</div>
+    <p class="footer-tagline">जुगाड़लैंग — Code karo Hindi mein, Duniya hila do!</p>
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#features">Features</a>
+      <a href="#examples">Examples</a>
+      <a href="#keywords">Keywords</a>
+      <a href="#install">Install</a>
+      <a href="#stdlib">Stdlib</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      <a href="404.html">404</a>
+    </div>
+    <div class="footer-bottom">
+      Made with ☕ + 💪 in Bharat &nbsp;|&nbsp; 
+      MIT License &nbsp;|&nbsp; 
+      &copy; 2026 JugaadLang Contributors &nbsp;|&nbsp;
+      <span style="color:var(--accent-saffron)">Jai Hind! 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== DATA =====
+const KEYWORDS = [
+  { python: 'print',    jugaad: 'bolo',          meaning: 'Say/Speak',        example: 'bolo("Namaste!")' },
+  { python: 'input',    jugaad: 'poochho',        meaning: 'Ask',              example: 'naam = poochho("Naam?")' },
+  { python: 'if',       jugaad: 'agar',           meaning: 'If',               example: 'agar x > 0:' },
+  { python: 'elif',     jugaad: 'shayad',         meaning: 'Maybe',            example: 'shayad x == 0:' },
+  { python: 'else',     jugaad: 'warna',          meaning: 'Otherwise',        example: 'warna: bolo("no")' },
+  { python: 'for',      jugaad: 'ghumo',          meaning: 'Roam/Iterate',     example: 'ghumo i mein range(5):' },
+  { python: 'while',    jugaad: 'jabtak',         meaning: 'Until/While',      example: 'jabtak x < 10:' },
+  { python: 'def',      jugaad: 'banao',          meaning: 'Create/Build',     example: 'banao add(a, b):' },
+  { python: 'return',   jugaad: 'wapas',          meaning: 'Return/Back',      example: 'wapas a + b' },
+  { python: 'class',    jugaad: 'ustad',          meaning: 'Teacher/Master',   example: 'ustad Developer:' },
+  { python: 'self',     jugaad: 'khud',           meaning: 'Self',             example: 'khud.naam = naam' },
+  { python: 'import',   jugaad: 'lao',            meaning: 'Bring',            example: 'lao math' },
+  { python: 'from',     jugaad: 'se',             meaning: 'From',             example: 'se math lao sqrt' },
+  { python: 'break',    jugaad: 'rukja',          meaning: 'Stop!',            example: 'agar x==0: rukja' },
+  { python: 'continue', jugaad: 'chalte_raho',    meaning: 'Keep Going',       example: 'agar x<0: chalte_raho' },
+  { python: 'try',      jugaad: 'koshish',        meaning: 'Try/Attempt',      example: 'koshish:' },
+  { python: 'except',   jugaad: 'gadbad',         meaning: 'Problem!',         example: 'gadbad Exception:' },
+  { python: 'finally',  jugaad: 'aakhir_me',      meaning: 'In the end',       example: 'aakhir_me:' },
+  { python: 'raise',    jugaad: 'udao',           meaning: 'Throw/Launch',     example: 'udao ValueError("kya!")' },
+  { python: 'True',     jugaad: 'sahi',           meaning: 'Correct/True',     example: 'agar sahi:' },
+  { python: 'False',    jugaad: 'galat',          meaning: 'Wrong/False',      example: 'agar nahi galat:' },
+  { python: 'None',     jugaad: 'kuch_nahi',      meaning: 'Nothing/None',     example: 'x = kuch_nahi' },
+  { python: 'and',      jugaad: 'aur',            meaning: 'And',              example: 'agar a aur b:' },
+  { python: 'or',       jugaad: 'ya',             meaning: 'Or',               example: 'agar a ya b:' },
+  { python: 'not',      jugaad: 'nahi',           meaning: 'No/Not',           example: 'agar nahi x:' },
+  { python: 'async',    jugaad: 'tez',            meaning: 'Fast/Async',       example: 'tez banao main():' },
+  { python: 'await',    jugaad: 'intezaar',       meaning: 'Wait',             example: 'intezaar api_call()' },
+  { python: 'yield',    jugaad: 'baanto',         meaning: 'Share/Distribute', example: 'baanto value' },
+  { python: 'pass',     jugaad: 'theek_hai',      meaning: 'OK/Fine',          example: 'banao noop(): theek_hai' },
+  { python: 'global',   jugaad: 'sabka',          meaning: "Everyone's",       example: 'sabka counter' },
+  { python: 'lambda',   jugaad: 'chota_funkshan', meaning: 'Little function',  example: 'add = chota_funkshan x: x+1' },
+];
+
+// ===== JUGAAD KEYWORDS SET (for syntax highlighting) =====
+const JUGAAD_KEYWORDS = new Set([
+  'bolo','poochho','agar','shayad','warna','ghumo','jabtak','banao','wapas',
+  'ustad','khud','lao','se','rukja','chalte_raho','koshish','gadbad',
+  'aakhir_me','udao','sahi','galat','kuch_nahi','aur','ya','nahi','tez',
+  'intezaar','baanto','theek_hai','sabka','chota_funkshan','shuru','mein',
+]);
+
+// ===== SYNTAX HIGHLIGHTER =====
+function highlightJugaad(code) {
+  const lines = code.split('\n');
+  return lines.map(line => {
+    const tokens = [];
+    let i = 0;
+    while (i < line.length) {
+      // Comment
+      if (line[i] === '#') {
+        tokens.push(`<span class="s-comment">${escHtml(line.slice(i))}</span>`);
+        i = line.length;
+        continue;
+      }
+      // String (single or double quote)
+      if (line[i] === '"' || line[i] === "'") {
+        const q = line[i];
+        let j = i + 1;
+        while (j < line.length && line[j] !== q) {
+          if (line[j] === '\\') j++;
+          j++;
+        }
+        j++;
+        tokens.push(`<span class="s-string">${escHtml(line.slice(i, j))}</span>`);
+        i = j;
+        continue;
+      }
+      // Number
+      if (/[0-9]/.test(line[i])) {
+        let j = i;
+        while (j < line.length && /[0-9.]/.test(line[j])) j++;
+        tokens.push(`<span class="s-number">${escHtml(line.slice(i, j))}</span>`);
+        i = j;
+        continue;
+      }
+      // Word/keyword
+      if (/[a-zA-Z_]/.test(line[i])) {
+        let j = i;
+        while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
+        const word = line.slice(i, j);
+        if (JUGAAD_KEYWORDS.has(word)) {
+          tokens.push(`<span class="s-keyword">${escHtml(word)}</span>`);
+        } else if (j < line.length && line[j] === '(') {
+          tokens.push(`<span class="s-function">${escHtml(word)}</span>`);
+        } else {
+          tokens.push(`<span class="s-plain">${escHtml(word)}</span>`);
+        }
+        i = j;
+        continue;
+      }
+      // Operator
+      if (/[+\-*\/=<>!%&|^~]/.test(line[i])) {
+        tokens.push(`<span class="s-operator">${escHtml(line[i])}</span>`);
+        i++;
+        continue;
+      }
+      tokens.push(escHtml(line[i]));
+      i++;
+    }
+    return tokens.join('');
+  }).join('\n');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderCode(containerId, code, showLineNums = true) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const lines = code.trim().split('\n');
+  const highlighted = highlightJugaad(code.trim()).split('\n');
+  let html = '';
+  lines.forEach((_, idx) => {
+    if (showLineNums) {
+      html += `<div class="code-line"><span class="line-num">${idx + 1}</span><span>${highlighted[idx]}</span></div>`;
+    } else {
+      html += `<div>${highlighted[idx]}</div>`;
+    }
+  });
+  el.innerHTML = html;
+}
+
+// ===== CODE EXAMPLES =====
+const CODE_NAMASTE = `bolo("Namaste Duniya! 🙏")
+
+naam = "Sumangal"
+agar naam == "Sumangal":
+    bolo("Legend mil gaya! 😎")
+warna:
+    bolo("Namaste " + naam)`;
+
+const CODE_HERO = `# JugaadLang — Desi Code!
+lao ganit
+
+banao fibonacci(n):
+    agar n <= 1:
+        wapas n
+    wapas fibonacci(n-1) + fibonacci(n-2)
+
+# Loop karke dikhao
+ghumo i mein range(8):
+    bolo(str(fibonacci(i)))`;
+
+const CODE_FUNCTIONS = `banao fibonacci(n):
+    agar n <= 1:
+        wapas n
+    wapas fibonacci(n-1) + fibonacci(n-2)
+
+ghumo i mein range(10):
+    bolo(str(fibonacci(i)))`;
+
+const CODE_CLASSES = `ustad Developer:
+    banao shuru(khud, naam, lang):
+        khud.naam = naam
+        khud.language = lang
+    
+    banao code_likho(khud):
+        bolo(khud.naam + " code likh raha hai!")
+    
+    banao intro(khud):
+        wapas f"Main {khud.naam} hoon, {khud.language} mein likhta hoon"
+
+dev = Developer("Sumangal", "JugaadLang")
+dev.code_likho()
+bolo(dev.intro())`;
+
+const CODE_ERRORS_EX = `koshish:
+    x = 10 / 0
+gadbad ZeroDivisionError:
+    bolo("💀 Zero se divide?!")
+    bolo("Newton bhi confuse ho gaya!")
+gadbad Exception as e:
+    bolo("Aur kuch gadbad: " + str(e))
+aakhir_me:
+    bolo("Jugaad laga ke fix kar liya! 🛠️")`;
+
+// ===== POPULATE KEYWORD TABLE =====
+function populateTable(data) {
+  const tbody = document.getElementById('keyword-tbody');
+  tbody.innerHTML = data.map(kw => `
+    <tr>
+      <td class="td-python">${kw.python}</td>
+      <td class="td-jugaad">${kw.jugaad}</td>
+      <td class="td-meaning">${kw.meaning}</td>
+      <td class="td-example">${escHtml(kw.example)}</td>
+    </tr>
+  `).join('');
+}
+
+function filterKeywords() {
+  const q = document.getElementById('keyword-search').value.toLowerCase();
+  const filtered = KEYWORDS.filter(kw =>
+    kw.python.includes(q) ||
+    kw.jugaad.includes(q) ||
+    kw.meaning.toLowerCase().includes(q) ||
+    kw.example.toLowerCase().includes(q)
+  );
+  populateTable(filtered);
+  document.getElementById('no-results').style.display = filtered.length === 0 ? 'block' : 'none';
+  document.getElementById('keyword-table').style.display = filtered.length === 0 ? 'none' : '';
+}
+
+// ===== TABS =====
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById(`panel-${name}`).classList.add('active');
+}
+
+// ===== HAMBURGER MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+hamburger.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') hamburger.click();
+});
+function closeMobileMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+// ===== SCROLL NAV =====
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===== TYPEWRITER =====
+const taglines = [
+  'Code karo Hindi mein, Duniya hila do! 🚀',
+  'Jugaad se sab kuch sambhav hai! 💪',
+  'India ka pehla Hindi programming language! 🇮🇳',
+  'Python ka desi bhai — JugaadLang! ☕',
+];
+let taglineIdx = 0;
+let charIdx = 0;
+let deleting = false;
+let tyDelay = 80;
+
+function typeWriter() {
+  const el = document.getElementById('typewriter-text');
+  if (!el) return;
+  const currentText = taglines[taglineIdx];
+  if (!deleting) {
+    el.textContent = currentText.slice(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === currentText.length) {
+      deleting = true;
+      tyDelay = 2500;
+    } else {
+      tyDelay = 70;
+    }
+  } else {
+    el.textContent = currentText.slice(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) {
+      deleting = false;
+      taglineIdx = (taglineIdx + 1) % taglines.length;
+      tyDelay = 300;
+    } else {
+      tyDelay = 35;
+    }
+  }
+  setTimeout(typeWriter, tyDelay);
+}
+
+// ===== ANIMATED COUNTERS =====
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    if (target === 'Infinity') return;
+    let current = 0;
+    const end = parseInt(target);
+    const step = Math.max(1, Math.floor(end / 40));
+    const timer = setInterval(() => {
+      current = Math.min(current + step, end);
+      el.textContent = current + suffix;
+      if (current >= end) clearInterval(timer);
+    }, 40);
+  });
+}
+
+// ===== INTERSECTION OBSERVER =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+// ===== PARTICLE CANVAS =====
+(function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  const NUM = Math.min(80, Math.floor(W * H / 18000));
+  const particles = [];
+
+  for (let i = 0; i < NUM; i++) {
+    particles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.5 + 0.3,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+      alpha: Math.random() * 0.5 + 0.1,
+      color: Math.random() > 0.5 ? '#FF9933' : '#2ECC71',
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H;
+      if (p.y > H) p.y = 0;
+    });
+
+    // Draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(255,153,51,${(1 - dist / 120) * 0.1})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawParticles);
+  }
+
+  drawParticles();
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+})();
+
+// ===== FLOATING EMOJI PARTICLES =====
+(function initEmojiParticles() {
+  const container = document.getElementById('emoji-particles');
+  const emojis = ['🇮🇳', '☕', '🚀', '💻', '⌨️', '🛠️', '🙏', '⚡', '🎯', '💡'];
+  emojis.forEach((emoji, i) => {
+    const el = document.createElement('span');
+    el.className = 'emoji-particle';
+    el.textContent = emoji;
+    el.style.left = `${5 + Math.random() * 90}%`;
+    el.style.setProperty('--duration', `${8 + Math.random() * 8}s`);
+    el.style.setProperty('--delay', `${i * 0.8 + Math.random() * 2}s`);
+    el.style.fontSize = `${1 + Math.random() * 1.2}rem`;
+    container.appendChild(el);
+  });
+})();
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Render code blocks
+  renderCode('hero-code', CODE_HERO, true);
+  renderCode('code-namaste', CODE_NAMASTE, true);
+  renderCode('code-functions', CODE_FUNCTIONS, true);
+  renderCode('code-classes', CODE_CLASSES, true);
+  renderCode('code-errors-ex', CODE_ERRORS_EX, true);
+
+  // Populate keyword table
+  populateTable(KEYWORDS);
+
+  // Start typewriter
+  setTimeout(typeWriter, 500);
+
+  // Observe for scroll reveal
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Observe stat strip for counter animation
+  const statsStrip = document.querySelector('.stats-strip');
+  if (statsStrip) counterObserver.observe(statsStrip);
+});
+</script>
+</body>
+</html>

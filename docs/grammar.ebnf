@@ -1,0 +1,125 @@
+(* JugaadLang EBNF Grammar Specification *)
+
+program = { statement } ;
+
+statement = compound_stmt | simple_stmt ;
+
+simple_stmt = ( assign_stmt
+              | expr_stmt
+              | return_stmt
+              | delete_stmt
+              | raise_stmt
+              | import_stmt
+              | global_stmt
+              | nonlocal_stmt
+              | assert_stmt
+              | poochho_stmt
+              | "theek_hai"
+              | "rukja"
+              | "chalte_raho" ) [ ";" ] newline ;
+
+compound_stmt = if_stmt
+              | while_stmt
+              | for_stmt
+              | try_stmt
+              | func_def
+              | class_def
+              | with_stmt ;
+
+poochho_stmt = "poochho" identifier ;
+
+assign_stmt = expression "=" expression
+            | expression ( "+=" | "-=" | "*=" | "/=" | "%=" | "**=" | "//=" ) expression ;
+
+return_stmt = "wapas" [ expression ] ;
+
+delete_stmt = "del" expression { "," expression } ;
+
+raise_stmt = "udao" [ expression [ "se" expression ] ] ;
+
+global_stmt = "sabka" identifier { "," identifier } ;
+
+nonlocal_stmt = "nonlocal" identifier { "," identifier } ;
+
+assert_stmt = "assert" expression [ "," expression ] ;
+
+import_stmt = "lao" alias_list
+            | "se" relative_module "lao" ( "*" | alias_list | "(" alias_list ")" ) ;
+
+alias_list = alias { "," alias } ;
+alias = identifier [ "as" identifier ] ;
+relative_module = { "." } [ dotted_name ] ;
+dotted_name = identifier { "." identifier } ;
+
+if_stmt = "agar" expression ":" block { "shayad" expression ":" block } [ "warna" ":" block ] ;
+
+while_stmt = "jabtak" expression ":" block [ "warna" ":" block ] ;
+
+for_stmt = [ "tez" ] "ghumo" expression "mein" expression ":" block [ "warna" ":" block ] ;
+
+try_stmt = "koshish" ":" block { except_clause ":" block } [ "warna" ":" block ] [ "aakhir_me" ":" block ] ;
+except_clause = "gadbad" [ expression [ "as" identifier ] ] ;
+
+func_def = [ "tez" ] "banao" identifier "(" [ parameters ] ")" [ "->" expression ] ":" block ;
+
+class_def = "ustad" identifier [ "(" [ expression_list ] ")" ] ":" block ;
+
+with_stmt = [ "tez" ] "with" with_item { "," with_item } ":" block ;
+with_item = expression [ "as" expression ] ;
+
+block = newline indent { statement } dedent
+      | simple_stmt ;
+
+parameters = parameter { "," parameter } [ "," [ "*" [ identifier ] ] ] [ "," [ "**" identifier ] ] ;
+parameter = ( identifier | "khud" ) [ ":" expression ] [ "=" expression ] ;
+
+expression = lambda_expr
+           | "bulawo" call_expr
+           | logical_or [ "agar" logical_or "warna" expression ] ;
+
+lambda_expr = "chota_funkshan" [ parameter_list ] ":" expression ;
+
+logical_or = logical_and { "ya" logical_and } ;
+
+logical_and = logical_not { "aur" logical_not } ;
+
+logical_not = "nahi" logical_not
+            | comparison ;
+
+comparison = bitwise_or { comp_op bitwise_or } ;
+comp_op = "==" | "!=" | "<" | "<=" | ">" | ">=" | "mein" | "mein_nahi" | "hai" | "nahi_hai" ;
+
+bitwise_or = bitwise_xor { "|" bitwise_xor } ;
+bitwise_xor = bitwise_and { "^" bitwise_and } ;
+bitwise_and = shift_expr { "&" shift_expr } ;
+shift_expr = term_expr { ( "<<" | ">>" ) term_expr } ;
+
+term_expr = factor_expr { ( "+" | "-" ) factor_expr } ;
+
+factor_expr = unary_expr { ( "*" | "/" | "//" | "%" | "@" ) unary_expr } ;
+
+unary_expr = ( "+" | "-" | "~" ) unary_expr
+           | "intezaar" unary_expr
+           | power_expr ;
+
+power_expr = primary_expr [ "**" unary_expr ] ;
+
+primary_expr = atom_expr { call_suffix | attr_suffix | sub_suffix } ;
+call_suffix = "(" [ argument_list ] ")" ;
+attr_suffix = "." identifier ;
+sub_suffix = "[" slice_expr "]" ;
+
+slice_expr = [ expression ] [ ":" [ expression ] [ ":" [ expression ] ] ] ;
+
+atom_expr = identifier
+          | "khud"
+          | "bolo"
+          | "poochho"
+          | constant
+          | list_expr
+          | dict_expr
+          | set_expr
+          | fstring
+          | "(" expression ")" ;
+
+constant = integer | float | string | "sahi" | "galat" | "kuch_nahi" | "..." ;

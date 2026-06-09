@@ -1,0 +1,235 @@
+/* ===========================
+   JugaadLang Website — style.css
+   Full standalone stylesheet
+   =========================== */
+
+/* ===== CSS RESET & VARIABLES ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary: #0D0D1A;
+  --bg-secondary: #1A1A2E;
+  --bg-tertiary: #16213E;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --accent-saffron: #FF9933;
+  --accent-green: #2ECC71;
+  --accent-green-dark: #138808;
+  --accent-gold: #FFD700;
+  --accent-blue: #4FC3F7;
+  --accent-purple: #9B59B6;
+  --text-primary: #EEEEFF;
+  --text-secondary: #9999BB;
+  --text-muted: #5A5A7A;
+  --border: rgba(255, 153, 51, 0.15);
+  --border-hover: rgba(255, 153, 51, 0.4);
+  --glow: rgba(255, 153, 51, 0.3);
+  --glow-green: rgba(46, 204, 113, 0.2);
+  --gradient-hero: linear-gradient(135deg, #0D0D1A 0%, #1A1A2E 50%, #0D1A0D 100%);
+  --gradient-saffron: linear-gradient(135deg, #FF9933, #FF6600);
+  --gradient-green: linear-gradient(135deg, #2ECC71, #138808);
+  --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
+  --font-heading: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 40px rgba(255,153,51,0.15);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-heading);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-saffron); border-radius: 3px; }
+
+/* ===== UTILITIES ===== */
+.shimmer-text {
+  background: linear-gradient(90deg, #FF9933 0%, #FFD700 25%, #2ECC71 50%, #FF9933 75%, #FFD700 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+.flag-divider {
+  height: 4px;
+  background: linear-gradient(to right, #FF9933 33.33%, #FFFFFF 33.33% 66.66%, #138808 66.66%);
+  opacity: 0.4;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 13, 26, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+/* ===== HERO ===== */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 2rem 80px;
+  overflow: hidden;
+}
+
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(255,153,51,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 30%, rgba(46,204,113,0.06) 0%, transparent 60%),
+    var(--bg-primary);
+  z-index: 0;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gradient-saffron);
+  color: #000;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 153, 51, 0.5);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  border: 1px solid var(--border-hover);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 153, 51, 0.1);
+  border-color: var(--accent-saffron);
+  color: var(--accent-saffron);
+  transform: translateY(-2px);
+}
+
+/* ===== SECTIONS ===== */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent-saffron);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-tag::before, .section-tag::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent-saffron);
+  opacity: 0.5;
+}
+
+/* ===== CODE BLOCK ===== */
+.code-block-wrapper {
+  background: rgba(16, 16, 32, 0.9);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* ===== SYNTAX HIGHLIGHTING ===== */
+.s-keyword { color: #FF9933; font-weight: 600; }
+.s-string { color: #2ECC71; }
+.s-comment { color: #5A5A7A; font-style: italic; }
+.s-number { color: #4FC3F7; }
+.s-function { color: #E8D44D; }
+.s-operator { color: #FF6B6B; }
+.s-plain { color: #EEEEFF; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .examples-layout { grid-template-columns: 1fr; }
+  .install-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .section-container { padding: 3.5rem 1.25rem; }
+}

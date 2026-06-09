@@ -1,0 +1,13 @@
+# JugaadWeb framework example
+lao web
+
+@web.agar_route("/")
+banao home():
+    wapas "Namaste Duniya! 🚀 Welcome to JugaadWeb!"
+
+@web.agar_route("/data")
+banao get_data():
+    wapas "Some dynamic data"
+
+# Start server
+web.chalao(port=5001)

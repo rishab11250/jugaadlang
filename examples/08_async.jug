@@ -1,0 +1,15 @@
+# Async / Await in JugaadLang
+lao samay
+
+tez banao fetch_data():
+    bolo("Fetching data...")
+    lao asyncio
+    intezaar asyncio.sleep(1)
+    wapas "Data mil gaya!"
+
+tez banao main():
+    res = intezaar fetch_data()
+    bolo(res)
+
+lao asyncio
+asyncio.run(main())

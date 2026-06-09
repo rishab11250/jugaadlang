@@ -1,0 +1,8 @@
+# Declaring variables in JugaadLang
+naam = "Sumangal"
+umar = 20
+sahi_hacker = sahi
+
+bolo("Naam: " + naam)
+bolo("Umar: " + str(umar))
+bolo("Is Hacker: " + str(sahi_hacker))

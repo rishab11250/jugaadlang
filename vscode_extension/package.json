@@ -1,0 +1,125 @@
+{
+  "name": "jugaadlang",
+  "displayName": "JugaadLang",
+  "description": "JugaadLang — Hindi-keyword programming language support for VS Code",
+  "version": "1.0.0",
+  "publisher": "jugaadlang",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Formatters"
+  ],
+  "keywords": [
+    "jugaadlang",
+    "hindi",
+    "jug",
+    "indian programming language",
+    "roman hindi",
+    "desi coding"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jugaadlang/jugaadlang"
+  },
+  "license": "MIT",
+  "activationEvents": [
+    "onLanguage:jugaadlang"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "jugaadlang",
+        "aliases": [
+          "JugaadLang",
+          "jug"
+        ],
+        "extensions": [
+          ".jug"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icon.png",
+          "dark": "./icon.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "jugaadlang",
+        "scopeName": "source.jug",
+        "path": "./syntaxes/jugaadlang.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "jugaadlang",
+        "path": "./snippets/jugaadlang.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "jugaadlang.runFile",
+        "title": "JugaadLang: Run File",
+        "icon": "$(play)"
+      },
+      {
+        "command": "jugaadlang.openRepl",
+        "title": "JugaadLang: Open REPL",
+        "icon": "$(terminal)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "jugaadlang.runFile",
+          "when": "resourceLangId == jugaadlang",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "jugaadlang.runFile",
+        "key": "ctrl+f5",
+        "mac": "cmd+f5",
+        "when": "resourceLangId == jugaadlang"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "JugaadLang",
+      "properties": {
+        "jugaadlang.jugPath": {
+          "type": "string",
+          "default": "jug",
+          "description": "Path to the jug executable"
+        },
+        "jugaadlang.showWelcomeMessage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show welcome message when a .jug file is first opened"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.3.0"
+  }
+}

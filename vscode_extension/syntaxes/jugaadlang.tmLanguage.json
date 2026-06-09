@@ -1,0 +1,404 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "JugaadLang",
+  "scopeName": "source.jug",
+  "fileTypes": [".jug"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#fstrings" },
+    { "include": "#decorators" },
+    { "include": "#keywords-control" },
+    { "include": "#keywords-declaration" },
+    { "include": "#keywords-operator" },
+    { "include": "#keywords-other" },
+    { "include": "#constants-language" },
+    { "include": "#constants-numeric" },
+    { "include": "#support-functions" },
+    { "include": "#entity-name-function" },
+    { "include": "#entity-name-class" },
+    { "include": "#variable-language" },
+    { "include": "#magic-methods" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.jugaadlang",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jugaadlang" }
+          }
+        },
+        {
+          "name": "comment.line.number-sign.jugaadlang",
+          "match": "#.*$",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jugaadlang" }
+          }
+        },
+        {
+          "name": "comment.line.double-slash.jugaadlang",
+          "match": "//.*$",
+          "captures": {
+            "0": { "name": "punctuation.definition.comment.jugaadlang" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.double.jugaadlang",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.jugaadlang" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [{ "include": "#string-escape-sequences" }]
+        },
+        {
+          "name": "string.quoted.triple.single.jugaadlang",
+          "begin": "'''",
+          "end": "'''",
+          "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.jugaadlang" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [{ "include": "#string-escape-sequences" }]
+        },
+        {
+          "name": "string.quoted.double.jugaadlang",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.jugaadlang" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#string-escape-sequences" },
+            {
+              "name": "invalid.illegal.character-not-allowed-here.jugaadlang",
+              "match": "\\n"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.jugaadlang",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.jugaadlang" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#string-escape-sequences" },
+            {
+              "name": "invalid.illegal.character-not-allowed-here.jugaadlang",
+              "match": "\\n"
+            }
+          ]
+        }
+      ]
+    },
+    "fstrings": {
+      "patterns": [
+        {
+          "name": "string.interpolated.jugaadlang meta.fstring.jugaadlang",
+          "begin": "([fF])(\"\"\")",
+          "end": "\"\"\"",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.jugaadlang" },
+            "2": { "name": "punctuation.definition.string.begin.jugaadlang" }
+          },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#fstring-expression" },
+            { "include": "#string-escape-sequences" }
+          ]
+        },
+        {
+          "name": "string.interpolated.jugaadlang meta.fstring.jugaadlang",
+          "begin": "([fF])('')",
+          "end": "'''",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.jugaadlang" },
+            "2": { "name": "punctuation.definition.string.begin.jugaadlang" }
+          },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#fstring-expression" },
+            { "include": "#string-escape-sequences" }
+          ]
+        },
+        {
+          "name": "string.interpolated.jugaadlang meta.fstring.jugaadlang",
+          "begin": "([fF])(\")",
+          "end": "\"",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.jugaadlang" },
+            "2": { "name": "punctuation.definition.string.begin.jugaadlang" }
+          },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#fstring-expression" },
+            { "include": "#string-escape-sequences" }
+          ]
+        },
+        {
+          "name": "string.interpolated.jugaadlang meta.fstring.jugaadlang",
+          "begin": "([fF])(')",
+          "end": "'",
+          "beginCaptures": {
+            "1": { "name": "storage.type.string.jugaadlang" },
+            "2": { "name": "punctuation.definition.string.begin.jugaadlang" }
+          },
+          "endCaptures": { "0": { "name": "punctuation.definition.string.end.jugaadlang" } },
+          "patterns": [
+            { "include": "#fstring-expression" },
+            { "include": "#string-escape-sequences" }
+          ]
+        }
+      ]
+    },
+    "fstring-expression": {
+      "name": "meta.embedded.expression.jugaadlang",
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": { "0": { "name": "punctuation.section.embedded.begin.jugaadlang" } },
+      "endCaptures": { "0": { "name": "punctuation.section.embedded.end.jugaadlang" } },
+      "patterns": [
+        { "include": "#keywords-control" },
+        { "include": "#keywords-operator" },
+        { "include": "#constants-language" },
+        { "include": "#constants-numeric" },
+        { "include": "#support-functions" },
+        { "include": "#variable-language" }
+      ]
+    },
+    "string-escape-sequences": {
+      "name": "constant.character.escape.jugaadlang",
+      "match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|[0-7]{1,3}|[\\\\nrtbfav'\"0]|N\\{[^}]+\\})"
+    },
+    "decorators": {
+      "name": "meta.decorator.jugaadlang",
+      "match": "(@)([a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*)",
+      "captures": {
+        "1": { "name": "punctuation.definition.decorator.jugaadlang" },
+        "2": { "name": "entity.name.function.decorator.jugaadlang" }
+      }
+    },
+    "keywords-control": {
+      "patterns": [
+        {
+          "name": "keyword.control.conditional.jugaadlang",
+          "match": "\\b(agar|shayad|warna)\\b"
+        },
+        {
+          "name": "keyword.control.loop.jugaadlang",
+          "match": "\\b(ghumo|jabtak)\\b"
+        },
+        {
+          "name": "keyword.control.exception.jugaadlang",
+          "match": "\\b(koshish|gadbad|aakhir_me|udao)\\b"
+        },
+        {
+          "name": "keyword.control.flow.jugaadlang",
+          "match": "\\b(rukja|chalte_raho|wapas|baanto|theek_hai)\\b"
+        },
+        {
+          "name": "keyword.control.async.jugaadlang",
+          "match": "\\b(tez|intezaar)\\b"
+        }
+      ]
+    },
+    "keywords-declaration": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.function.jugaadlang",
+          "match": "\\b(banao|chota_funkshan)\\b"
+        },
+        {
+          "name": "keyword.declaration.class.jugaadlang",
+          "match": "\\bustad\\b"
+        }
+      ]
+    },
+    "keywords-operator": {
+      "patterns": [
+        {
+          "name": "keyword.operator.logical.jugaadlang",
+          "match": "\\b(aur|ya|nahi)\\b"
+        },
+        {
+          "name": "keyword.operator.membership.jugaadlang",
+          "match": "\\b(mein|mein_nahi|nahi_hai)\\b"
+        },
+        {
+          "name": "keyword.operator.identity.jugaadlang",
+          "match": "\\b(hai)\\b"
+        },
+        {
+          "name": "keyword.operator.comparison.jugaadlang",
+          "match": "(==|!=|<=|>=|<|>)"
+        },
+        {
+          "name": "keyword.operator.assignment.jugaadlang",
+          "match": "(\\+=|-=|\\*=|/=|//=|%=|\\*\\*=|&=|\\|=|\\^=|>>=|<<=|:=|=)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.jugaadlang",
+          "match": "(\\*\\*|\\*|//|/|%|\\+|-|~|&|\\||\\^|>>|<<)"
+        }
+      ]
+    },
+    "keywords-other": {
+      "patterns": [
+        {
+          "name": "keyword.other.import.jugaadlang",
+          "match": "\\b(lao|se)\\b"
+        },
+        {
+          "name": "keyword.other.scope.jugaadlang",
+          "match": "\\b(sabka)\\b"
+        },
+        {
+          "name": "keyword.other.raise.jugaadlang",
+          "match": "\\budao\\b"
+        },
+        {
+          "name": "keyword.other.bulawo.jugaadlang",
+          "match": "\\bbulawo\\b"
+        }
+      ]
+    },
+    "constants-language": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.true.jugaadlang",
+          "match": "\\bsahi\\b"
+        },
+        {
+          "name": "constant.language.boolean.false.jugaadlang",
+          "match": "\\bgalat\\b"
+        },
+        {
+          "name": "constant.language.null.jugaadlang",
+          "match": "\\bkuch_nahi\\b"
+        }
+      ]
+    },
+    "constants-numeric": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.jugaadlang",
+          "match": "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*\\b"
+        },
+        {
+          "name": "constant.numeric.binary.jugaadlang",
+          "match": "\\b0[bB][01](_?[01])*\\b"
+        },
+        {
+          "name": "constant.numeric.octal.jugaadlang",
+          "match": "\\b0[oO][0-7](_?[0-7])*\\b"
+        },
+        {
+          "name": "constant.numeric.float.jugaadlang",
+          "match": "\\b([0-9](_?[0-9])*\\.([0-9](_?[0-9])*)?|\\.[0-9](_?[0-9])*)([eE][+-]?[0-9](_?[0-9])*)?[jJ]?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.jugaadlang",
+          "match": "\\b[0-9](_?[0-9])*([eE][+-]?[0-9](_?[0-9])*)?[jJ]?\\b"
+        }
+      ]
+    },
+    "support-functions": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.jugaadlang",
+          "match": "\\b(bolo|poochho|range|len|str|int|float|list|dict|set|tuple|type|isinstance|hasattr|getattr|setattr|print|input|abs|all|any|bin|bool|bytes|callable|chr|compile|complex|delattr|dir|divmod|enumerate|eval|exec|filter|format|frozenset|globals|hash|help|hex|id|iter|locals|map|max|memoryview|min|next|object|oct|open|ord|pow|property|repr|reversed|round|slice|sorted|staticmethod|sum|super|vars|zip|__import__)\\b"
+        },
+        {
+          "name": "support.function.jugaad.jugaadlang",
+          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad)\\b"
+        }
+      ]
+    },
+    "entity-name-function": {
+      "patterns": [
+        {
+          "name": "meta.function.jugaadlang",
+          "match": "\\b(banao)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+          "captures": {
+            "1": { "name": "keyword.declaration.function.jugaadlang" },
+            "2": { "name": "entity.name.function.jugaadlang" }
+          }
+        },
+        {
+          "name": "meta.function.async.jugaadlang",
+          "match": "\\b(tez)\\s+(banao)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+          "captures": {
+            "1": { "name": "keyword.control.async.jugaadlang" },
+            "2": { "name": "keyword.declaration.function.jugaadlang" },
+            "3": { "name": "entity.name.function.jugaadlang" }
+          }
+        }
+      ]
+    },
+    "entity-name-class": {
+      "name": "meta.class.jugaadlang",
+      "match": "\\b(ustad)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+      "captures": {
+        "1": { "name": "keyword.declaration.class.jugaadlang" },
+        "2": { "name": "entity.name.class.jugaadlang" }
+      }
+    },
+    "variable-language": {
+      "name": "variable.language.self.jugaadlang",
+      "match": "\\bkhud\\b"
+    },
+    "magic-methods": {
+      "name": "support.function.magic.jugaadlang",
+      "match": "\\b(__[a-zA-Z_][a-zA-Z0-9_]*__)\\b"
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.definition.arguments.begin.jugaadlang",
+          "match": "\\("
+        },
+        {
+          "name": "punctuation.definition.arguments.end.jugaadlang",
+          "match": "\\)"
+        },
+        {
+          "name": "punctuation.definition.list.begin.jugaadlang",
+          "match": "\\["
+        },
+        {
+          "name": "punctuation.definition.list.end.jugaadlang",
+          "match": "\\]"
+        },
+        {
+          "name": "punctuation.definition.dict.begin.jugaadlang",
+          "match": "\\{"
+        },
+        {
+          "name": "punctuation.definition.dict.end.jugaadlang",
+          "match": "\\}"
+        },
+        {
+          "name": "punctuation.separator.colon.jugaadlang",
+          "match": ":"
+        },
+        {
+          "name": "punctuation.separator.comma.jugaadlang",
+          "match": ","
+        },
+        {
+          "name": "punctuation.accessor.dot.jugaadlang",
+          "match": "\\."
+        },
+        {
+          "name": "punctuation.separator.semicolon.jugaadlang",
+          "match": ";"
+        }
+      ]
+    }
+  }
+}

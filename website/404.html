@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page gayab ho gayi! | JugaadLang</title>
+  <meta name="description" content="404 — Page gayab ho gayi! Variable dhundte dhundte thak gaya..." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0D0D1A;
+      --bg-secondary: #1A1A2E;
+      --accent-saffron: #FF9933;
+      --accent-green: #2ECC71;
+      --accent-gold: #FFD700;
+      --text-primary: #EEEEFF;
+      --text-secondary: #9999BB;
+      --text-muted: #5A5A7A;
+      --border: rgba(255, 153, 51, 0.2);
+      --glow: rgba(255, 153, 51, 0.3);
+      --font-heading: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-heading);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* Animated Background */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.15;
+      animation: blob-float 8s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: var(--accent-saffron);
+      top: -150px; left: -150px;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 400px; height: 400px;
+      background: var(--accent-green);
+      bottom: -100px; right: -100px;
+      animation-delay: -4s;
+    }
+
+    .blob-3 {
+      width: 300px; height: 300px;
+      background: #9B59B6;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -2s;
+    }
+
+    @keyframes blob-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* Main Content */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    /* 404 Number */
+    .error-number {
+      font-size: clamp(6rem, 20vw, 14rem);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #FF9933 0%, #FFD700 50%, #FF6600 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      margin-bottom: 0.25rem;
+      animation: glitch 4s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% { text-shadow: none; }
+      91% {
+        text-shadow: 3px 0 #FF0000, -3px 0 #00FFFF;
+        transform: translateX(2px);
+      }
+      92% {
+        text-shadow: -3px 0 #FF0000, 3px 0 #00FFFF;
+        transform: translateX(-2px);
+      }
+      93% { text-shadow: none; transform: translateX(0); }
+      94% {
+        text-shadow: 2px 0 #FF9933, -2px 0 #2ECC71;
+        transform: translateY(-1px);
+      }
+      95% { text-shadow: none; transform: translateY(0); }
+    }
+
+    .detective-emoji {
+      font-size: clamp(3rem, 8vw, 5rem);
+      display: block;
+      margin-bottom: 1rem;
+      animation: search 3s ease-in-out infinite;
+    }
+
+    @keyframes search {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(20px) rotate(5deg); }
+      75% { transform: translateX(-20px) rotate(-5deg); }
+    }
+
+    .error-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .error-subtitle {
+      font-size: 1rem;
+      color: var(--accent-saffron);
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    /* Terminal Error Block */
+    .terminal {
+      background: rgba(10, 10, 20, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 2rem auto;
+      text-align: left;
+      max-width: 560px;
+      backdrop-filter: blur(20px);
+      animation: terminal-appear 0.8s ease 0.3s both;
+    }
+
+    @keyframes terminal-appear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .terminal-bar {
+      background: rgba(255,255,255,0.05);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .dot-red { background: #FF5F57; }
+    .dot-yellow { background: #FEBC2E; }
+    .dot-green { background: #28C840; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .terminal-body {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 2;
+    }
+
+    .t-error { color: #FF6B6B; }
+    .t-msg { color: var(--accent-saffron); }
+    .t-hint { color: var(--text-secondary); }
+    .t-success { color: var(--accent-green); }
+    .t-prompt { color: var(--accent-green); }
+    .t-cmd { color: var(--text-primary); }
+    .t-muted { color: var(--text-muted); }
+
+    /* Code block */
+    .code-snippet {
+      background: rgba(22, 22, 44, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin: 0 auto 2rem;
+      max-width: 480px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .c-keyword { color: #FF9933; font-weight: 600; }
+    .c-string { color: #2ECC71; }
+    .c-comment { color: var(--text-muted); font-style: italic; }
+    .c-error { color: #FF6B6B; }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #FF9933, #FF6600);
+      color: #000;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: terminal-appear 0.8s ease 0.6s both;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255, 153, 51, 0.5);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid rgba(255,153,51,0.3);
+      transition: all 0.3s ease;
+      animation: terminal-appear 0.8s ease 0.8s both;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-saffron);
+      color: var(--accent-saffron);
+      transform: translateY(-2px);
+      background: rgba(255,153,51,0.08);
+    }
+
+    /* Fun suggestions */
+    .suggestions {
+      margin-top: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    .suggestions span {
+      color: var(--accent-saffron);
+      cursor: pointer;
+      text-decoration: underline dotted;
+    }
+
+    /* Particle dots */
+    .particles-404 {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      to { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Flag bar at bottom */
+    .flag-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #FF9933 33.33%, #FFFFFF 33.33% 66.66%, #138808 66.66%);
+      opacity: 0.5;
+    }
+
+    /* Logo in top-left */
+    .nav-logo {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF9933, #FF6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    /* Blinking cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent-saffron);
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    @media (max-width: 600px) {
+      .terminal { margin: 1.5rem 0; }
+      .btn-group { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background blobs -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
+
+<!-- Particle dots -->
+<div class="particles-404" id="particles-404"></div>
+
+<!-- Logo -->
+<a href="index.html" class="nav-logo">⚡ JugaadLang</a>
+
+<!-- Main 404 Content -->
+<div class="container">
+
+  <span class="detective-emoji">🕵️</span>
+
+  <div class="error-number">404</div>
+
+  <h1 class="error-title">Page gayab ho gayi!</h1>
+  <p class="error-subtitle">Variable dhundte dhundte thak gaya... 😔</p>
+
+  <!-- Terminal-style error -->
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <span class="terminal-title">jugaadlang — traceback</span>
+    </div>
+    <div class="terminal-body">
+      <div><span class="t-error">NameError</span><span class="t-muted"> at line 404:</span></div>
+      <div><span class="t-msg">🕵️ Page dhundte dhundte thak gaya bhai...</span></div>
+      <div><span class="t-muted">→ </span><span class="t-hint">'this_page' ka koi naam-o-nishaan nahi mila.</span></div>
+      <br/>
+      <div><span class="t-muted">Checked in:</span></div>
+      <div><span class="t-muted">&nbsp;&nbsp;✗ server ke locals</span></div>
+      <div><span class="t-muted">&nbsp;&nbsp;✗ Google ka cache</span></div>
+      <div><span class="t-muted">&nbsp;&nbsp;✗ Chai ki dukan ke peeche</span></div>
+      <div><span class="t-muted">&nbsp;&nbsp;✗ Under the couch cushions</span></div>
+      <br/>
+      <div><span class="t-success">💡 Suggestion: </span><span class="t-hint">Ghar wapas jao — homepage pe.</span></div>
+    </div>
+  </div>
+
+  <!-- JugaadLang code snippet -->
+  <div class="code-snippet">
+    <span class="c-comment"># Koshish toh kiya...</span><br/>
+    <span class="c-keyword">koshish</span>:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">lao</span> this_page<br/>
+    <span class="c-keyword">gadbad</span> NameError:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">bolo</span>(<span class="c-string">"Page mil nahi rahi! 😭"</span>)<br/>
+    <span class="c-keyword">aakhir_me</span>:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">bolo</span>(<span class="c-string">"Jugaad lagao... 🛠️"</span>)<span class="cursor"></span>
+  </div>
+
+  <!-- CTA Buttons -->
+  <div class="btn-group">
+    <a href="index.html" class="btn-home">
+      🏠 Home par wapas jao
+    </a>
+    <a href="index.html#install" class="btn-secondary">
+      ⚡ Install Karo
+    </a>
+  </div>
+
+  <!-- Fun suggestions -->
+  <div class="suggestions">
+    <p>Shayad aap yahan aana chahte the:</p>
+    <p>
+      <a href="index.html#features" style="color:var(--accent-saffron);text-decoration:none;">Features</a> &nbsp;·&nbsp;
+      <a href="index.html#examples" style="color:var(--accent-saffron);text-decoration:none;">Examples</a> &nbsp;·&nbsp;
+      <a href="index.html#keywords" style="color:var(--accent-saffron);text-decoration:none;">Keywords</a> &nbsp;·&nbsp;
+      <a href="index.html#install" style="color:var(--accent-saffron);text-decoration:none;">Install</a>
+    </p>
+    <br/>
+    <p style="color: var(--text-muted); font-size: 0.8rem;">
+      <em>"Galat raaste pe jaana bhi ek anubhav hai." — JugaadLang Fortune Cookie 🔮</em>
+    </p>
+  </div>
+
+</div>
+
+<!-- Indian flag bar -->
+<div class="flag-bar"></div>
+
+<script>
+  // Animated particle dots
+  const container = document.getElementById('particles-404');
+  const colors = ['#FF9933', '#2ECC71', '#4FC3F7', '#FFD700', '#9B59B6'];
+  for (let i = 0; i < 40; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'particle-dot';
+    dot.style.left = Math.random() * 100 + 'vw';
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.animationDuration = (6 + Math.random() * 10) + 's';
+    dot.style.animationDelay = (Math.random() * 10) + 's';
+    dot.style.opacity = 0;
+    container.appendChild(dot);
+  }
+
+  // Easter egg: Konami code
+  let konami = [];
+  const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  document.addEventListener('keydown', e => {
+    konami.push(e.key);
+    konami = konami.slice(-10);
+    if (konami.join(',') === code.join(',')) {
+      document.body.style.animation = 'glitch-page 0.5s steps(2) 5';
+      alert('🎉 Jugaad code unlock ho gaya! Wah bhai wah! Ab asli kaam karo. 😂');
+    }
+  });
+</script>
+
+</body>
+</html>

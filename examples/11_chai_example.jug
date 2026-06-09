@@ -1,0 +1,9 @@
+# Built-in funny functions example
+bolo("Aapke naseeb me kya hai?")
+fortune()
+
+bolo("Thak gaye ho to:")
+ghaas_chhoo()
+
+bolo("Ab thoda relax karo:")
+chai()

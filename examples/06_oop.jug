@@ -1,0 +1,11 @@
+# Classes and Object-Oriented Programming in JugaadLang
+ustad Aadmi:
+    banao shuru(khud, naam, umar):
+        khud.naam = naam
+        khud.umar = umar
+
+    banao batao(khud):
+        bolo("Naam: " + khud.naam + ", Umar: " + str(khud.umar))
+
+sumu = Aadmi("Sumangal", 20)
+sumu.batao()

@@ -1,0 +1,7 @@
+# Conditional checking in JugaadLang
+poochho naam
+
+agar naam == "Sumangal":
+    bolo("Legend Mil Gaya 😎")
+warna:
+    bolo("Namaste " + naam)

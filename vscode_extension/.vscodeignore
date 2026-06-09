@@ -1,0 +1,13 @@
+out/**
+src/**
+node_modules/**
+.vscode/**
+**/*.map
+**/*.ts
+!out/**/*.js
+tsconfig.json
+.eslintrc.json
+.vscodeignore
+*.vsix
+.git/**
+.gitignore

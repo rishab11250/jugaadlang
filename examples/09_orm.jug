@@ -1,0 +1,18 @@
+# SQLite ORM (JugaadORM) in JugaadLang
+lao database
+
+ustad Student(database.Model):
+    naam = database.String()
+    umar = database.Integer()
+
+# Create table
+Student.banao_table()
+
+# Save record
+st = Student(naam="Sumangal", umar=20)
+st.bachao()
+
+# Filter/Fetch
+results = Student.filter(naam="Sumangal")
+ghumo s mein results:
+    bolo("Student: " + s.naam + ", ID: " + str(s.id))

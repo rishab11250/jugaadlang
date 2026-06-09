@@ -1,0 +1,12 @@
+# Functions in JugaadLang
+banao namaste(naam):
+    bolo("Namaste " + naam)
+
+# 'bulawo' prefix sugar
+bulawo namaste("Sumangal")
+
+banao multiply(a, b=2):
+    wapas a * b
+
+bolo(str(multiply(5)))
+bolo(str(multiply(5, 3)))
