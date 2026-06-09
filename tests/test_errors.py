@@ -62,7 +62,7 @@ def test_attribute_error_formatting():
 
 def test_module_not_found_formatting():
     try:
-        import non_existent_module
+        __import__("non_existent_module")
     except ModuleNotFoundError as e:
         formatted = format_error(e, "lao non_existent_module")
         assert "Module missing" in formatted
