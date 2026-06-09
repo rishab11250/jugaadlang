@@ -32,13 +32,47 @@
   --font-heading: 'Outfit', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-devanagari: 'Noto Sans Devanagari', sans-serif;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-xs: 6px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
+  --radius-xl: 40px;
+  --radius-full: 9999px;
   --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
   --shadow-glow: 0 0 40px rgba(255,153,51,0.15);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Layout theme variables */
+  --bg-nav: rgba(13, 13, 26, 0.85);
+  --bg-scrolled: rgba(13, 13, 26, 0.98);
+  --bg-footer: rgba(10, 10, 20, 1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --border-light: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #F5F5FA;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #EBEBEF;
+    --bg-card: rgba(13, 13, 26, 0.04);
+    --bg-card-hover: rgba(13, 13, 26, 0.08);
+    --accent-green: #138808;
+    --text-primary: #121224;
+    --text-secondary: #555577;
+    --text-muted: #8888AA;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(255, 153, 51, 0.6);
+    --glow: rgba(255, 153, 51, 0.15);
+    --gradient-hero: linear-gradient(135deg, #F5F5FA 0%, #FFFFFF 50%, #EAEAEA 100%);
+    
+    --bg-nav: rgba(245, 245, 250, 0.85);
+    --bg-scrolled: rgba(245, 245, 250, 0.98);
+    --bg-footer: #EBEBEF;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 8px 32px rgba(13, 13, 26, 0.06);
+    --border-light: rgba(0, 0, 0, 0.08);
+  }
 }
 
 html { scroll-behavior: smooth; }
@@ -140,7 +174,7 @@ nav {
   font-weight: 700;
   font-size: 1rem;
   padding: 0.85rem 2rem;
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -162,7 +196,7 @@ nav {
   font-weight: 600;
   font-size: 1rem;
   padding: 0.85rem 2rem;
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   text-decoration: none;
   border: 1px solid var(--border-hover);
   cursor: pointer;
