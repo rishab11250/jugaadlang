@@ -7,6 +7,7 @@ JugaadLang transpiles directly to native Python AST, meaning it runs with zero r
 
 ---
 [![JugaadLang CI](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml)
+[![JugaadLang Release](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml)
 
 ## Table of Contents
 1. [Core Philosophy](#core-philosophy)
