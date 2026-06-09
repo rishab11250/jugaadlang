@@ -201,6 +201,26 @@ const KEYWORD_MAP: Record<string, KeywordInfo> = {
     description: 'Identity negation — checks if two objects are NOT the same.',
     hindiQuote: '💔 "Nahi hai woh — alag alag hain yeh dono!"',
   },
+  pakka: {
+    python: 'assert',
+    description: 'Assert — make sure a condition is true, otherwise raise an error.',
+    hindiQuote: '🔒 "Pakka matlab pakka — isme koi shak nahi hona chahiye!"',
+  },
+  hatao: {
+    python: 'del',
+    description: 'Delete — remove a variable or item.',
+    hindiQuote: '🗑️ "Hatao isse — memory se saaf karo!"',
+  },
+  gair_local: {
+    python: 'nonlocal',
+    description: 'Non-local scope declaration.',
+    hindiQuote: '🏘️ "Gair local — na apna, na paraya, beech ka variable!"',
+  },
+  ke_saath: {
+    python: 'with',
+    description: 'With — context manager block for safe resource handling.',
+    hindiQuote: '🤝 "Ke saath kaam karo — resources cleanly close ho jayenge!"',
+  },
   chai: {
     python: 'chai() — JugaadLang stdlib',
     description: 'Print a motivational message with a virtual chai ☕.',

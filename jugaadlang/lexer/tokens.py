@@ -160,13 +160,16 @@ KEYWORDS: dict[str, TokenType] = {
     "hai":             TokenType.HAI,
     "nahi_hai":        TokenType.NAHI_HAI,
     "bulawo":          TokenType.BULAWO,
-    # Also accept English equivalents for interop
     "del":             TokenType.DEL,
+    "hatao":           TokenType.DEL,
     "nonlocal":        TokenType.NONLOCAL,
+    "gair_local":      TokenType.NONLOCAL,
     "with":            TokenType.WITH,
+    "ke_saath":        TokenType.WITH,
     "as":              TokenType.AS,
     "jaise":           TokenType.AS,
     "assert":          TokenType.ASSERT,
+    "pakka":           TokenType.ASSERT,
     "agar_match":      TokenType.AGAR_MATCH,
     "kaand":           TokenType.KAAND,
 }

@@ -186,6 +186,8 @@ class Parser:
             return Continue(line=tok.line, col=tok.col)
         elif self._check(TokenType.ASSERT):
             return self.parse_assert()
+        elif self._check(TokenType.WITH):
+            return self.parse_with()
         elif self._check(TokenType.POOCHHO):
             # poochho name (special form: name = poochho())
             # We differentiate this from poochho(expr) inside an expression statement.
@@ -724,6 +726,20 @@ class Parser:
             msg = self.parse_expression()
         self._expect_newline_or_eof()
         return Assert(test=test, msg=msg, line=tok.line, col=tok.col)
+
+    def parse_with(self) -> With:
+        tok = self._expect(TokenType.WITH, "Expected 'with' or 'ke_saath'")
+        items = []
+        while True:
+            context_expr = self.parse_expression()
+            optional_vars = None
+            if self._match(TokenType.AS):
+                optional_vars = self.parse_expression()
+            items.append(withitem(context_expr=context_expr, optional_vars=optional_vars))
+            if not self._match(TokenType.COMMA):
+                break
+        body = self.parse_block()
+        return With(items=items, body=body, line=tok.line, col=tok.col)
 
     def parse_expr_statement_or_assignment(self) -> Stmt:
         expr = self.parse_expression()

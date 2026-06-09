@@ -251,3 +251,43 @@ gadbad ZeroDivisionError jaise e:
     err = "zero"
 """)
     assert interpreter.globals["err"] == "zero"
+
+
+def test_all_keywords_covered():
+    interpreter = JugaadInterpreter()
+    
+    # 1. Test ke_saath (with) context manager
+    interpreter.run("""
+ustad Manager:
+    banao __enter__(khud):
+        wapas 42
+    banao __exit__(khud, exc_type, exc_val, exc_tb):
+        theek_hai
+
+ke_saath Manager() jaise val:
+    res = val
+""")
+    assert interpreter.globals["res"] == 42
+
+    # 2. Test pakka (assert)
+    interpreter.run("pakka sahi, 'it is true'")
+
+    # 3. Test hatao (del)
+    interpreter.run("""
+x = 99
+hatao x
+""")
+    assert "x" not in interpreter.globals
+
+    # 4. Test gair_local (nonlocal)
+    interpreter.run("""
+banao outer():
+    x = 10
+    banao inner():
+        gair_local x
+        x = 20
+    inner()
+    wapas x
+res = outer()
+""")
+    assert interpreter.globals["res"] == 20

@@ -255,7 +255,7 @@
         },
         {
           "name": "keyword.other.scope.jugaadlang",
-          "match": "\\b(sabka)\\b"
+          "match": "\\b(sabka|nonlocal|gair_local)\\b"
         },
         {
           "name": "keyword.other.raise.jugaadlang",
@@ -264,6 +264,18 @@
         {
           "name": "keyword.other.bulawo.jugaadlang",
           "match": "\\bbulawo\\b"
+        },
+        {
+          "name": "keyword.other.assert.jugaadlang",
+          "match": "\\b(assert|pakka)\\b"
+        },
+        {
+          "name": "keyword.other.delete.jugaadlang",
+          "match": "\\b(del|hatao)\\b"
+        },
+        {
+          "name": "keyword.other.with.jugaadlang",
+          "match": "\\b(with|ke_saath)\\b"
         }
       ]
     },
