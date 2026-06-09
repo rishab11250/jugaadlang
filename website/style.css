@@ -48,6 +48,37 @@
   --bg-footer: rgba(10, 10, 20, 1);
   --shadow-color: rgba(0, 0, 0, 0.5);
   --border-light: rgba(255, 255, 255, 0.08);
+
+  /* Code block and terminal themes (Dark mode defaults) */
+  --bg-code: rgba(22, 22, 44, 0.95);
+  --bg-code-header: rgba(0, 0, 0, 0.3);
+  --border-code: rgba(255, 255, 255, 0.08);
+  --text-code: #EEEEFF;
+  --text-code-muted: #5A5A7A;
+  
+  --bg-terminal: #0A0A14;
+  --bg-terminal-bar: rgba(255, 255, 255, 0.05);
+  --border-terminal: rgba(255, 255, 255, 0.08);
+  --text-terminal: #EEEEFF;
+  --text-terminal-muted: #5A5A7A;
+  
+  --bg-copy-btn: rgba(255, 255, 255, 0.06);
+  --border-copy-btn: rgba(255, 255, 255, 0.1);
+  
+  /* Syntax highlighting (Dark mode defaults) */
+  --s-keyword: #FF9933;
+  --s-string: #2ECC71;
+  --s-comment: #5A5A7A;
+  --s-number: #4FC3F7;
+  --s-function: #E8D44D;
+  --s-operator: #FF6B6B;
+  --s-plain: #EEEEFF;
+  
+  /* Terminal colors */
+  --t-cmd: #EEEEFF;
+  --t-output: #9999BB;
+  --t-hint: #9999BB;
+  --t-muted: #5A5A7A;
 }
 
 @media (prefers-color-scheme: light) {
@@ -72,6 +103,37 @@
     --shadow-color: rgba(0, 0, 0, 0.1);
     --shadow-card: 0 8px 32px rgba(13, 13, 26, 0.06);
     --border-light: rgba(0, 0, 0, 0.08);
+
+    /* Code block and terminal themes (Light mode) */
+    --bg-code: #FFFFFF;
+    --bg-code-header: rgba(0, 0, 0, 0.03);
+    --border-code: rgba(0, 0, 0, 0.08);
+    --text-code: #121224;
+    --text-code-muted: #8888AA;
+    
+    --bg-terminal: #F5F5FA;
+    --bg-terminal-bar: rgba(0, 0, 0, 0.03);
+    --border-terminal: rgba(0, 0, 0, 0.08);
+    --text-terminal: #121224;
+    --text-terminal-muted: #8888AA;
+    
+    --bg-copy-btn: rgba(0, 0, 0, 0.04);
+    --border-copy-btn: rgba(0, 0, 0, 0.08);
+    
+    /* Syntax highlighting (Light mode) */
+    --s-keyword: #E65100;
+    --s-string: #138808;
+    --s-comment: #7F8C8D;
+    --s-number: #006699;
+    --s-function: #8E44AD;
+    --s-operator: #C0392B;
+    --s-plain: #121224;
+    
+    /* Terminal colors (Light mode) */
+    --t-cmd: #121224;
+    --t-output: #555577;
+    --t-hint: #555577;
+    --t-muted: #8888AA;
   }
 }
 
@@ -240,21 +302,21 @@ nav {
 
 /* ===== CODE BLOCK ===== */
 .code-block-wrapper {
-  background: rgba(16, 16, 32, 0.9);
-  border: 1px solid var(--border);
+  background: var(--bg-code);
+  border: 1px solid var(--border-code);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
 
 /* ===== SYNTAX HIGHLIGHTING ===== */
-.s-keyword { color: #FF9933; font-weight: 600; }
-.s-string { color: #2ECC71; }
-.s-comment { color: #5A5A7A; font-style: italic; }
-.s-number { color: #4FC3F7; }
-.s-function { color: #E8D44D; }
-.s-operator { color: #FF6B6B; }
-.s-plain { color: #EEEEFF; }
+.s-keyword { color: var(--s-keyword); font-weight: 600; }
+.s-string { color: var(--s-string); }
+.s-comment { color: var(--s-comment); font-style: italic; }
+.s-number { color: var(--s-number); }
+.s-function { color: var(--s-function); }
+.s-operator { color: var(--s-operator); }
+.s-plain { color: var(--s-plain); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
