@@ -6,6 +6,7 @@ JugaadLang is a modern, beginner-friendly, fun programming language inspired by 
 JugaadLang transpiles directly to native Python AST, meaning it runs with zero runtime performance overhead and provides full compatibility with the entire Python ecosystem.
 
 ---
+[![JugaadLang CI](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml)
 
 ## Table of Contents
 1. [Core Philosophy](#core-philosophy)
