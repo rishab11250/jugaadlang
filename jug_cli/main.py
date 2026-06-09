@@ -215,7 +215,7 @@ def typecheck(file: str) -> None:
             
         try:
             # Run mypy
-            cmd = [sys.executable, "-m", "mypy", tmp_name, "--ignore-missing-imports"]
+            cmd = [sys.executable, "-m", "mypy", tmp_name, "--ignore-missing-imports", "--cache-dir", ".jug_mypy_cache"]
             res = subprocess.run(cmd, capture_output=True, text=True)
             
             # Post-process mypy output to replace temp file name with actual file name

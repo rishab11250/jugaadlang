@@ -29,6 +29,7 @@ MANIFEST
 # Pytest
 .pytest_cache/
 .mypy_cache/
+.jug_mypy_cache/
 .coverage
 htmlcov/
 
