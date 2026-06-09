@@ -38,7 +38,8 @@ class JugaadPygmentsLexer(RegexLexer):
                 "agar", "shayad", "warna", "ghumo", "jabtak", "koshish", "gadbad",
                 "aakhir_me", "rukja", "chalte_raho", "wapas", "tez", "intezaar",
                 "baanto", "theek_hai", "sabka", "chota_funkshan", "mein", "mein_nahi",
-                "hai", "nahi_hai", "bulawo", "lao", "se", "khud", "udao", "banao", "ustad"
+                "hai", "nahi_hai", "bulawo", "lao", "se", "khud", "udao", "banao", "ustad",
+                "jaise", "as"
             ), suffix=r"\b"), Keyword),
             (words(("sahi", "galat", "kuch_nahi"), suffix=r"\b"), Keyword.Constant),
             (words(("bolo", "poochho", "chai", "himmat", "ghaas_chhoo", "bachao", "fortune", "jugaad", "maan", "sab", "koi_bhi", "binary", "satyata", "bulaane_yogya", "akshar", "gun_hatao", "kosh", "bhag_shesh", "ginti", "chalao", "chhano", "gun_lao", "gun_hai", "madad", "pehchan", "purnank", "prakar_hai", "subclass_hai", "lambaee", "suchi", "adhiktam", "nyuntam", "agla", "vastu", "kholo", "ghat", "ulta", "gun_badlo", "tukda", "kramwar", "shabd", "yog", "prakar", "nazar", "ashirwad", "dhanya_waad", "bhagwan_bhala_kare", "paisa_wasool", "bas_kar_bhai", "chilla_mat", "kundli"), suffix=r"\b"), Name.Builtin),
@@ -65,7 +66,8 @@ KEYWORDS_LIST = [
     "ginti", "chalao", "chhano", "gun_lao", "gun_hai", "madad", "pehchan", "purnank", "prakar_hai", "subclass_hai",
     "lambaee", "suchi", "adhiktam", "nyuntam", "agla", "vastu", "kholo", "ghat", "ulta", "gun_badlo", "tukda",
     "kramwar", "shabd", "yog", "prakar",
-    "nazar", "ashirwad", "dhanya_waad", "bhagwan_bhala_kare", "paisa_wasool", "bas_kar_bhai", "chilla_mat", "kundli"
+    "nazar", "ashirwad", "dhanya_waad", "bhagwan_bhala_kare", "paisa_wasool", "bas_kar_bhai", "chilla_mat", "kundli",
+    "jaise", "as"
 ]
 completer = WordCompleter(KEYWORDS_LIST, ignore_case=True)
 

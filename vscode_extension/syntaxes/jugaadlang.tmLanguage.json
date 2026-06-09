@@ -251,7 +251,7 @@
       "patterns": [
         {
           "name": "keyword.other.import.jugaadlang",
-          "match": "\\b(lao|se)\\b"
+          "match": "\\b(lao|se|jaise|as)\\b"
         },
         {
           "name": "keyword.other.scope.jugaadlang",

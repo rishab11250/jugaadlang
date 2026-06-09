@@ -233,8 +233,21 @@ def test_cli_typecheck(tmp_path):
     # 2. Test invalid file (type mismatch)
     file_err = tmp_path / "test_err.jug"
     file_err.write_text("naam: shabd = 'Aaman'\numar: purnank = 'twenty'\n", encoding="utf-8")
-    
     result = runner.invoke(typecheck, [str(file_err)])
     assert result.exit_code != 0
     assert "Type check failed" in result.output
     assert "Incompatible types in assignment" in result.output
+
+
+def test_import_jaise_alias():
+    interpreter = JugaadInterpreter()
+    interpreter.run("lao ganit jaise g\nx = g.sqrt(16)")
+    assert interpreter.globals["x"] == 4.0
+
+    interpreter.run("""
+koshish:
+    y = 1 / 0
+gadbad ZeroDivisionError jaise e:
+    err = "zero"
+""")
+    assert interpreter.globals["err"] == "zero"

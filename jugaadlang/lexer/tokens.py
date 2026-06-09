@@ -165,6 +165,7 @@ KEYWORDS: dict[str, TokenType] = {
     "nonlocal":        TokenType.NONLOCAL,
     "with":            TokenType.WITH,
     "as":              TokenType.AS,
+    "jaise":           TokenType.AS,
     "assert":          TokenType.ASSERT,
     "agar_match":      TokenType.AGAR_MATCH,
     "kaand":           TokenType.KAAND,

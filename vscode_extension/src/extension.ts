@@ -76,6 +76,16 @@ const KEYWORD_MAP: Record<string, KeywordInfo> = {
     description: 'From — used with `lao` for selective imports.',
     hindiQuote: '🎯 "Se seedha — sirf jo chahiye woh lao, bakwaas nahi!"',
   },
+  jaise: {
+    python: 'as',
+    description: 'Alias — define an alias name for an imported module or variable.',
+    hindiQuote: '🎭 "Jaise ki matlab alias — chota naam, bada kaam!"',
+  },
+  as: {
+    python: 'as',
+    description: 'Alias — define an alias name for an imported module or variable.',
+    hindiQuote: '🎭 "As/Jaise ki matlab alias — chota naam, bada kaam!"',
+  },
   rukja: {
     python: 'break',
     description: 'Break out of a loop.',

@@ -112,7 +112,7 @@
     "body": [
       "koshish:",
       "\t${1:# koshish karo}",
-      "gadbad ${2:Exception} as ${3:e}:",
+      "gadbad ${2:Exception} jaise ${3:e}:",
       "\t${4:bolo(f\"Gadbad ho gayi: {${3:e}}\")}"
     ],
     "description": "koshish...gadbad → Python: try...except"
@@ -122,7 +122,7 @@
     "body": [
       "koshish:",
       "\t${1:# koshish karo}",
-      "gadbad ${2:Exception} as ${3:e}:",
+      "gadbad ${2:Exception} jaise ${3:e}:",
       "\t${4:bolo(f\"Gadbad ho gayi: {${3:e}}\")}",
       "aakhir_me:",
       "\t${5:# hamesha chalta hai}"
@@ -134,7 +134,7 @@
     "body": [
       "koshish:",
       "\t${1:# risky code}",
-      "gadbad ${2:ValueError} as ${3:e}:",
+      "gadbad ${2:ValueError} jaise ${3:e}:",
       "\t${4:bolo(f\"Yeh gadbad aayi: {${3:e}}\")}",
       "warna:",
       "\t${5:# sab sahi tha}",
@@ -249,7 +249,7 @@
   "Context Manager": {
     "prefix": "ke-saath",
     "body": [
-      "ke_saath ${1:open('file.txt', 'r')} as ${2:f}:",
+      "ke_saath ${1:open('file.txt', 'r')} jaise ${2:f}:",
       "\t${3:content} = ${2:f}.read()",
       "\tbolo(${3:content})"
     ],

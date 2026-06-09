@@ -9,6 +9,7 @@ All notable changes to **JugaadLang** will be documented in this file.
   - Implemented 1:1 direct compilation from JugaadLang AST to native Python AST.
   - Added **Structural Pattern Matching** (`agar_match` / `kaand`) syntax translating to Python 3.10+ pattern matching block structures.
   - Implemented full block parser, async/await constructs, slicing, lambda expressions (`chota_funkshan`), and list/dict/set comprehensions.
+  - Added Hindi keyword `jaise` (along with `as`) to define aliases in imports, exceptions (`gadbad ... jaise e`), and pattern matches.
   
 - **Standard Mapped Built-ins**:
   - Registered 35+ Roman-Hindi wrappers for standard Python built-ins (e.g., `prakar` for `type`, `lambaee` for `len`, `suchi` for `list`, `kosh` for `dict`, `maan` for `abs`, `subclass_hai` for `issubclass`).
