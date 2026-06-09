@@ -22,14 +22,18 @@ def main() -> None:
     pass
 
 
-@main.command()
+@main.command(context_settings=dict(ignore_unknown_options=True, allow_extra_args=True))
 @click.argument("file", type=click.Path(exists=True))
-def run(file: str) -> None:
+@click.pass_context
+def run(ctx: click.Context, file: str) -> None:
     """Run a JugaadLang (.jug) file."""
     if not file.endswith(".jug"):
         console.print("[yellow]⚠️ Warning: File extension is not '.jug'. Running it anyway.[/yellow]")
         
     try:
+        # Pass extra arguments to sys.argv
+        sys.argv = [file] + ctx.args
+        
         with open(file, "r", encoding="utf-8") as f:
             source = f.read()
             
@@ -175,6 +179,63 @@ def check(file: str) -> None:
         
         console.print("[bold green]✓ Code bilkul sahi hai! (Syntax is valid)[/bold green]")
     except Exception:
+        sys.exit(1)
+
+
+@main.command()
+@click.argument("file", type=click.Path(exists=True))
+def typecheck(file: str) -> None:
+    """Type check a JugaadLang file using mypy."""
+    import subprocess
+    import tempfile
+    
+    console.print(f"[bold green]🕵️ JugaadLang Type Checker[/bold green]")
+    console.print(f"Type checking [cyan]{file}[/cyan]...")
+    
+    try:
+        with open(file, "r", encoding="utf-8") as f:
+            source = f.read()
+            
+        from jugaadlang.lexer.lexer import Lexer
+        from jugaadlang.parser.parser import Parser
+        from jugaadlang.transformer.to_python import JugaadToPythonTransformer
+        
+        lexer = Lexer(source, file)
+        tokens = lexer.tokenize()
+        parser = Parser(tokens, file, source)
+        ast_mod = parser.parse()
+        transformer = JugaadToPythonTransformer(file)
+        py_ast = transformer.transform(ast_mod)
+        py_source = ast.unparse(py_ast)
+        
+        # Write to a temporary file
+        with tempfile.NamedTemporaryFile(suffix=".py", delete=False, mode="w", encoding="utf-8") as tmp:
+            tmp.write(py_source)
+            tmp_name = tmp.name
+            
+        try:
+            # Run mypy
+            cmd = [sys.executable, "-m", "mypy", tmp_name, "--ignore-missing-imports"]
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            
+            # Post-process mypy output to replace temp file name with actual file name
+            out = res.stdout.replace(tmp_name, file)
+            err = res.stderr.replace(tmp_name, file)
+            
+            if res.returncode == 0:
+                console.print("[bold green]✓ Type check passed! Type bilkul sahi hain.[/bold green]")
+            else:
+                console.print("[bold red]✗ Type check failed! Type errors mile:[/bold red]")
+                print(out)
+                if err:
+                    print(err, file=sys.stderr)
+                sys.exit(res.returncode)
+        finally:
+            if os.path.exists(tmp_name):
+                os.remove(tmp_name)
+                
+    except Exception as e:
+        console.print(f"[bold red]✗ Fail ho gaya: {e}[/bold red]")
         sys.exit(1)
 
 

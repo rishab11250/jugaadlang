@@ -37,6 +37,7 @@ class JugaadPackageManager:
             cmd = [sys.executable, "-m", "pip", "install"] + targets
             result = subprocess.run(cmd, capture_output=True, text=True, check=True)
             console.print(f"[bold green]✓ Success![/bold green] Installed {package} successfully.")
+            JugaadPackageManager._update_lockfile(targets)
         except subprocess.CalledProcessError as e:
             console.print(f"[bold red]✗ Error: Installation fail ho gayi![/bold red]")
             console.print(f"[dim]{e.stderr}[/dim]")
@@ -53,6 +54,7 @@ class JugaadPackageManager:
             cmd = [sys.executable, "-m", "pip", "uninstall", "-y"] + targets
             subprocess.run(cmd, capture_output=True, text=True, check=True)
             console.print(f"[bold green]✓ Success![/bold green] Removed {package} successfully.")
+            JugaadPackageManager._remove_from_lockfile(targets)
         except subprocess.CalledProcessError as e:
             console.print(f"[bold red]✗ Error: Remove fail ho gaya![/bold red]")
             console.print(f"[dim]{e.stderr}[/dim]")
@@ -69,9 +71,71 @@ class JugaadPackageManager:
             cmd = [sys.executable, "-m", "pip", "install", "--upgrade"] + targets
             subprocess.run(cmd, capture_output=True, text=True, check=True)
             console.print(f"[bold green]✓ Success![/bold green] Updated {package} successfully.")
+            JugaadPackageManager._update_lockfile(targets)
         except subprocess.CalledProcessError as e:
             console.print(f"[bold red]✗ Error: Update fail ho gaya![/bold red]")
             console.print(f"[dim]{e.stderr}[/dim]")
+
+    @staticmethod
+    def _update_lockfile(targets: list[str]) -> None:
+        import os
+        import json
+        try:
+            import importlib.metadata as importlib_metadata
+        except ImportError:
+            import importlib_metadata
+
+        lock_path = os.path.join(os.getcwd(), "jug.lock")
+        
+        lock_data = {}
+        if os.path.exists(lock_path):
+            try:
+                with open(lock_path, "r", encoding="utf-8") as f:
+                    lock_data = json.load(f)
+            except Exception:
+                pass
+        
+        if "packages" not in lock_data:
+            lock_data["packages"] = {}
+            
+        for target in targets:
+            try:
+                version = importlib_metadata.version(target)
+                lock_data["packages"][target] = version
+            except Exception:
+                lock_data["packages"][target] = "unknown"
+                
+        try:
+            with open(lock_path, "w", encoding="utf-8") as f:
+                json.dump(lock_data, f, indent=4)
+            console.print(f"[dim]Updated lockfile: {lock_path}[/dim]")
+        except Exception as e:
+            console.print(f"[yellow]Warning: Could not write lockfile: {e}[/yellow]")
+
+    @staticmethod
+    def _remove_from_lockfile(targets: list[str]) -> None:
+        import os
+        import json
+        lock_path = os.path.join(os.getcwd(), "jug.lock")
+        if not os.path.exists(lock_path):
+            return
+            
+        try:
+            with open(lock_path, "r", encoding="utf-8") as f:
+                lock_data = json.load(f)
+        except Exception:
+            return
+            
+        if "packages" in lock_data:
+            for target in targets:
+                lock_data["packages"].pop(target, None)
+                
+            try:
+                with open(lock_path, "w", encoding="utf-8") as f:
+                    json.dump(lock_data, f, indent=4)
+                console.print(f"[dim]Updated lockfile: {lock_path}[/dim]")
+            except Exception as e:
+                console.print(f"[yellow]Warning: Could not write lockfile: {e}[/yellow]")
 
     @staticmethod
     def search(query: str) -> None:

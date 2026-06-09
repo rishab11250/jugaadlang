@@ -5,6 +5,7 @@ from __future__ import annotations
 import sys
 import os
 import requests
+import json
 from typing import Any, Callable
 
 # Re-export client requests
@@ -12,6 +13,10 @@ get = requests.get
 post = requests.post
 put = requests.put
 delete = requests.delete
+
+# Global request query params and body dictionary
+params: dict[str, Any] = {}
+body: dict[str, Any] = {}
 
 
 class JugaadWeb:
@@ -31,11 +36,46 @@ class JugaadWeb:
     def route(self, path: str, methods: list[str] = ["GET"]) -> Callable:
         """Register a route decorator."""
         def decorator(func: Callable) -> Callable:
-            self.routes[path] = (func, methods)
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
+                global params, body
+                if self.flask_app:
+                    from flask import has_request_context
+                    if has_request_context():
+                        from flask import request as flask_request
+                        # Populate query params
+                        params = dict(flask_request.args)
+                        # Populate body
+                        body = {}
+                        if flask_request.is_json:
+                            body = dict(flask_request.json or {})
+                        elif flask_request.form:
+                            body = dict(flask_request.form)
+                        elif flask_request.data:
+                            try:
+                                body = json.loads(flask_request.data.decode("utf-8"))
+                            except Exception:
+                                pass
+                
+                res = func(*args, **kwargs)
+                
+                # Auto-serialize returned dictionary or list response to JSON
+                if isinstance(res, (dict, list)):
+                    from flask import has_request_context
+                    if self.flask_app and has_request_context():
+                        from flask import jsonify
+                        return jsonify(res)
+                    else:
+                        return json.dumps(res)
+                return res
+
+            # Update wrapper function name for Flask compatibility
+            wrapper.__name__ = func.__name__
+
+            self.routes[path] = (wrapper, methods)
             if self.flask_app:
-                # Register route in Flask
-                self.flask_app.add_url_rule(path, func.__name__, func, methods=methods)
-            return func
+                # Register wrapper in Flask
+                self.flask_app.add_url_rule(path, func.__name__, wrapper, methods=methods)
+            return wrapper
         return decorator
 
     def run(self, port: int = 5000, host: str = "127.0.0.1") -> None:
@@ -49,6 +89,7 @@ class JugaadWeb:
             print(f"🚀 JugaadWeb running on http://{host}:{port}...")
             
             from http.server import BaseHTTPRequestHandler, HTTPServer
+            from urllib.parse import urlparse, parse_qs
             
             # Save self reference for handler
             routes_map = self.routes
@@ -58,14 +99,34 @@ class JugaadWeb:
                     # Suppress default server logs for cleaner output
                     pass
                 
-                def do_GET(self) -> None:
-                    # Find matching route
-                    func_tuple = routes_map.get(self.path)
-                    if func_tuple and "GET" in func_tuple[1]:
+                def handle_http(self, method: str) -> None:
+                    parsed_url = urlparse(self.path)
+                    route_path = parsed_url.path
+                    
+                    func_tuple = routes_map.get(route_path)
+                    if func_tuple and method in func_tuple[1]:
                         try:
+                            global params, body
+                            # Parse query params
+                            params = {k: v[0] if len(v) == 1 else v for k, v in parse_qs(parsed_url.query).items()}
+                            
+                            # Parse request body
+                            body = {}
+                            content_length = int(self.headers.get("Content-Length", 0))
+                            if content_length > 0:
+                                raw_data = self.rfile.read(content_length).decode("utf-8")
+                                try:
+                                    body = json.loads(raw_data)
+                                except Exception:
+                                    body = {k: v[0] if len(v) == 1 else v for k, v in parse_qs(raw_data).items()}
+                            
                             res = func_tuple[0]()
+                            
                             self.send_response(200)
-                            self.send_header("Content-type", "text/html; charset=utf-8")
+                            if isinstance(res, str) and (res.startswith("{") or res.startswith("[")):
+                                self.send_header("Content-type", "application/json; charset=utf-8")
+                            else:
+                                self.send_header("Content-type", "text/html; charset=utf-8")
                             self.end_headers()
                             self.wfile.write(str(res).encode("utf-8"))
                         except Exception as e:
@@ -77,6 +138,18 @@ class JugaadWeb:
                         self.send_header("Content-type", "text/html")
                         self.end_headers()
                         self.wfile.write(b"404 - Route gayab ho gaya!")
+
+                def do_GET(self) -> None:
+                    self.handle_http("GET")
+
+                def do_POST(self) -> None:
+                    self.handle_http("POST")
+
+                def do_PUT(self) -> None:
+                    self.handle_http("PUT")
+
+                def do_DELETE(self) -> None:
+                    self.handle_http("DELETE")
             
             server = HTTPServer((host, port), JugaadHTTPHandler)
             try:

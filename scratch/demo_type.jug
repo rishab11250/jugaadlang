@@ -1,0 +1,21 @@
+a = ("apple", "banana", "cherry")
+b = "Hello World"
+c = 33
+
+x = type(a)
+y = type(b)
+z = type(c)
+
+bolo("--- Using English type() ---")
+bolo(x)
+bolo(y)
+bolo(z)
+
+x_hindi = prakar(a)
+y_hindi = prakar(b)
+z_hindi = prakar(c)
+
+bolo("--- Using Hindi prakar() ---")
+bolo(x_hindi)
+bolo(y_hindi)
+bolo(z_hindi)

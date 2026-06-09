@@ -430,6 +430,8 @@
       font-family: var(--font-mono);
       font-size: 0.85rem;
       line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
     }
 
     /* ===== SYNTAX HIGHLIGHTING ===== */
@@ -441,13 +443,19 @@
     .s-operator { color: #FF6B6B; }
     .s-plain { color: #EEEEFF; }
 
-    .code-line { display: flex; }
+    .code-line {
+      display: flex;
+      width: max-content;
+      min-width: 100%;
+    }
     .line-num {
       color: var(--text-muted);
       user-select: none;
-      margin-right: 1.5rem;
-      min-width: 1.5rem;
+      margin-right: 1.25rem;
+      min-width: 2rem;
       text-align: right;
+      border-right: 1px solid rgba(255, 153, 51, 0.15);
+      padding-right: 0.75rem;
     }
 
     /* ===== FLOATING EMOJI PARTICLES ===== */
@@ -731,6 +739,7 @@
       font-size: 0.82rem;
       line-height: 1.85;
       overflow-x: auto;
+      white-space: pre;
     }
 
     .example-desc {
@@ -1249,6 +1258,33 @@
     .t-success { color: var(--accent-green); }
     .t-highlight { color: var(--accent-saffron); }
 
+    /* ===== COPY BUTTON ===== */
+    .copy-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 153, 51, 0.15);
+      border-color: var(--accent-saffron);
+      color: var(--accent-saffron);
+      transform: scale(1.05);
+    }
+
+    .copy-btn.copied {
+      background: rgba(46, 204, 113, 0.15);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
     /* ===== GLOW BADGE ===== */
     .glow-text {
       text-shadow: 0 0 20px rgba(255,153,51,0.5);
@@ -1428,7 +1464,22 @@
         </div>
       </div>
     </div>
+  <div class="stats-strip reveal">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-number" data-target="65" data-suffix="+">0</span>
+      <span class="stat-label">Keywords &amp; Built-ins</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="15" data-suffix="+">0</span>
+      <span class="stat-label">Desi Libraries</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="Infinity" data-suffix="">∞</span>
+      <span class="stat-label">Jugaad Power</span>
+    </div>
   </div>
+</div>
 </section>
 
 <!-- ===== STATS ===== -->
@@ -1524,6 +1575,8 @@
         <button class="tab-btn" onclick="switchTab('functions')" id="tab-functions">🔢 Functions</button>
         <button class="tab-btn" onclick="switchTab('classes')" id="tab-classes">🎓 Classes</button>
         <button class="tab-btn" onclick="switchTab('errors')" id="tab-errors-ex">⚠️ Error Handling</button>
+        <button class="tab-btn" onclick="switchTab('match')" id="tab-match">🎯 Pattern Matching</button>
+        <button class="tab-btn" onclick="switchTab('web')" id="tab-web">🌐 JugaadWeb</button>
       </div>
 
       <!-- Tab: Namaste Duniya -->
@@ -1631,6 +1684,62 @@
               <span class="chip">koshish</span>
               <span class="chip">gadbad</span>
               <span class="chip">aakhir_me</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Pattern Matching -->
+      <div class="tab-panel" id="panel-match">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-match"></div>
+          </div>
+          <div class="example-desc">
+            <h3>Pattern Matching — agar_match &amp; kaand 🎯</h3>
+            <p>Structural pattern matching like Python 3.10. Use <strong style="color:var(--accent-saffron)">agar_match</strong> to match a variable or expression, and <strong style="color:var(--accent-saffron)">kaand</strong> for individual case matches.</p>
+            <p>Perfect for structured data, sequence unpacking, and complex conditionals with default catch-all matches.</p>
+            <div class="keyword-chips">
+              <span class="chip">agar_match</span>
+              <span class="chip">kaand</span>
+              <span class="chip">sahi</span>
+              <span class="chip">wapas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: JugaadWeb -->
+      <div class="tab-panel" id="panel-web">
+        <div class="examples-layout">
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <div class="code-block-dots">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+              </div>
+              <span class="code-block-lang">.jug</span>
+            </div>
+            <div class="code-block-body" id="code-web"></div>
+          </div>
+          <div class="example-desc">
+            <h3>JugaadWeb — API &amp; Server 🌐</h3>
+            <p>Build web servers and routing APIs easily using the native <strong style="color:var(--accent-saffron)">web</strong> library wrapper. Decorate your handler functions with route decorators like <strong style="color:var(--accent-saffron)">@web.agar_route</strong>.</p>
+            <p>Run your server by calling <strong style="color:var(--accent-saffron)">web.chalao()</strong>. It's that simple!</p>
+            <div class="keyword-chips">
+              <span class="chip">lao</span>
+              <span class="chip">banao</span>
+              <span class="chip">wapas</span>
+              <span class="chip">chalao</span>
             </div>
           </div>
         </div>
@@ -1805,6 +1914,7 @@
             <div class="dot dot-yellow"></div>
             <div class="dot dot-green"></div>
             <span class="terminal-title">Terminal</span>
+            <button class="copy-btn" onclick="copyText('pip install jugaadlang', this)">📋 Copy</button>
           </div>
           <div class="terminal-body">
             <div><span class="t-prompt">$</span> <span class="t-cmd">pip install jugaadlang</span></div>
@@ -1826,12 +1936,17 @@
             <div class="dot dot-red"></div>
             <div class="dot dot-yellow"></div>
             <div class="dot dot-green"></div>
-            <span class="terminal-title">Run a file</span>
+            <span class="terminal-title">Run &amp; Tooling</span>
+            <button class="copy-btn" onclick="copyText('jug run namaste.jug', this)">📋 Copy</button>
           </div>
           <div class="terminal-body">
             <div><span class="t-prompt">$</span> <span class="t-cmd">jug run namaste.jug</span></div>
             <div class="t-success">Namaste Duniya! 🙏</div>
             <div class="t-success">Legend mil gaya! 😎</div>
+            <br/>
+            <div><span class="t-prompt">$</span> <span class="t-cmd">jug typecheck namaste.jug</span></div>
+            <div class="t-output">🕵️ JugaadLang Type Checker...</div>
+            <div class="t-success">✓ Type check passed! Type bilkul sahi hain.</div>
             <br/>
             <div><span class="t-prompt">$</span> <span class="t-cmd">jug install requests</span></div>
             <div class="t-output">Laa raha hoon requests ko... ⏳</div>
@@ -1947,6 +2062,94 @@
           🛠️ Jugaad laga raha hoon...<br/>
           🤔 Analyzing problem... found 17 hacks.<br/>
           <span style="color:var(--accent-saffron)">→ Best jugaad: duct tape + recursion.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal">
+        <div class="builtin-call">
+          <span class="builtin-fn">nazar</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🧿 Nazar suraksha kavach active!<br/>
+          🧿 Bad vibes aur bugs block ho gaye.<br/>
+          <span style="color:var(--accent-green)">→ Bugs blocked! Safe run.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-1">
+        <div class="builtin-call">
+          <span class="builtin-fn">ashirwad</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          👵 Sadbhavna aur aashirwad active!<br/>
+          👵 Execution success rate boosted to 100%.<br/>
+          <span style="color:var(--accent-saffron)">→ Elder blessings received!</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-2">
+        <div class="builtin-call">
+          <span class="builtin-fn">dhanya_waad</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🙏 Dhanyawaad! Aapka aabhari hoon.<br/>
+          🙏 Code run karne ke liye thank you.<br/>
+          <span style="color:var(--accent-green)">→ Polite standard response.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal">
+        <div class="builtin-call">
+          <span class="builtin-fn">bhagwan_bhala_kare</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          📿 Hey bhagwan, iss error ko thik kar do!<br/>
+          📿 Compiling under divine intervention...<br/>
+          <span style="color:var(--accent-saffron)">→ Prayers sent to the compiler.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-1">
+        <div class="builtin-call">
+          <span class="builtin-fn">paisa_wasool</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          💸 Paisa Wasool! JugaadLang 100% free hai.<br/>
+          💸 Contentment levels maximized.<br/>
+          <span style="color:var(--accent-green)">→ Free and open-source.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-2">
+        <div class="builtin-call">
+          <span class="builtin-fn">bas_kar_bhai</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🛑 Bas kar bhai! Kitna code likhega?<br/>
+          🛑 Laptop band karo aur thoda so jao.<br/>
+          <span style="color:var(--accent-saffron)">→ Bedtime reminder!</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal">
+        <div class="builtin-call">
+          <span class="builtin-fn">chilla_mat</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🤫 Chilla mat, aaraam se debug kar.<br/>
+          🤫 Gussa karne se logic thik nahi hota.<br/>
+          <span style="color:var(--accent-green)">→ Peace and quiet mode.</span>
+        </div>
+      </div>
+
+      <div class="builtin-card reveal reveal-delay-1">
+        <div class="builtin-call">
+          <span class="builtin-fn">kundli</span><span class="builtin-paren">()</span>
+        </div>
+        <div class="builtin-output">
+          🪐 Kundli checking in progress...<br/>
+          🪐 Astro analysis: Variable alignments normal.<br/>
+          <span style="color:var(--accent-saffron)">→ Shani is strong on line 12!</span>
         </div>
       </div>
     </div>
@@ -2121,6 +2324,43 @@ const KEYWORDS = [
   { python: 'pass',     jugaad: 'theek_hai',      meaning: 'OK/Fine',          example: 'banao noop(): theek_hai' },
   { python: 'global',   jugaad: 'sabka',          meaning: "Everyone's",       example: 'sabka counter' },
   { python: 'lambda',   jugaad: 'chota_funkshan', meaning: 'Little function',  example: 'add = chota_funkshan x: x+1' },
+  { python: 'match',    jugaad: 'agar_match',     meaning: 'Pattern Match',    example: 'agar_match x:' },
+  { python: 'case',     jugaad: 'kaand',          meaning: 'Match Case',       example: 'kaand 1:' },
+  { python: 'abs',      jugaad: 'maan',           meaning: 'Value/Magnitude',  example: 'x = maan(-5)' },
+  { python: 'all',      jugaad: 'sab',            meaning: 'All True',         example: 'agar sab(suchi):' },
+  { python: 'any',      jugaad: 'koi_bhi',        meaning: 'Any True',         example: 'agar koi_bhi(suchi):' },
+  { python: 'bin',      jugaad: 'binary',         meaning: 'Binary Code',      example: 'b = binary(10)' },
+  { python: 'bool',     jugaad: 'satyata',        meaning: 'Boolean Value',    example: 'b = satyata(1)' },
+  { python: 'callable', jugaad: 'bulaane_yogya',  meaning: 'Is Callable',      example: 'agar bulaane_yogya(f):' },
+  { python: 'chr',      jugaad: 'akshar',         meaning: 'Unicode Char',     example: 'char = akshar(97)' },
+  { python: 'delattr',  jugaad: 'gun_hatao',      meaning: 'Delete Attribute', example: 'gun_hatao(obj, "x")' },
+  { python: 'dict',     jugaad: 'kosh',           meaning: 'Dictionary/Map',   example: 'd = kosh(a=1, b=2)' },
+  { python: 'divmod',   jugaad: 'bhag_shesh',     meaning: 'Division & Mod',   example: 'q, r = bhag_shesh(9, 2)' },
+  { python: 'enumerate',jugaad: 'ginti',          meaning: 'Enumerate',        example: 'ghumo i, x mein ginti(s):' },
+  { python: 'exec',     jugaad: 'chalao',         meaning: 'Dynamic Execution',example: 'chalao("bolo(42)")' },
+  { python: 'filter',   jugaad: 'chhano',         meaning: 'Filter Elements',  example: 'res = chhano(func, suchi)' },
+  { python: 'getattr',  jugaad: 'gun_lao',        meaning: 'Get Attribute',    example: 'val = gun_lao(obj, "x")' },
+  { python: 'hasattr',  jugaad: 'gun_hai',        meaning: 'Has Attribute',    example: 'agar gun_hai(obj, "x"):' },
+  { python: 'help',     jugaad: 'madad',          meaning: 'Help Utility',     example: 'madad(ganit)' },
+  { python: 'id',       jugaad: 'pehchan',        meaning: 'Identity/ID',      example: 'uid = pehchan(obj)' },
+  { python: 'int',      jugaad: 'purnank',        meaning: 'Integer Cast',     example: 'x = purnank("42")' },
+  { python: 'isinstance',jugaad: 'prakar_hai',     meaning: 'Is Instance Of',   example: 'agar prakar_hai(x, int):' },
+  { python: 'issubclass',jugaad: 'subclass_hai',   meaning: 'Is Subclass Of',   example: 'agar subclass_hai(c, p):' },
+  { python: 'len',      jugaad: 'lambaee',        meaning: 'Length of Object', example: 'sz = lambaee(suchi)' },
+  { python: 'list',     jugaad: 'suchi',          meaning: 'List Creator',     example: 'lst = suchi(range(5))' },
+  { python: 'max',      jugaad: 'adhiktam',       meaning: 'Maximum Value',    example: 'mx = adhiktam(10, 20)' },
+  { python: 'min',      jugaad: 'nyuntam',        meaning: 'Minimum Value',    example: 'mn = nyuntam(10, 20)' },
+  { python: 'next',     jugaad: 'agla',           meaning: 'Next Iterator Item',example: 'nxt = agla(it)' },
+  { python: 'object',   jugaad: 'vastu',          meaning: 'Base Object',      example: 'obj = vastu()' },
+  { python: 'open',     jugaad: 'kholo',          meaning: 'File Opener',      example: 'kholo("data.txt")' },
+  { python: 'pow',      jugaad: 'ghat',           meaning: 'Power/Exponent',   example: 'p = ghat(2, 3)' },
+  { python: 'reversed', jugaad: 'ulta',           meaning: 'Reversed Iterator',example: 'ghumo x mein ulta(suchi):' },
+  { python: 'setattr',  jugaad: 'gun_badlo',      meaning: 'Set Attribute',    example: 'gun_badlo(obj, "x", 5)' },
+  { python: 'slice',    jugaad: 'tukda',          meaning: 'Slice Range',      example: 's = tukda(1, 5)' },
+  { python: 'sorted',   jugaad: 'kramwar',        meaning: 'Sorted Output',    example: 's = kramwar(suchi)' },
+  { python: 'str',      jugaad: 'shabd',          meaning: 'String Cast',      example: 's = shabd(42)' },
+  { python: 'sum',      jugaad: 'yog',            meaning: 'Sum Elements',     example: 'total = yog(suchi)' },
+  { python: 'type',     jugaad: 'prakar',         meaning: 'Type Check',       example: 't = prakar(obj)' }
 ];
 
 // ===== JUGAAD KEYWORDS SET (for syntax highlighting) =====
@@ -2129,6 +2369,13 @@ const JUGAAD_KEYWORDS = new Set([
   'ustad','khud','lao','se','rukja','chalte_raho','koshish','gadbad',
   'aakhir_me','udao','sahi','galat','kuch_nahi','aur','ya','nahi','tez',
   'intezaar','baanto','theek_hai','sabka','chota_funkshan','shuru','mein',
+  'agar_match','kaand',
+  // standard function built-in names
+  'maan','sab','koi_bhi','binary','satyata','bulaane_yogya','akshar','gun_hatao',
+  'kosh','bhag_shesh','ginti','chalao','chhano','gun_lao','gun_hai','madad',
+  'pehchan','purnank','prakar_hai','subclass_hai','lambaee','suchi','adhiktam',
+  'nyuntam','agla','vastu','kholo','ghat','ulta','gun_badlo','tukda','kramwar',
+  'shabd','yog','prakar'
 ]);
 
 // ===== SYNTAX HIGHLIGHTER =====
@@ -2193,6 +2440,20 @@ function highlightJugaad(code) {
   }).join('\n');
 }
 
+function copyText(text, btnElement) {
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = btnElement.innerText;
+    btnElement.innerText = '📋 Copied!';
+    btnElement.classList.add('copied');
+    setTimeout(() => {
+      btnElement.innerText = originalText;
+      btnElement.classList.remove('copied');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
+}
+
 function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
@@ -2214,8 +2475,8 @@ function renderCode(containerId, code, showLineNums = true) {
 }
 
 // ===== CODE EXAMPLES =====
-const CODE_NAMASTE = `bolo("Namaste Duniya! 🙏")
-
+const CODE_NAMASTE = `# Namaste Duniya! 🙏
+# JugaadLang uses Python-like 4-space indentation for blocks.
 naam = "Sumangal"
 agar naam == "Sumangal":
     bolo("Legend mil gaya! 😎")
@@ -2267,6 +2528,35 @@ gadbad Exception as e:
 aakhir_me:
     bolo("Jugaad laga ke fix kar liya! 🛠️")`;
 
+const CODE_MATCH = `banao test_match(x):
+    agar_match x:
+        kaand sahi:
+            wapas "boolean true"
+        kaand 1:
+            wapas "one"
+        kaand [a, b]:
+            wapas "sequence of " + str(a) + " and " + str(b)
+        kaand _:
+            wapas "something else"
+
+res = test_match([10, 20])
+bolo(res)  # Prints: sequence of 10 and 20`;
+
+const CODE_WEB = `lao web
+
+# Root route
+@web.agar_route("/")
+banao home():
+    wapas "Namaste Duniya! 🚀 Welcome to JugaadWeb!"
+
+# API endpoint
+@web.agar_route("/data")
+banao get_data():
+    wapas "Some dynamic data"
+
+# Start the server on port 5001
+web.chalao(port=5001)`;
+
 // ===== POPULATE KEYWORD TABLE =====
 function populateTable(data) {
   const tbody = document.getElementById('keyword-tbody');
@@ -2297,8 +2587,15 @@ function filterKeywords() {
 function switchTab(name) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-  document.getElementById(`tab-${name}`).classList.add('active');
-  document.getElementById(`panel-${name}`).classList.add('active');
+  
+  // Map 'errors' button to its correct button ID 'tab-errors-ex'
+  const btnId = name === 'errors' ? 'tab-errors-ex' : `tab-${name}`;
+  const btnEl = document.getElementById(btnId);
+  if (btnEl) btnEl.classList.add('active');
+  
+  const panelId = name === 'errors' ? 'panel-errors-ex' : `panel-${name}`;
+  const panelEl = document.getElementById(panelId);
+  if (panelEl) panelEl.classList.add('active');
 }
 
 // ===== HAMBURGER MENU =====
@@ -2481,6 +2778,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCode('code-functions', CODE_FUNCTIONS, true);
   renderCode('code-classes', CODE_CLASSES, true);
   renderCode('code-errors-ex', CODE_ERRORS_EX, true);
+  renderCode('code-match', CODE_MATCH, true);
+  renderCode('code-web', CODE_WEB, true);
 
   // Populate keyword table
   populateTable(KEYWORDS);

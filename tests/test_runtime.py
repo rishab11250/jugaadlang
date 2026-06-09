@@ -137,3 +137,104 @@ banao hello_test():
     handler, methods = web_module._default_app.routes["/test"]
     assert handler() == "working"
     assert "GET" in methods
+
+
+def test_pattern_matching_runtime():
+    interpreter = JugaadInterpreter()
+    code = """
+banao test_match(x):
+    agar_match x:
+        kaand sahi:
+            wapas "boolean true"
+        kaand 1:
+            wapas "one"
+        kaand [a, b]:
+            wapas "sequence of " + str(a) + " and " + str(b)
+        kaand _:
+            wapas "something else"
+
+res1 = test_match(1)
+res2 = test_match(sahi)
+res3 = test_match([10, 20])
+res4 = test_match("random")
+"""
+    interpreter.run(code)
+    assert interpreter.globals["res1"] == "one"
+    assert interpreter.globals["res2"] == "boolean true"
+    assert interpreter.globals["res3"] == "sequence of 10 and 20"
+    assert interpreter.globals["res4"] == "something else"
+
+
+def test_lockfile_generation(tmp_path):
+    import os
+    import json
+    from jugaadlang.package_manager.manager import JugaadPackageManager
+    from unittest.mock import patch
+
+    old_cwd = os.getcwd()
+    os.chdir(tmp_path)
+    try:
+        with patch("subprocess.run") as mock_run, patch("importlib.metadata.version", return_value="1.2.3"):
+            JugaadPackageManager.install("dummy-pkg")
+            
+            lock_file = tmp_path / "jug.lock"
+            assert lock_file.exists()
+            with open(lock_file, "r") as f:
+                data = json.load(f)
+            assert "packages" in data
+            assert data["packages"]["dummy-pkg"] == "1.2.3"
+            
+            JugaadPackageManager.remove("dummy-pkg")
+            with open(lock_file, "r") as f:
+                data = json.load(f)
+            assert "dummy-pkg" not in data["packages"]
+    finally:
+        os.chdir(old_cwd)
+
+
+def test_hindi_builtins():
+    interpreter = JugaadInterpreter()
+    code = """
+val_abs = maan(-10)
+val_all = sab([sahi, sahi, sahi])
+val_any = koi_bhi([galat, sahi, galat])
+val_len = lambaee([1, 2, 3])
+val_max = adhiktam([5, 10, 2])
+val_min = nyuntam([5, 10, 2])
+val_sum = yog([1, 2, 3])
+val_str = shabd(123)
+val_type = prakar("test") == shabd
+"""
+    interpreter.run(code)
+    assert interpreter.globals["val_abs"] == 10
+    assert interpreter.globals["val_all"] is True
+    assert interpreter.globals["val_any"] is True
+    assert interpreter.globals["val_len"] == 3
+    assert interpreter.globals["val_max"] == 10
+    assert interpreter.globals["val_min"] == 2
+    assert interpreter.globals["val_sum"] == 6
+    assert interpreter.globals["val_str"] == "123"
+    assert interpreter.globals["val_type"] is True
+
+
+def test_cli_typecheck(tmp_path):
+    from click.testing import CliRunner
+    from jug_cli.main import typecheck
+    
+    # 1. Test valid file
+    file_ok = tmp_path / "test_ok.jug"
+    file_ok.write_text("naam: shabd = 'Aaman'\numar: purnank = 20\n", encoding="utf-8")
+    
+    runner = CliRunner()
+    result = runner.invoke(typecheck, [str(file_ok)])
+    assert result.exit_code == 0
+    assert "Type check passed" in result.output
+    
+    # 2. Test invalid file (type mismatch)
+    file_err = tmp_path / "test_err.jug"
+    file_err.write_text("naam: shabd = 'Aaman'\numar: purnank = 'twenty'\n", encoding="utf-8")
+    
+    result = runner.invoke(typecheck, [str(file_err)])
+    assert result.exit_code != 0
+    assert "Type check failed" in result.output
+    assert "Incompatible types in assignment" in result.output

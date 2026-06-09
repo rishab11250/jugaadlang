@@ -61,6 +61,52 @@ def jugaad_help() -> None:
     print(random.choice(tips))
 
 
+def nazar() -> None:
+    """Print a ward off evil eye message."""
+    print("🧿 Nazar suraksha kavach active! Bad vibes/bugs blocked. 🧿")
+
+
+def ashirwad() -> None:
+    """Print a parent blessings message."""
+    print("👵 Sadbhavna aur aashirwad active! Success rate boosted to 100%! 👵")
+
+
+def dhanya_waad() -> None:
+    """Print a polite but funny Indian thank you."""
+    print("🙏 Dhanyawaad! Code chalaane ke liye aapka aabhari hoon. Keep coding! 🙏")
+
+
+def bhagwan_bhala_kare() -> None:
+    """Print a prayer for the bug to resolve itself."""
+    print("📿 Hey bhagwan, iss error ko apne aap thik kar do! Please! 📿")
+
+
+def paisa_wasool() -> None:
+    """Print a success message showing value for money."""
+    print("💸 Paisa Wasool! JugaadLang is 100% free and open-source, your money is safe! 💸")
+
+
+def bas_kar_bhai() -> None:
+    """Print a message to stop coding and sleep."""
+    print("🛑 Bas kar bhai! Kitna code likhega? So ja thodi der. 🛑")
+
+
+def chilla_mat() -> None:
+    """Print a message to calm down when compiler throws errors."""
+    print("🤫 Chilla mat, deep breath le aur debug kar. 🤫")
+
+
+def kundli() -> None:
+    """Print a horoscope check on the current file."""
+    fortunes = [
+        "🪐 Kundli checking: Variable declarations are in alignment, but Shani is strong on line 12.",
+        "🪐 Rahu is transit-blocking your loop indices. Add some chai to clear the path.",
+        "🪐 Guru is blessing your logic. Code will transpile with high-quality vibes.",
+        "🪐 Ketu is casting a shadow on your imports. Check your local stdlibs.",
+    ]
+    print(random.choice(fortunes))
+
+
 # ── Interpreter ───────────────────────────────────────────────────────────────
 
 class JugaadInterpreter:
@@ -85,6 +131,50 @@ class JugaadInterpreter:
             "bachao": bachao,
             "fortune": fortune,
             "jugaad": jugaad_help,
+            "nazar": nazar,
+            "ashirwad": ashirwad,
+            "dhanya_waad": dhanya_waad,
+            "bhagwan_bhala_kare": bhagwan_bhala_kare,
+            "paisa_wasool": paisa_wasool,
+            "bas_kar_bhai": bas_kar_bhai,
+            "chilla_mat": chilla_mat,
+            "kundli": kundli,
+            # Mappings for builtins
+            "maan": abs,
+            "sab": all,
+            "koi_bhi": any,
+            "binary": bin,
+            "satyata": bool,
+            "bulaane_yogya": callable,
+            "akshar": chr,
+            "gun_hatao": delattr,
+            "kosh": dict,
+            "bhag_shesh": divmod,
+            "ginti": enumerate,
+            "chalao": exec,
+            "chhano": filter,
+            "gun_lao": getattr,
+            "gun_hai": hasattr,
+            "madad": help,
+            "pehchan": id,
+            "purnank": int,
+            "prakar_hai": isinstance,
+            "subclass_hai": issubclass,
+            "lambaee": len,
+            "suchi": list,
+            "adhiktam": max,
+            "nyuntam": min,
+            "agla": next,
+            "vastu": object,
+            "kholo": open,
+            "ghat": pow,
+            "ulta": reversed,
+            "gun_badlo": setattr,
+            "tukda": slice,
+            "kramwar": sorted,
+            "shabd": str,
+            "yog": sum,
+            "prakar": type,
         }
 
         # Set up stdlib import path

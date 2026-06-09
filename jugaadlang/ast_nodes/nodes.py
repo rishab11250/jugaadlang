@@ -444,3 +444,74 @@ class ExceptHandler(ASTNode):
     type: Optional[Expr] = None
     name: Optional[str] = None
     body: list[Stmt] = field(default_factory=list)
+
+
+# ── Pattern Matching AST Nodes ────────────────────────────────────────────────
+
+@dataclass
+class Match(Stmt):
+    """Pattern matching root (agar_match subject: ...)."""
+    subject: Expr
+    cases: list[match_case] = field(default_factory=list)
+
+
+@dataclass
+class match_case(ASTNode):
+    """Single pattern match case (kaand pattern [agar guard]: block)."""
+    pattern: Pattern
+    guard: Optional[Expr] = None
+    body: list[Stmt] = field(default_factory=list)
+
+
+@dataclass
+class Pattern(ASTNode):
+    """Base pattern class."""
+    pass
+
+
+@dataclass
+class MatchValue(Pattern):
+    """Value match pattern (e.g. constant values)."""
+    value: Expr
+
+
+@dataclass
+class MatchSingleton(Pattern):
+    """Singleton match pattern (e.g. sahi, galat, kuch_nahi)."""
+    value: Any
+
+
+@dataclass
+class MatchAs(Pattern):
+    """Bind pattern (e.g. case x:, or case _: for wildcard)."""
+    pattern: Optional[Pattern] = None
+    name: Optional[str] = None
+
+
+@dataclass
+class MatchOr(Pattern):
+    """Or match pattern (e.g. pattern1 | pattern2)."""
+    patterns: list[Pattern] = field(default_factory=list)
+
+
+@dataclass
+class MatchSequence(Pattern):
+    """Sequence match pattern (e.g. [a, b], (c, d))."""
+    patterns: list[Pattern] = field(default_factory=list)
+
+
+@dataclass
+class MatchMapping(Pattern):
+    """Mapping match pattern (e.g. {'name': name})."""
+    keys: list[Expr] = field(default_factory=list)
+    patterns: list[Pattern] = field(default_factory=list)
+    rest: Optional[str] = None
+
+
+@dataclass
+class MatchClass(Pattern):
+    """Class/object destructuring pattern (e.g. Point(x, y))."""
+    cls: Expr
+    patterns: list[Pattern] = field(default_factory=list)
+    kwd_attrs: list[str] = field(default_factory=list)
+    kwd_patterns: list[Pattern] = field(default_factory=list)

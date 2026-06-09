@@ -91,7 +91,24 @@ class Model:
 
         sql_stmt = f"CREATE TABLE IF NOT EXISTS {cls.table_name()} ({', '.join(fields_sql)});"
         with cls.connect() as conn:
-            conn.execute(sql_stmt)
+            try:
+                conn.execute(sql_stmt)
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
+
+    @classmethod
+    def drop_table(cls) -> None:
+        """Drop SQLite table if it exists."""
+        with cls.connect() as conn:
+            try:
+                sql_stmt = f"DROP TABLE IF EXISTS {cls.table_name()};"
+                conn.execute(sql_stmt)
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
 
     def bachao(self) -> None:
         """Save (insert or update) record to database."""
@@ -101,28 +118,38 @@ class Model:
         field_names = [name for name in self._fields.keys() if name != "id"]
         
         with self.connect() as conn:
-            if self.id is None:
-                # Insert
-                placeholders = ", ".join(["?"] * len(field_names))
-                values = [getattr(self, name) for name in field_names]
-                sql = f"INSERT INTO {self.table_name()} ({', '.join(field_names)}) VALUES ({placeholders})"
+            try:
                 cursor = conn.cursor()
-                cursor.execute(sql, values)
-                self.id = cursor.lastrowid
-            else:
-                # Update
-                set_clause = ", ".join([f"{name} = ?" for name in field_names])
-                values = [getattr(self, name) for name in field_names] + [self.id]
-                sql = f"UPDATE {self.table_name()} SET {set_clause} WHERE id = ?"
-                conn.execute(sql, values)
+                if self.id is None:
+                    # Insert
+                    placeholders = ", ".join(["?"] * len(field_names))
+                    values = [getattr(self, name) for name in field_names]
+                    sql = f"INSERT INTO {self.table_name()} ({', '.join(field_names)}) VALUES ({placeholders})"
+                    cursor.execute(sql, values)
+                    self.id = cursor.lastrowid
+                else:
+                    # Update
+                    set_clause = ", ".join([f"{name} = ?" for name in field_names])
+                    values = [getattr(self, name) for name in field_names] + [self.id]
+                    sql = f"UPDATE {self.table_name()} SET {set_clause} WHERE id = ?"
+                    cursor.execute(sql, values)
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
 
     def mitao(self) -> None:
         """Delete record from database."""
         if self.id is None:
             return
         with self.connect() as conn:
-            sql = f"DELETE FROM {self.table_name()} WHERE id = ?"
-            conn.execute(sql, (self.id,))
+            try:
+                sql = f"DELETE FROM {self.table_name()} WHERE id = ?"
+                conn.execute(sql, (self.id,))
+                conn.commit()
+            except Exception:
+                conn.rollback()
+                raise
             self.id = None
 
     @classmethod

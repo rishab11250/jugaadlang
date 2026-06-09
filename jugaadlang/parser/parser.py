@@ -15,7 +15,8 @@ from ..ast_nodes.nodes import (
     Yield, YieldFrom, Compare, Call, FormattedValue, JoinedStr,
     Constant, Attribute, Subscript, Starred, Name, List, Tuple,
     Slice, comprehension, arg, arguments, keyword, alias, withitem,
-    ExceptHandler
+    ExceptHandler, Match, match_case, Pattern, MatchValue, MatchSingleton,
+    MatchAs, MatchOr, MatchSequence, MatchMapping, MatchClass
 )
 
 
@@ -157,6 +158,8 @@ class Parser:
             return self.parse_while()
         elif self._check(TokenType.AGAR):
             return self.parse_if()
+        elif self._check(TokenType.AGAR_MATCH):
+            return self.parse_match()
         elif self._check(TokenType.KOSHISH):
             return self.parse_try()
         elif self._check(TokenType.UDAO):
@@ -412,6 +415,193 @@ class Parser:
             orelse = self.parse_block()
             
         return If(test=test, body=body, orelse=orelse, line=tok.line, col=tok.col)
+
+    def parse_match(self) -> Match:
+        tok = self._expect(TokenType.AGAR_MATCH, "Expected 'agar_match'")
+        subject = self.parse_expression()
+        self._expect(TokenType.COLON, "Expected ':' after agar_match subject")
+        
+        cases = []
+        if self._match(TokenType.NEWLINE):
+            self._expect(TokenType.INDENT, "Expected indented block after 'agar_match'")
+            while not self._check(TokenType.DEDENT, TokenType.EOF):
+                # Skip any blank lines inside block
+                while self._match(TokenType.NEWLINE):
+                    pass
+                if self._check(TokenType.DEDENT, TokenType.EOF):
+                    break
+                cases.append(self.parse_match_case())
+            self._expect(TokenType.DEDENT, "Expected DEDENT at the end of 'agar_match' block")
+        else:
+            cases.append(self.parse_match_case())
+            
+        return Match(subject=subject, cases=cases, line=tok.line, col=tok.col)
+
+    def parse_match_case(self) -> match_case:
+        tok = self._expect(TokenType.KAAND, "Expected 'kaand'")
+        pattern = self.parse_pattern()
+        
+        guard = None
+        if self._match(TokenType.AGAR):
+            guard = self.parse_expression()
+            
+        body = self.parse_block()
+        return match_case(pattern=pattern, guard=guard, body=body, line=tok.line, col=tok.col)
+
+    def parse_pattern(self) -> Pattern:
+        pattern = self.parse_pattern_or()
+        if self._match(TokenType.AS):
+            name_tok = self._expect(TokenType.IDENTIFIER, "Expected name after 'as'")
+            pattern = MatchAs(pattern=pattern, name=name_tok.value, line=pattern.line, col=pattern.col)
+        return pattern
+
+    def parse_pattern_or(self) -> Pattern:
+        patterns = [self.parse_pattern_primary()]
+        while self._match(TokenType.PIPE):
+            patterns.append(self.parse_pattern_primary())
+        if len(patterns) > 1:
+            return MatchOr(patterns=patterns, line=patterns[0].line, col=patterns[0].col)
+        return patterns[0]
+
+    def parse_pattern_primary(self) -> Pattern:
+        if self._check(TokenType.SAHI):
+            tok = self._advance()
+            return MatchSingleton(value=True, line=tok.line, col=tok.col)
+        elif self._check(TokenType.GALAT):
+            tok = self._advance()
+            return MatchSingleton(value=False, line=tok.line, col=tok.col)
+        elif self._check(TokenType.KUCH_NAHI):
+            tok = self._advance()
+            return MatchSingleton(value=None, line=tok.line, col=tok.col)
+        elif self._match(TokenType.INT):
+            tok = self._previous_token()
+            v_str = tok.value
+            if v_str.startswith(("0x", "0X")):
+                val = int(v_str, 16)
+            elif v_str.startswith(("0b", "0B")):
+                val = int(v_str, 2)
+            elif v_str.startswith(("0o", "0O")):
+                val = int(v_str, 8)
+            else:
+                val = int(v_str)
+            val_expr = Constant(value=val, line=tok.line, col=tok.col)
+            return MatchValue(value=val_expr, line=tok.line, col=tok.col)
+        elif self._match(TokenType.FLOAT):
+            tok = self._previous_token()
+            val = float(tok.value)
+            val_expr = Constant(value=val, line=tok.line, col=tok.col)
+            return MatchValue(value=val_expr, line=tok.line, col=tok.col)
+        elif self._match(TokenType.STRING):
+            tok = self._previous_token()
+            val = tok.value
+            val_expr = Constant(value=val, line=tok.line, col=tok.col)
+            return MatchValue(value=val_expr, line=tok.line, col=tok.col)
+        elif self._check(TokenType.MINUS):
+            minus_tok = self._advance()
+            if self._match(TokenType.INT):
+                tok = self._previous_token()
+                v_str = tok.value
+                if v_str.startswith(("0x", "0X")):
+                    val = int(v_str, 16)
+                elif v_str.startswith(("0b", "0B")):
+                    val = int(v_str, 2)
+                elif v_str.startswith(("0o", "0O")):
+                    val = int(v_str, 8)
+                else:
+                    val = int(v_str)
+                val = -val
+                val_expr = Constant(value=val, line=minus_tok.line, col=minus_tok.col)
+                return MatchValue(value=val_expr, line=minus_tok.line, col=minus_tok.col)
+            elif self._match(TokenType.FLOAT):
+                tok = self._previous_token()
+                val = -float(tok.value)
+                val_expr = Constant(value=val, line=minus_tok.line, col=minus_tok.col)
+                return MatchValue(value=val_expr, line=minus_tok.line, col=minus_tok.col)
+            else:
+                raise self._error("Expected integer or float after '-' in pattern")
+        elif self._check(TokenType.IDENTIFIER):
+            tok = self._current_token()
+            if tok.value == "_":
+                self._advance()
+                return MatchAs(pattern=None, name=None, line=tok.line, col=tok.col)
+            
+            dotted = self.parse_dotted_name()
+            if self._match(TokenType.LPAREN):
+                patterns = []
+                kwd_attrs = []
+                kwd_patterns = []
+                while not self._check(TokenType.RPAREN):
+                    if self._check(TokenType.IDENTIFIER) and self._peek(1).type == TokenType.ASSIGN:
+                        kwd_name = self._advance().value
+                        self._advance()
+                        kwd_pat = self.parse_pattern()
+                        kwd_attrs.append(kwd_name)
+                        kwd_patterns.append(kwd_pat)
+                    else:
+                        pat = self.parse_pattern()
+                        patterns.append(pat)
+                    if not self._match(TokenType.COMMA):
+                        break
+                self._expect(TokenType.RPAREN, "Expected ')' after class pattern arguments")
+                return MatchClass(cls=dotted, patterns=patterns, kwd_attrs=kwd_attrs, kwd_patterns=kwd_patterns, line=dotted.line, col=dotted.col)
+            elif isinstance(dotted, Attribute):
+                return MatchValue(value=dotted, line=dotted.line, col=dotted.col)
+            else:
+                return MatchAs(pattern=None, name=dotted.id, line=dotted.line, col=dotted.col)
+        elif self._match(TokenType.LBRACKET):
+            line, col = self._previous_token().line, self._previous_token().col
+            patterns = []
+            while not self._check(TokenType.RBRACKET):
+                patterns.append(self.parse_pattern())
+                if not self._match(TokenType.COMMA):
+                    break
+            self._expect(TokenType.RBRACKET, "Expected ']' at end of sequence pattern")
+            return MatchSequence(patterns=patterns, line=line, col=col)
+        elif self._match(TokenType.LPAREN):
+            line, col = self._previous_token().line, self._previous_token().col
+            patterns = []
+            is_tuple = False
+            while not self._check(TokenType.RPAREN):
+                patterns.append(self.parse_pattern())
+                if self._match(TokenType.COMMA):
+                    is_tuple = True
+                else:
+                    break
+            self._expect(TokenType.RPAREN, "Expected ')' at end of tuple pattern")
+            if len(patterns) == 0 or is_tuple or len(patterns) > 1:
+                return MatchSequence(patterns=patterns, line=line, col=col)
+            else:
+                return patterns[0]
+        elif self._match(TokenType.LBRACE):
+            line, col = self._previous_token().line, self._previous_token().col
+            keys = []
+            patterns = []
+            rest = None
+            while not self._check(TokenType.RBRACE):
+                if self._match(TokenType.DOUBLESTAR):
+                    rest_tok = self._expect(TokenType.IDENTIFIER, "Expected identifier after '**' in dict pattern")
+                    rest = rest_tok.value
+                    break
+                else:
+                    key_expr = self.parse_expression()
+                    self._expect(TokenType.COLON, "Expected ':' after key in dict pattern")
+                    pat = self.parse_pattern()
+                    keys.append(key_expr)
+                    patterns.append(pat)
+                    if not self._match(TokenType.COMMA):
+                        break
+            self._expect(TokenType.RBRACE, "Expected '}' at end of mapping pattern")
+            return MatchMapping(keys=keys, patterns=patterns, rest=rest, line=line, col=col)
+        else:
+            raise self._error(f"Unexpected token in pattern: {self._current_token().value!r}")
+
+    def parse_dotted_name(self) -> Expr:
+        tok = self._expect(TokenType.IDENTIFIER, "Expected identifier")
+        node = Name(id=tok.value, line=tok.line, col=tok.col)
+        while self._match(TokenType.DOT):
+            attr_tok = self._expect(TokenType.IDENTIFIER, "Expected attribute name")
+            node = Attribute(value=node, attr=attr_tok.value, line=attr_tok.line, col=attr_tok.col)
+        return node
 
     def parse_try(self) -> Try:
         tok = self._expect(TokenType.KOSHISH, "Expected 'koshish'")

@@ -41,7 +41,7 @@ class JugaadPygmentsLexer(RegexLexer):
                 "hai", "nahi_hai", "bulawo", "lao", "se", "khud", "udao", "banao", "ustad"
             ), suffix=r"\b"), Keyword),
             (words(("sahi", "galat", "kuch_nahi"), suffix=r"\b"), Keyword.Constant),
-            (words(("bolo", "poochho", "chai", "himmat", "ghaas_chhoo", "bachao", "fortune", "jugaad"), suffix=r"\b"), Name.Builtin),
+            (words(("bolo", "poochho", "chai", "himmat", "ghaas_chhoo", "bachao", "fortune", "jugaad", "maan", "sab", "koi_bhi", "binary", "satyata", "bulaane_yogya", "akshar", "gun_hatao", "kosh", "bhag_shesh", "ginti", "chalao", "chhano", "gun_lao", "gun_hai", "madad", "pehchan", "purnank", "prakar_hai", "subclass_hai", "lambaee", "suchi", "adhiktam", "nyuntam", "agla", "vastu", "kholo", "ghat", "ulta", "gun_badlo", "tukda", "kramwar", "shabd", "yog", "prakar", "nazar", "ashirwad", "dhanya_waad", "bhagwan_bhala_kare", "paisa_wasool", "bas_kar_bhai", "chilla_mat", "kundli"), suffix=r"\b"), Name.Builtin),
             (r"[a-zA-Z_][a-zA-Z0-9_]*", Name),
             (r"==|!=|<=|>=|->|:=|\+=|-=|\*=|=/|%=|\*\*=|//=|\*\*|//|\+|-|\*|/|%|=|<|>", Operator),
             (r"\d+\.\d+", Number.Float),
@@ -60,7 +60,12 @@ KEYWORDS_LIST = [
     "bolo", "poochho", "agar", "shayad", "warna", "ghumo", "jabtak", "banao", "wapas", "ustad", "khud",
     "lao", "se", "rukja", "chalte_raho", "koshish", "gadbad", "aakhir_me", "udao", "sahi", "galat",
     "kuch_nahi", "aur", "ya", "nahi", "tez", "intezaar", "baanto", "theek_hai", "sabka", "chota_funkshan",
-    "mein", "mein_nahi", "hai", "nahi_hai", "bulawo", "chai", "himmat", "ghaas_chhoo", "bachao", "fortune", "jugaad"
+    "mein", "mein_nahi", "hai", "nahi_hai", "bulawo", "chai", "himmat", "ghaas_chhoo", "bachao", "fortune", "jugaad",
+    "maan", "sab", "koi_bhi", "binary", "satyata", "bulaane_yogya", "akshar", "gun_hatao", "kosh", "bhag_shesh",
+    "ginti", "chalao", "chhano", "gun_lao", "gun_hai", "madad", "pehchan", "purnank", "prakar_hai", "subclass_hai",
+    "lambaee", "suchi", "adhiktam", "nyuntam", "agla", "vastu", "kholo", "ghat", "ulta", "gun_badlo", "tukda",
+    "kramwar", "shabd", "yog", "prakar",
+    "nazar", "ashirwad", "dhanya_waad", "bhagwan_bhala_kare", "paisa_wasool", "bas_kar_bhai", "chilla_mat", "kundli"
 ]
 completer = WordCompleter(KEYWORDS_LIST, ignore_case=True)
 

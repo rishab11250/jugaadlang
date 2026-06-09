@@ -14,7 +14,8 @@ from ..ast_nodes.nodes import (
     Yield, YieldFrom, Compare, Call, FormattedValue, JoinedStr,
     Constant, Attribute, Subscript, Starred, Name, List, Tuple,
     Slice, comprehension, arg, arguments, keyword, alias, withitem,
-    ExceptHandler
+    ExceptHandler, Match, match_case, Pattern, MatchValue, MatchSingleton,
+    MatchAs, MatchOr, MatchSequence, MatchMapping, MatchClass
 )
 
 # ── Operator Mappings ────────────────────────────────────────────────────────
@@ -416,6 +417,41 @@ class JugaadToPythonTransformer:
             "bolo": "print",
             "poochho": "input",
             "khud": "self",
+            "maan": "abs",
+            "sab": "all",
+            "koi_bhi": "any",
+            "binary": "bin",
+            "satyata": "bool",
+            "bulaane_yogya": "callable",
+            "akshar": "chr",
+            "gun_hatao": "delattr",
+            "kosh": "dict",
+            "bhag_shesh": "divmod",
+            "ginti": "enumerate",
+            "chalao": "exec",
+            "chhano": "filter",
+            "gun_lao": "getattr",
+            "gun_hai": "hasattr",
+            "madad": "help",
+            "pehchan": "id",
+            "purnank": "int",
+            "prakar_hai": "isinstance",
+            "subclass_hai": "issubclass",
+            "lambaee": "len",
+            "suchi": "list",
+            "adhiktam": "max",
+            "nyuntam": "min",
+            "agla": "next",
+            "vastu": "object",
+            "kholo": "open",
+            "ghat": "pow",
+            "ulta": "reversed",
+            "gun_badlo": "setattr",
+            "tukda": "slice",
+            "kramwar": "sorted",
+            "shabd": "str",
+            "yog": "sum",
+            "prakar": "type",
         }
         name_id = id_map.get(node.id, node.id)
         return ast.Name(id=name_id, ctx=py_ctx)
@@ -429,3 +465,44 @@ class JugaadToPythonTransformer:
         py_ctx = ctx if ctx is not None else ast.Load()
         elts = [self.visit(e, py_ctx) for e in node.elts]
         return ast.Tuple(elts=elts, ctx=py_ctx)
+
+    def visit_Match(self, node: Match, ctx: Any = None) -> ast.Match:
+        subject = self.visit(node.subject)
+        cases = [self.visit(case) for case in node.cases]
+        return ast.Match(subject=subject, cases=cases)
+
+    def visit_match_case(self, node: match_case, ctx: Any = None) -> ast.match_case:
+        pattern = self.visit(node.pattern)
+        guard = self.visit(node.guard) if node.guard else None
+        body = [self.visit(stmt) for stmt in node.body]
+        return ast.match_case(pattern=pattern, guard=guard, body=body)
+
+    def visit_MatchValue(self, node: MatchValue, ctx: Any = None) -> ast.MatchValue:
+        value = self.visit(node.value)
+        return ast.MatchValue(value=value)
+
+    def visit_MatchSingleton(self, node: MatchSingleton, ctx: Any = None) -> ast.MatchSingleton:
+        return ast.MatchSingleton(value=node.value)
+
+    def visit_MatchAs(self, node: MatchAs, ctx: Any = None) -> ast.MatchAs:
+        pattern = self.visit(node.pattern) if node.pattern else None
+        return ast.MatchAs(pattern=pattern, name=node.name)
+
+    def visit_MatchOr(self, node: MatchOr, ctx: Any = None) -> ast.MatchOr:
+        patterns = [self.visit(p) for p in node.patterns]
+        return ast.MatchOr(patterns=patterns)
+
+    def visit_MatchSequence(self, node: MatchSequence, ctx: Any = None) -> ast.MatchSequence:
+        patterns = [self.visit(p) for p in node.patterns]
+        return ast.MatchSequence(patterns=patterns)
+
+    def visit_MatchMapping(self, node: MatchMapping, ctx: Any = None) -> ast.MatchMapping:
+        keys = [self.visit(k) for k in node.keys]
+        patterns = [self.visit(p) for p in node.patterns]
+        return ast.MatchMapping(keys=keys, patterns=patterns, rest=node.rest)
+
+    def visit_MatchClass(self, node: MatchClass, ctx: Any = None) -> ast.MatchClass:
+        cls = self.visit(node.cls)
+        patterns = [self.visit(p) for p in node.patterns]
+        kwd_patterns = [self.visit(p) for p in node.kwd_patterns]
+        return ast.MatchClass(cls=cls, patterns=patterns, kwd_attrs=node.kwd_attrs, kwd_patterns=kwd_patterns)

@@ -1,0 +1,9 @@
+# Namaste Duniya! 🙏
+# JugaadLang uses Python-like 4-space indentation for blocks.
+
+naam = "Sumangal"
+
+agar naam == "Sumangal":
+    bolo("Legend mil gaya! 😎")
+warna:
+    bolo("Namaste " + naam)

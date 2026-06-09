@@ -58,6 +58,8 @@ class TokenType(Enum):
     WITH           = auto()   # with
     AS             = auto()   # as
     ASSERT         = auto()   # assert
+    AGAR_MATCH     = auto()   # match
+    KAAND          = auto()   # case
 
     # ── Operators ────────────────────────────────────────────────────
     PLUS          = auto()   # +
@@ -164,6 +166,8 @@ KEYWORDS: dict[str, TokenType] = {
     "with":            TokenType.WITH,
     "as":              TokenType.AS,
     "assert":          TokenType.ASSERT,
+    "agar_match":      TokenType.AGAR_MATCH,
+    "kaand":           TokenType.KAAND,
 }
 
 # Human-readable names for error messages

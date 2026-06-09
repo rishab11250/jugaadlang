@@ -311,11 +311,11 @@
       "patterns": [
         {
           "name": "support.function.builtin.jugaadlang",
-          "match": "\\b(bolo|poochho|range|len|str|int|float|list|dict|set|tuple|type|isinstance|hasattr|getattr|setattr|print|input|abs|all|any|bin|bool|bytes|callable|chr|compile|complex|delattr|dir|divmod|enumerate|eval|exec|filter|format|frozenset|globals|hash|help|hex|id|iter|locals|map|max|memoryview|min|next|object|oct|open|ord|pow|property|repr|reversed|round|slice|sorted|staticmethod|sum|super|vars|zip|__import__)\\b"
+          "match": "\\b(bolo|poochho|range|len|str|int|float|list|dict|set|tuple|type|isinstance|hasattr|getattr|setattr|print|input|abs|all|any|bin|bool|bytes|callable|chr|compile|complex|delattr|dir|divmod|enumerate|eval|exec|filter|format|frozenset|globals|hash|help|hex|id|iter|locals|map|max|memoryview|min|next|object|oct|open|ord|pow|property|repr|reversed|round|slice|sorted|staticmethod|sum|super|vars|zip|__import__|maan|sab|koi_bhi|binary|satyata|bulaane_yogya|akshar|gun_hatao|kosh|bhag_shesh|ginti|chalao|chhano|gun_lao|gun_hai|madad|pehchan|purnank|prakar_hai|lambaee|suchi|adhiktam|nyuntam|agla|vastu|kholo|ghat|ulta|gun_badlo|tukda|kramwar|shabd|yog|prakar)\\b"
         },
         {
           "name": "support.function.jugaad.jugaadlang",
-          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad)\\b"
+          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad|nazar|ashirwad|dhanya_waad|bhagwan_bhala_kare|paisa_wasool|bas_kar_bhai|chilla_mat|kundli)\\b"
         }
       ]
     },

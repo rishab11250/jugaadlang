@@ -5,7 +5,8 @@ from jugaadlang.lexer.lexer import Lexer
 from jugaadlang.parser.parser import Parser
 from jugaadlang.ast_nodes.nodes import (
     Module, ExprStmt, Call, Name, Assign, If, Constant, FunctionDef,
-    ClassDef, Slice, Subscript, Lambda, IfExp, Await
+    ClassDef, Slice, Subscript, Lambda, IfExp, Await,
+    Match, match_case, MatchAs, MatchValue, MatchSingleton, MatchSequence, MatchMapping, MatchClass
 )
 
 
@@ -144,3 +145,55 @@ def test_parse_async_await():
     assert isinstance(await_stmt, ExprStmt)
     assert isinstance(await_stmt.value, Await)
     assert isinstance(await_stmt.value.value, Call)
+
+
+def test_parse_pattern_matching():
+    src = """
+agar_match x:
+    kaand 1:
+        bolo("one")
+    kaand sahi agar x:
+        bolo("true and truthy")
+    kaand [a, b]:
+        bolo(a)
+    kaand Point(x, y=2):
+        bolo(x)
+    kaand _:
+        bolo("wildcard")
+"""
+    tokens = Lexer(src).tokenize()
+    parser = Parser(tokens, source=src)
+    ast_mod = parser.parse()
+    
+    stmt = ast_mod.body[0]
+    assert isinstance(stmt, Match)
+    assert len(stmt.cases) == 5
+    
+    # Check cases
+    case0 = stmt.cases[0]
+    assert isinstance(case0.pattern, MatchValue)
+    assert isinstance(case0.pattern.value, Constant)
+    assert case0.pattern.value.value == 1
+    
+    case1 = stmt.cases[1]
+    assert isinstance(case1.pattern, MatchSingleton)
+    assert case1.pattern.value is True
+    assert isinstance(case1.guard, Name)
+    assert case1.guard.id == "x"
+    
+    case2 = stmt.cases[2]
+    assert isinstance(case2.pattern, MatchSequence)
+    assert len(case2.pattern.patterns) == 2
+    assert isinstance(case2.pattern.patterns[0], MatchAs)
+    assert case2.pattern.patterns[0].name == "a"
+    
+    case3 = stmt.cases[3]
+    assert isinstance(case3.pattern, MatchClass)
+    assert case3.pattern.cls.id == "Point"
+    assert len(case3.pattern.patterns) == 1
+    assert case3.pattern.kwd_attrs == ["y"]
+    assert isinstance(case3.pattern.kwd_patterns[0], MatchValue)
+    
+    case4 = stmt.cases[4]
+    assert isinstance(case4.pattern, MatchAs)
+    assert case4.pattern.name is None
