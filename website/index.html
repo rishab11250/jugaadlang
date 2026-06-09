@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
 
   <style>
     /* ===== CSS RESET & VARIABLES ===== */
@@ -115,7 +116,11 @@
       background-clip: text;
     }
 
-    .nav-logo-emoji { font-size: 1.4rem; }
+    .nav-logo-img {
+      height: 32px;
+      width: 32px;
+      object-fit: contain;
+    }
 
     .nav-links {
       display: flex;
@@ -1159,13 +1164,24 @@
     }
 
     .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-logo-text {
       font-size: 1.3rem;
       font-weight: 800;
       background: var(--gradient-saffron);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 0.5rem;
+    }
+    .footer-logo-img {
+      height: 28px;
+      width: 28px;
+      object-fit: contain;
     }
 
     .footer-tagline {
@@ -1387,7 +1403,7 @@
 <!-- ===== NAVIGATION ===== -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <span class="nav-logo-emoji">⚡</span>
+    <img src="assets/icon.svg" alt="JugaadLang Logo" class="nav-logo-img">
     <span class="nav-logo-text">JugaadLang</span>
   </a>
   <ul class="nav-links">
@@ -2268,7 +2284,10 @@
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-content">
-    <div class="footer-logo">⚡ JugaadLang</div>
+    <div class="footer-logo">
+      <img src="assets/icon.png" alt="JugaadLang Logo" class="footer-logo-img">
+      <span class="footer-logo-text">JugaadLang</span>
+    </div>
     <p class="footer-tagline">जुगाड़लैंग — Code karo Hindi mein, Duniya hila do!</p>
     <div class="footer-links">
       <a href="#hero">Home</a>
