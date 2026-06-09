@@ -50,6 +50,8 @@
       --s-comment: #5A5A7A;
       --s-operator: #FF6B6B;
       --s-plain: #EEEEFF;
+      
+      --bg-footer: rgba(10, 10, 20, 0.4);
     }
 
     @media (prefers-color-scheme: light) {
@@ -80,6 +82,8 @@
         --s-comment: #7F8C8D;
         --s-operator: #C0392B;
         --s-plain: #121224;
+        
+        --bg-footer: rgba(235, 235, 239, 0.4);
       }
     }
 
@@ -93,10 +97,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
       text-align: center;
-      padding: 2rem;
+      padding: 6rem 0 0;
       position: relative;
     }
 
@@ -143,6 +146,10 @@
       position: relative;
       z-index: 1;
       max-width: 700px;
+      width: 100%;
+      padding: 0 1.5rem;
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
     /* 404 Number */
@@ -391,15 +398,27 @@
       position: fixed;
       top: 1.5rem;
       left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .nav-logo-img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+    }
+
+    .nav-logo-text {
       font-family: var(--font-heading);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       background: linear-gradient(135deg, #FF9933, #FF6600);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-decoration: none;
-      z-index: 100;
     }
 
     /* Blinking cursor */
@@ -417,6 +436,85 @@
       .terminal { margin: 1.5rem 0; }
       .btn-group { flex-direction: column; align-items: center; }
     }
+
+    /* ===== FOOTER ===== */
+    footer {
+      width: 100%;
+      margin-top: auto;
+      background: var(--bg-footer);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FF9933 0%, #FFD700 50%, #FF6600 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-logo-img {
+      height: 48px;
+      width: 48px;
+      object-fit: contain;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-saffron);
+    }
+
+    .footer-bottom {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .github-icon {
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -430,7 +528,10 @@
 <div class="particles-404" id="particles-404"></div>
 
 <!-- Logo -->
-<a href="index.html" class="nav-logo">⚡ JugaadLang</a>
+<a href="index.html" class="nav-logo">
+  <img src="assets/icon.svg?v=4" alt="JugaadLang Logo" class="nav-logo-img">
+  <span class="nav-logo-text">JugaadLang</span>
+</a>
 
 <!-- Main 404 Content -->
 <div class="container">
@@ -486,22 +587,41 @@
     </a>
   </div>
 
-  <!-- Fun suggestions -->
-  <div class="suggestions">
-    <p>Shayad aap yahan aana chahte the:</p>
-    <p>
-      <a href="index.html#features">Features</a> &nbsp;·&nbsp;
-      <a href="index.html#examples">Examples</a> &nbsp;·&nbsp;
-      <a href="index.html#keywords">Keywords</a> &nbsp;·&nbsp;
-      <a href="index.html#install">Install</a>
-    </p>
-    <br>
+  <!-- Fortune Cookie -->
+  <div class="suggestions" style="margin-top: 1.5rem;">
     <p class="fortune-cookie">
       <em>"Galat raaste pe jaana bhi ek anubhav hai." — JugaadLang Fortune Cookie 🔮</em>
     </p>
   </div>
 
 </div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="assets/icon.svg?v=4" alt="JugaadLang Logo" class="footer-logo-img">
+      <span class="footer-logo-text">JugaadLang</span>
+    </div>
+    <p class="footer-tagline">जुगाड़लैंग — Code karo Hindi mein, Duniya hila do!</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="index.html#keywords">Keywords</a>
+      <a href="index.html#install">Install</a>
+      <a href="index.html#stdlib">Stdlib</a>
+      <a href="https://github.com/JugaadLang/jugaadlang" class="footer-github-link" target="_blank" rel="noopener"><svg class="github-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub</a>
+      <a href="404.html">404</a>
+    </div>
+    <div class="footer-bottom">
+      Made with ☕ + 💪 in Bharat &nbsp;|&nbsp; 
+      MIT License &nbsp;|&nbsp; 
+      &copy; 2026 JugaadLang Contributors &nbsp;|&nbsp;
+      <span style="color:var(--accent-saffron)">Jai Hind! 🇮🇳</span>
+    </div>
+  </div>
+</footer>
 
 <!-- Indian flag bar -->
 <div class="flag-bar"></div>
