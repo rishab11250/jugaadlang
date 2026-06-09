@@ -8,7 +8,7 @@ version = "1.0.0"
 description = "JugaadLang — A Hindi-keyword programming language for Indian developers"
 readme = "README.md"
 license = {text = "MIT"}
-authors = [{name = "JugaadLang Community", email = "jugaadlang@gmail.com"}]
+authors = [{name = "JugaadLang Community", email = "jugaadlang@atomicmail.io"}]
 keywords = ["programming-language", "hindi", "compiler", "transpiler", "jugaad", "indian"]
 classifiers = [
     "Programming Language :: Python :: 3",

@@ -2,20 +2,18 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Below are the versions of JugaadLang currently receiving security updates:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported          | Notes |
+| ------- | ------------------ | ----- |
+| 1.0.x   | :white_check_mark: | Active stable version |
+| < 1.0   | :x:                | Deprecated |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+We take the security of JugaadLang seriously. If you find a security vulnerability, please do **not** report it via a public GitHub issue. Instead, follow these steps:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+1. **Email Us**: Send a detailed description of the vulnerability, reproduction steps, and any potential exploits to **jugaadlang@gmail.com**.
+2. **Acknowledge**: We will acknowledge receipt of your report within 48 hours.
+3. **Investigation & Patch**: We will investigate the issue and, if validated, work on a patch. We ask that you give us reasonable time to fix the issue before public disclosure.
+4. **Advisory & Release**: Once a patch is ready, we will publish a security advisory on GitHub and release a new pip package version.
