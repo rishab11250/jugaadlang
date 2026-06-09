@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 — Page gayab ho gayi! | JugaadLang</title>
-  <meta name="description" content="404 — Page gayab ho gayi! Variable dhundte dhundte thak gaya..." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@700&display=swap" rel="stylesheet" />
+  <meta name="description" content="404 — Page gayab ho gayi! Variable dhundte dhundte thak gaya...">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@700&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -343,10 +343,14 @@
       line-height: 1.8;
     }
 
-    .suggestions span {
+    .suggestions a {
       color: var(--accent-saffron);
-      cursor: pointer;
-      text-decoration: underline dotted;
+      text-decoration: none;
+    }
+
+    .suggestions .fortune-cookie {
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
     /* Particle dots */
@@ -450,25 +454,25 @@
       <div><span class="t-error">NameError</span><span class="t-muted"> at line 404:</span></div>
       <div><span class="t-msg">🕵️ Page dhundte dhundte thak gaya bhai...</span></div>
       <div><span class="t-muted">→ </span><span class="t-hint">'this_page' ka koi naam-o-nishaan nahi mila.</span></div>
-      <br/>
+      <br>
       <div><span class="t-muted">Checked in:</span></div>
       <div><span class="t-muted">&nbsp;&nbsp;✗ server ke locals</span></div>
       <div><span class="t-muted">&nbsp;&nbsp;✗ Google ka cache</span></div>
       <div><span class="t-muted">&nbsp;&nbsp;✗ Chai ki dukan ke peeche</span></div>
       <div><span class="t-muted">&nbsp;&nbsp;✗ Under the couch cushions</span></div>
-      <br/>
+      <br>
       <div><span class="t-success">💡 Suggestion: </span><span class="t-hint">Ghar wapas jao — homepage pe.</span></div>
     </div>
   </div>
 
   <!-- JugaadLang code snippet -->
   <div class="code-snippet">
-    <span class="c-comment"># Koshish toh kiya...</span><br/>
-    <span class="c-keyword">koshish</span>:<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">lao</span> this_page<br/>
-    <span class="c-keyword">gadbad</span> NameError:<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">bolo</span>(<span class="c-string">"Page mil nahi rahi! 😭"</span>)<br/>
-    <span class="c-keyword">aakhir_me</span>:<br/>
+    <span class="c-comment"># Koshish toh kiya...</span><br>
+    <span class="c-keyword">koshish</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">lao</span> this_page<br>
+    <span class="c-keyword">gadbad</span> NameError:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">bolo</span>(<span class="c-string">"Page mil nahi rahi! 😭"</span>)<br>
+    <span class="c-keyword">aakhir_me</span>:<br>
     &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-keyword">bolo</span>(<span class="c-string">"Jugaad lagao... 🛠️"</span>)<span class="cursor"></span>
   </div>
 
@@ -486,13 +490,13 @@
   <div class="suggestions">
     <p>Shayad aap yahan aana chahte the:</p>
     <p>
-      <a href="index.html#features" style="color:var(--accent-saffron);text-decoration:none;">Features</a> &nbsp;·&nbsp;
-      <a href="index.html#examples" style="color:var(--accent-saffron);text-decoration:none;">Examples</a> &nbsp;·&nbsp;
-      <a href="index.html#keywords" style="color:var(--accent-saffron);text-decoration:none;">Keywords</a> &nbsp;·&nbsp;
-      <a href="index.html#install" style="color:var(--accent-saffron);text-decoration:none;">Install</a>
+      <a href="index.html#features">Features</a> &nbsp;·&nbsp;
+      <a href="index.html#examples">Examples</a> &nbsp;·&nbsp;
+      <a href="index.html#keywords">Keywords</a> &nbsp;·&nbsp;
+      <a href="index.html#install">Install</a>
     </p>
-    <br/>
-    <p style="color: var(--text-muted); font-size: 0.8rem;">
+    <br>
+    <p class="fortune-cookie">
       <em>"Galat raaste pe jaana bhi ek anubhav hai." — JugaadLang Fortune Cookie 🔮</em>
     </p>
   </div>

@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "void-style": "off",
+    "no-inline-style": "off",
+    "prefer-native-element": "off",
+    "no-implicit-button-type": "off",
+    "no-trailing-whitespace": "off",
+    "svg-focusable": "off",
+    "element-required-attributes": "off",
+    "element-permitted-content": "off",
+    "element-permitted-parent": "off",
+    "close-order": "error",
+    "close-attr": "error"
+  }
+}
