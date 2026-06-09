@@ -1,0 +1,3 @@
+lao numpy as np
+npa=np.array([1,2,4,6,9])
+bolo(npa)
