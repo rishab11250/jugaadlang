@@ -10,6 +10,11 @@ JugaadLang is a modern, beginner-friendly, fun programming language inspired by 
 
 JugaadLang transpiles directly to native Python AST, meaning it runs with zero runtime performance overhead and provides full compatibility with the entire Python ecosystem.
 
+<a href="https://www.producthunt.com/products/jugaadlang-code-karo-hindi-mein?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-jugaadlang-code-karo-hindi-mein" target="_blank" rel="noopener noreferrer"><img alt="JugaadLang — Code karo Hindi mein  - Code karo Hindi mein, Duniya hila do 🇮🇳 | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1168029&amp;theme=light&amp;t=1781108995735"></a>
+
+
+
+
 ---
 [![JugaadLang CI](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/ci.yml)
 [![JugaadLang Release](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml)
