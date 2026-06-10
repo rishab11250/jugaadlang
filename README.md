@@ -1,5 +1,10 @@
-# JugaadLang 🇮🇳
-> Code karo Hindi mein, Duniya hila do! 🚀
+<div align="center">
+  <h1>JugaadLang 🇮🇳</h1> 
+   
+<p> Code karo Hindi mein, Duniya hila do! 🚀</p>
+<p align="center" >
+  <img src="https://github.com/JugaadLang/jugaadlang/blob/main/website/assets/icon.png" width="180" alt="JugaadLang Logo">
+</p>
 
 JugaadLang is a modern, beginner-friendly, fun programming language inspired by Python, designed for Indian developers. It replaces Python's core keywords with English-spelled Hindi (Roman Hindi) terms and features custom funny error diagnostic outputs, a built-in package manager, and standard libraries.
 
@@ -10,6 +15,13 @@ JugaadLang transpiles directly to native Python AST, meaning it runs with zero r
 [![JugaadLang Release](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml)
 [![CodeQL](https://github.com/JugaadLang/jugaadlang/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/github-code-scanning/codeql)
 
+![Windows](https://img.shields.io/badge/Windows-Supported-blue)
+![Linux](https://img.shields.io/badge/Linux-Supported-green)
+![macOS](https://img.shields.io/badge/macOS-Supported-lightgrey)
+![Python](https://img.shields.io/badge/Python-3.10%2B-yellow)
+![Open Source](https://img.shields.io/badge/Open%20Source-❤️-red)
+
+</div>
 ## Table of Contents
 1. [Core Philosophy](#core-philosophy)
 2. [Installation](#installation)
@@ -37,20 +49,197 @@ JugaadLang transpiles directly to native Python AST, meaning it runs with zero r
 
 ## Installation
 
-To install JugaadLang locally:
-```bash
-# Clone the repository
-git clone https://github.com/jugaadlang/jugaadlang.git
-cd jugaadlang
+Get started with JugaadLang in just a few minutes.
 
-# Install in editable mode (or standard install)
-pip install -e .
+## Requirements
+
+Before installing JugaadLang, make sure you have:
+
+* Python 3.10 or later
+* pip package manager
+
+Check your Python version:
+
+```bash
+python --version
 ```
 
-Verify that the CLI works:
+or
+
+```bash
+python3 --version
+```
+
+---
+
+# 🪟 Windows
+
+### Install
+
+```powershell
+pip install jugaadlang
+```
+
+### Verify Installation
+
+```powershell
+jug --version
+```
+
+Expected output:
+
+```text
+JugaadLang v1.0.2 🇮🇳
+
+```
+
+### Run Your First Program
+
+Create a file named `hello.jug`
+
+```jugaad
+bolo("Namaste Duniya 🚀")
+```
+
+Run it:
+
+```powershell
+jug run hello.jg
+```
+
+Output:
+
+```text
+Namaste Duniya 🚀
+```
+
+---
+
+# 🐧 Linux
+
+### Install
+
+```bash
+pip3 install jugaadlang
+```
+
+### Verify Installation
+
+```bash
+jugaad --version
+```
+
+### Run
+
+```bash
+jug run hello.jg
+```
+
+---
+
+# 🍎 macOS
+
+### Install
+
+```bash
+pip3 install jugaadlang
+```
+
+### Verify Installation
+
 ```bash
 jug --version
 ```
+
+### Run
+
+```bash
+jug run hello.jg
+```
+
+---
+
+# 🚀 Install Latest Development Version
+
+Install directly from GitHub:
+
+```bash
+pip install git+https://github.com/JugaadLang/jugaadlang.git
+```
+
+Verify:
+
+```bash
+jug --version
+```
+
+---
+
+# 📦 Package Manager
+
+JugaadLang includes a built-in package manager.
+
+### Install Package
+
+```bash
+jug install chai
+```
+
+### Search Package
+
+```bash
+jug search chai
+```
+
+### Update Packages
+
+```bash
+jug update
+```
+
+### Remove Package
+
+```bash
+jug remove chai
+```
+
+---
+
+# ⚡ Interactive REPL
+
+Start the JugaadLang shell:
+
+```bash
+jug
+```
+
+Example:
+
+```text
+>>> bolo("Namaste")
+Namaste
+```
+
+---
+
+# 🔧 Common Commands
+
+| Command                | Description           |
+| ---------------------- | --------------------- |
+| `jug run file.jg`   | Run a program         |
+| `jug build file.jg` | Build project         |
+| `jug repl`          | Open REPL             |
+| `jug install pkg`   | Install package       |
+| `jug update`        | Update packages       |
+| `jug search pkg`    | Search package        |
+| `jug remove pkg`    | Remove package        |
+| `jug doctor`        | Diagnose installation |
+| `jug --version`     | Show version          |
+| `jug --help`        | Show help             |
+
+---
+
+# 🎉 Success
 
 ---
 
