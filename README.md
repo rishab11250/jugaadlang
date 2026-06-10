@@ -27,6 +27,7 @@ JugaadLang transpiles directly to native Python AST, meaning it runs with zero r
 ![Open Source](https://img.shields.io/badge/Open%20Source-❤️-red)
 
 </div>
+
 ## Table of Contents
 1. [Core Philosophy](#core-philosophy)
 2. [Installation](#installation)
