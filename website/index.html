@@ -262,20 +262,23 @@
     }
 
     .nav-cta {
-      background: var(--gradient-saffron) !important;
-      color: #000 !important;
-      font-weight: 700 !important;
-      padding: 0.5rem 1.25rem !important;
+      background: transparent !important;
+      color: var(--text-primary) !important;
+      font-weight: 600 !important;
+      padding: 0.4rem 1.25rem !important;
       border-radius: var(--radius-full) !important;
       display: inline-flex !important;
       align-items: center !important;
       gap: 0.35rem !important;
+      border: 1px solid var(--border-hover) !important;
     }
 
     .nav-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px var(--glow) !important;
-      background: rgba(0,0,0,0) !important;
+      background: rgba(255, 153, 51, 0.1) !important;
+      border-color: var(--accent-saffron) !important;
+      color: var(--accent-saffron) !important;
+      transform: translateY(-2px);
+      box-shadow: none !important;
     }
 
     .hamburger {
@@ -464,8 +467,20 @@
 
     .hero-ctas {
       display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
+    }
+    
+    @media (min-width: 992px) {
+      .hero-ctas {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+      }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-secondary {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+      }
     }
 
     .btn-primary {
@@ -2681,15 +2696,14 @@
     </div>
 
     <div class="cta-links reveal">
-      <a href="https://github.com/JugaadLang/jugaadlang" class="btn-primary" target="_blank" rel="noopener">
+      <a href="https://github.com/JugaadLang/jugaadlang" class="btn-secondary" target="_blank" rel="noopener">
         <svg class="github-icon" viewBox="0 0 16 16" width="18" height="18" fill="currentColor" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg> GitHub pe Star karo <span id="github-stars-cta" class="github-stars-cta-badge"></span>
       </a>
-      <a href="https://pypi.org" class="btn-ghost" target="_blank" rel="noopener">
+      <a href="https://pypi.org/project/jugaadlang/" class="btn-ghost" target="_blank" rel="noopener">
         <span>📦</span> PyPI
       </a>
-      <a href="https://marketplace.visualstudio.com" class="btn-ghost" target="_blank" rel="noopener">
-        <span>🔧</span> VS Code Extension
-      </a>
+      <a href="https://marketplace.visualstudio.com/items?itemName=jugaadlang.jugaadlang" class="btn-ghost" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:4px; vertical-align:-2px;" focusable="false"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code Extension </a>
     </div>
 
     <!-- Decorative line -->
@@ -2715,6 +2729,7 @@
       <a href="#install">Install</a>
       <a href="#stdlib">Stdlib</a>
       <a href="https://github.com/JugaadLang/jugaadlang" class="footer-github-link" target="_blank" rel="noopener"><svg class="github-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>GitHub</a>
+      <a href="https://marketplace.visualstudio.com/items?itemName=jugaadlang.jugaadlang" class="footer-vscode-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:4px; vertical-align:-2px;" focusable="false"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>VS Code Extension</a>
       <a href="404.html">404</a>
     </div>
     <div class="footer-bottom">
