@@ -131,7 +131,7 @@ pip3 install jugaadlang
 ### Verify Installation
 
 ```bash
-jugaad --version
+jug --version
 ```
 
 ### Run
