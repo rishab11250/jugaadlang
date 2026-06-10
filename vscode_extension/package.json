@@ -1,8 +1,8 @@
 {
   "name": "jugaadlang",
   "displayName": "JugaadLang",
-  "description": "JugaadLang — Hindi-keyword programming language support for VS Code",
-  "version": "1.0.1",
+  "description": "JugaadLang \u2014 Hindi-keyword programming language support for VS Code",
+  "version": "1.0.2",
   "publisher": "jugaadlang",
   "icon": "icon.png",
   "engines": {
