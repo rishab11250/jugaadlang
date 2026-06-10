@@ -623,7 +623,9 @@ class Parser:
             elif isinstance(dotted, Name):
                 return MatchAs(pattern=None, name=dotted.id, line=dotted.line, col=dotted.col)
             else:
-                raise self._error(f"Unexpected dotted name type in pattern: {type(dotted).__name__}")
+                raise self._error(
+                    f"Unexpected dotted name type in pattern: {type(dotted).__name__}"
+                )
         elif self._match(TokenType.LBRACKET):
             line, col = self._previous_token().line, self._previous_token().col
             patterns = []

@@ -24,4 +24,3 @@ def shell_chalao(command: str) -> int:
     """Run a shell command and return exit code."""
     result = subprocess.run(command, shell=True)  # noqa: S603
     return result.returncode
-
