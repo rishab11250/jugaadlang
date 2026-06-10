@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme: light;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,25 +18,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-primary: #0D0D1A;
-      --bg-secondary: #1A1A2E;
-      --bg-tertiary: #16213E;
-      --bg-card: rgba(255, 255, 255, 0.04);
-      --bg-card-hover: rgba(255, 255, 255, 0.08);
+      --bg-primary: #F5F5FA;
+      --bg-secondary: #FFFFFF;
+      --bg-tertiary: #EBEBEF;
+      --bg-card: rgba(13, 13, 26, 0.04);
+      --bg-card-hover: rgba(13, 13, 26, 0.08);
       --accent-saffron: #FF9933;
-      --accent-green: #2ECC71;
+      --accent-green: #138808;
       --accent-green-dark: #138808;
       --accent-gold: #FFD700;
       --accent-blue: #4FC3F7;
       --accent-purple: #9B59B6;
-      --text-primary: #EEEEFF;
-      --text-secondary: #9999BB;
-      --text-muted: #5A5A7A;
-      --border: rgba(255, 153, 51, 0.15);
-      --border-hover: rgba(255, 153, 51, 0.4);
-      --glow: rgba(255, 153, 51, 0.3);
+      --text-primary: #121224;
+      --text-secondary: #555577;
+      --text-muted: #8888AA;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(255, 153, 51, 0.6);
+      --glow: rgba(255, 153, 51, 0.15);
       --glow-green: rgba(46, 204, 113, 0.2);
-      --gradient-hero: linear-gradient(135deg, #0D0D1A 0%, #1A1A2E 50%, #0D1A0D 100%);
+      --gradient-hero: linear-gradient(135deg, #F5F5FA 0%, #FFFFFF 50%, #EAEAEA 100%);
       --gradient-saffron: linear-gradient(135deg, #FF9933, #FF6600);
       --gradient-green: linear-gradient(135deg, #2ECC71, #138808);
       --gradient-gold: linear-gradient(135deg, #FFD700, #FFA500);
@@ -49,103 +49,47 @@
       --radius-lg: 30px;
       --radius-xl: 40px;
       --radius-full: 9999px;
-      --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+      --shadow-card: 0 8px 32px rgba(13, 13, 26, 0.06);
       --shadow-glow: 0 0 40px rgba(255,153,51,0.15);
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       
       /* Layout theme variables */
-      --bg-nav: rgba(13, 13, 26, 0.85);
-      --bg-scrolled: rgba(13, 13, 26, 0.98);
-      --bg-footer: rgba(10, 10, 20, 1);
-      --shadow-color: rgba(0, 0, 0, 0.5);
-      --border-light: rgba(255, 255, 255, 0.08);
+      --bg-nav: rgba(245, 245, 250, 0.85);
+      --bg-scrolled: rgba(245, 245, 250, 0.98);
+      --bg-footer: #EBEBEF;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --border-light: rgba(0, 0, 0, 0.08);
 
-      /* Code block and terminal themes (Dark mode defaults) */
-      --bg-code: rgba(22, 22, 44, 0.95);
-      --bg-code-header: rgba(0, 0, 0, 0.3);
-      --border-code: rgba(255, 255, 255, 0.08);
-      --text-code: #EEEEFF;
-      --text-code-muted: #5A5A7A;
+      /* Code block and terminal themes */
+      --bg-code: #FFFFFF;
+      --bg-code-header: rgba(0, 0, 0, 0.03);
+      --border-code: rgba(0, 0, 0, 0.08);
+      --text-code: #121224;
+      --text-code-muted: #8888AA;
       
-      --bg-terminal: #0A0A14;
-      --bg-terminal-bar: rgba(255, 255, 255, 0.05);
-      --border-terminal: rgba(255, 255, 255, 0.08);
-      --text-terminal: #EEEEFF;
-      --text-terminal-muted: #5A5A7A;
+      --bg-terminal: #F5F5FA;
+      --bg-terminal-bar: rgba(0, 0, 0, 0.03);
+      --border-terminal: rgba(0, 0, 0, 0.08);
+      --text-terminal: #121224;
+      --text-terminal-muted: #8888AA;
       
-      --bg-copy-btn: rgba(255, 255, 255, 0.06);
-      --border-copy-btn: rgba(255, 255, 255, 0.1);
+      --bg-copy-btn: rgba(0, 0, 0, 0.04);
+      --border-copy-btn: rgba(0, 0, 0, 0.08);
       
-      /* Syntax highlighting (Dark mode defaults) */
-      --s-keyword: #FF9933;
-      --s-string: #2ECC71;
-      --s-comment: #5A5A7A;
-      --s-number: #4FC3F7;
-      --s-function: #E8D44D;
-      --s-operator: #FF6B6B;
-      --s-plain: #EEEEFF;
+      /* Syntax highlighting */
+      --s-keyword: #E65100;
+      --s-string: #138808;
+      --s-comment: #7F8C8D;
+      --s-number: #006699;
+      --s-function: #8E44AD;
+      --s-operator: #C0392B;
+      --s-plain: #121224;
       
       /* Terminal colors */
-      --t-cmd: #EEEEFF;
-      --t-output: #9999BB;
-      --t-hint: #9999BB;
-      --t-muted: #5A5A7A;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg-primary: #F5F5FA;
-        --bg-secondary: #FFFFFF;
-        --bg-tertiary: #EBEBEF;
-        --bg-card: rgba(13, 13, 26, 0.04);
-        --bg-card-hover: rgba(13, 13, 26, 0.08);
-        --accent-green: #138808;
-        --text-primary: #121224;
-        --text-secondary: #555577;
-        --text-muted: #8888AA;
-        --border: rgba(0, 0, 0, 0.08);
-        --border-hover: rgba(255, 153, 51, 0.6);
-        --glow: rgba(255, 153, 51, 0.15);
-        --gradient-hero: linear-gradient(135deg, #F5F5FA 0%, #FFFFFF 50%, #EAEAEA 100%);
-        
-        --bg-nav: rgba(245, 245, 250, 0.85);
-        --bg-scrolled: rgba(245, 245, 250, 0.98);
-        --bg-footer: #EBEBEF;
-        --shadow-color: rgba(0, 0, 0, 0.1);
-        --shadow-card: 0 8px 32px rgba(13, 13, 26, 0.06);
-        --border-light: rgba(0, 0, 0, 0.08);
-
-        /* Code block and terminal themes (Light mode) */
-        --bg-code: #FFFFFF;
-        --bg-code-header: rgba(0, 0, 0, 0.03);
-        --border-code: rgba(0, 0, 0, 0.08);
-        --text-code: #121224;
-        --text-code-muted: #8888AA;
-        
-        --bg-terminal: #F5F5FA;
-        --bg-terminal-bar: rgba(0, 0, 0, 0.03);
-        --border-terminal: rgba(0, 0, 0, 0.08);
-        --text-terminal: #121224;
-        --text-terminal-muted: #8888AA;
-        
-        --bg-copy-btn: rgba(0, 0, 0, 0.04);
-        --border-copy-btn: rgba(0, 0, 0, 0.08);
-        
-        /* Syntax highlighting (Light mode) */
-        --s-keyword: #E65100;
-        --s-string: #138808;
-        --s-comment: #7F8C8D;
-        --s-number: #006699;
-        --s-function: #8E44AD;
-        --s-operator: #C0392B;
-        --s-plain: #121224;
-        
-        /* Terminal colors (Light mode) */
-        --t-cmd: #121224;
-        --t-output: #555577;
-        --t-hint: #555577;
-        --t-muted: #8888AA;
-      }
+      --t-cmd: #121224;
+      --t-output: #555577;
+      --t-hint: #555577;
+      --t-muted: #8888AA;
     }
 
     html { scroll-behavior: smooth; }

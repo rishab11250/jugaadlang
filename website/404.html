@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme: light;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +13,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-primary: #0D0D1A;
-      --bg-secondary: #1A1A2E;
+      --bg-primary: #F5F5FA;
+      --bg-secondary: #FFFFFF;
       --accent-saffron: #FF9933;
-      --accent-green: #2ECC71;
+      --accent-green: #138808;
       --accent-gold: #FFD700;
-      --text-primary: #EEEEFF;
-      --text-secondary: #9999BB;
-      --text-muted: #5A5A7A;
-      --border: rgba(255, 153, 51, 0.2);
-      --glow: rgba(255, 153, 51, 0.3);
+      --text-primary: #121224;
+      --text-secondary: #555577;
+      --text-muted: #8888AA;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(255, 153, 51, 0.6);
+      --glow: rgba(255, 153, 51, 0.15);
       --font-heading: 'Outfit', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       
@@ -33,58 +34,25 @@
       --radius-xl: 40px;
       --radius-full: 9999px;
       
-      --bg-terminal: #0A0A14;
-      --bg-terminal-bar: rgba(255,255,255,0.05);
-      --border-terminal: rgba(255,255,255,0.08);
-      --text-terminal: #EEEEFF;
-      --text-terminal-muted: #5A5A7A;
+      --bg-terminal: #F5F5FA;
+      --bg-terminal-bar: rgba(0, 0, 0, 0.03);
+      --border-terminal: rgba(0, 0, 0, 0.08);
+      --text-terminal: #121224;
+      --text-terminal-muted: #8888AA;
       
-      --t-cmd: #EEEEFF;
-      --t-output: #9999BB;
-      --t-hint: #9999BB;
-      --t-muted: #5A5A7A;
+      --t-cmd: #121224;
+      --t-output: #555577;
+      --t-hint: #555577;
+      --t-muted: #8888AA;
       
       /* Syntax highlighting */
-      --s-keyword: #FF9933;
-      --s-string: #2ECC71;
-      --s-comment: #5A5A7A;
-      --s-operator: #FF6B6B;
-      --s-plain: #EEEEFF;
+      --s-keyword: #E65100;
+      --s-string: #138808;
+      --s-comment: #7F8C8D;
+      --s-operator: #C0392B;
+      --s-plain: #121224;
       
-      --bg-footer: rgba(10, 10, 20, 0.4);
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg-primary: #F5F5FA;
-        --bg-secondary: #FFFFFF;
-        --text-primary: #121224;
-        --text-secondary: #555577;
-        --text-muted: #8888AA;
-        --border: rgba(0, 0, 0, 0.08);
-        --border-hover: rgba(255, 153, 51, 0.6);
-        --glow: rgba(255, 153, 51, 0.15);
-
-        --bg-terminal: #F5F5FA;
-        --bg-terminal-bar: rgba(0, 0, 0, 0.03);
-        --border-terminal: rgba(0, 0, 0, 0.08);
-        --text-terminal: #121224;
-        --text-terminal-muted: #8888AA;
-        
-        --t-cmd: #121224;
-        --t-output: #555577;
-        --t-hint: #555577;
-        --t-muted: #8888AA;
-        
-        /* Syntax highlighting */
-        --s-keyword: #E65100;
-        --s-string: #138808;
-        --s-comment: #7F8C8D;
-        --s-operator: #C0392B;
-        --s-plain: #121224;
-        
-        --bg-footer: rgba(235, 235, 239, 0.4);
-      }
+      --bg-footer: rgba(235, 235, 239, 0.4);
     }
 
     html { scroll-behavior: smooth; }
