@@ -2,26 +2,83 @@
 JugaadLang Parser — Parses token stream into JugaadLang AST.
 Uses recursive descent with precedence climb.
 """
+
 from __future__ import annotations
-from typing import Optional, Any
 
 from ..lexer.tokens import Token, TokenType
 from ..ast_nodes.nodes import (
-    Module, Stmt, Expr, FunctionDef, ClassDef, Return, Delete, Assign,
-    AugAssign, AnnAssign, For, While, If, With, Raise, Try, Assert,
-    Import, ImportFrom, Global, Nonlocal, ExprStmt, Pass, Break,
-    Continue, PoochhoStmt, BoolOp, BinOp, UnaryOp, Lambda, IfExp,
-    Dict, Set, ListComp, SetComp, DictComp, GeneratorExp, Await,
-    Yield, YieldFrom, Compare, Call, FormattedValue, JoinedStr,
-    Constant, Attribute, Subscript, Starred, Name, List, Tuple,
-    Slice, comprehension, arg, arguments, keyword, alias, withitem,
-    ExceptHandler, Match, match_case, Pattern, MatchValue, MatchSingleton,
-    MatchAs, MatchOr, MatchSequence, MatchMapping, MatchClass
+    Module,
+    Stmt,
+    Expr,
+    FunctionDef,
+    ClassDef,
+    Return,
+    Delete,
+    Assign,
+    AugAssign,
+    AnnAssign,
+    For,
+    While,
+    If,
+    With,
+    Raise,
+    Try,
+    Assert,
+    Import,
+    ImportFrom,
+    Global,
+    Nonlocal,
+    ExprStmt,
+    Pass,
+    Break,
+    Continue,
+    PoochhoStmt,
+    BoolOp,
+    BinOp,
+    UnaryOp,
+    Lambda,
+    IfExp,
+    Dict,
+    Set,
+    ListComp,
+    SetComp,
+    DictComp,
+    GeneratorExp,
+    Await,
+    Compare,
+    Call,
+    FormattedValue,
+    JoinedStr,
+    Constant,
+    Attribute,
+    Subscript,
+    Name,
+    List,
+    Tuple,
+    Slice,
+    comprehension,
+    arg,
+    arguments,
+    keyword,
+    alias,
+    withitem,
+    ExceptHandler,
+    Match,
+    match_case,
+    Pattern,
+    MatchValue,
+    MatchSingleton,
+    MatchAs,
+    MatchOr,
+    MatchSequence,
+    MatchMapping,
+    MatchClass,
 )
 
 
 class ParseError(Exception):
     """Raised when parser encounters syntactically invalid source."""
+
     def __init__(self, message: str, line: int, col: int, source_line: str = ""):
         super().__init__(message)
         self.line = line
@@ -109,10 +166,7 @@ class Parser:
 
     def _error(self, msg: str) -> ParseError:
         tok = self._current_token()
-        return ParseError(
-            msg, tok.line, tok.col,
-            self._source_line_at(tok.line)
-        )
+        return ParseError(msg, tok.line, tok.col, self._source_line_at(tok.line))
 
     def _expect_newline_or_eof(self) -> None:
         if self._match(TokenType.NEWLINE):
@@ -122,7 +176,9 @@ class Parser:
         elif self._match(TokenType.SEMICOLON):
             return
         else:
-            raise self._error(f"Expected newline or semicolon, but got: {self._current_token().value!r}")
+            raise self._error(
+                f"Expected newline or semicolon, but got: {self._current_token().value!r}"
+            )
 
     # ── Statement Parsing ─────────────────────────────────────────────
 
@@ -250,15 +306,15 @@ class Parser:
     def parse_function_def(self, is_async: bool) -> FunctionDef:
         tok = self._expect(TokenType.BANAO, "Expected 'banao' for function definition")
         name_tok = self._expect(TokenType.IDENTIFIER, "Expected function name")
-        
+
         self._expect(TokenType.LPAREN, "Expected '(' after function name")
         args = self.parse_function_arguments()
         self._expect(TokenType.RPAREN, "Expected ')' after parameters")
-        
+
         returns = None
         if self._match(TokenType.ARROW):
             returns = self.parse_expression()
-            
+
         body = self.parse_block()
         return FunctionDef(
             name=name_tok.value,
@@ -268,7 +324,7 @@ class Parser:
             returns=returns,
             is_async=is_async,
             line=tok.line,
-            col=tok.col
+            col=tok.col,
         )
 
     def parse_function_arguments(self) -> arguments:
@@ -277,7 +333,7 @@ class Parser:
         defaults = []
         vararg = None
         kwarg = None
-        
+
         while not self._check(TokenType.RPAREN, TokenType.EOF):
             if self._match(TokenType.STAR):
                 # *args
@@ -285,14 +341,18 @@ class Parser:
                 annotation = None
                 if self._match(TokenType.COLON):
                     annotation = self.parse_expression()
-                vararg = arg(arg=arg_tok.value, annotation=annotation, line=arg_tok.line, col=arg_tok.col)
+                vararg = arg(
+                    arg=arg_tok.value, annotation=annotation, line=arg_tok.line, col=arg_tok.col
+                )
             elif self._match(TokenType.DOUBLESTAR):
                 # **kwargs
                 arg_tok = self._expect(TokenType.IDENTIFIER, "Expected identifier after '**'")
                 annotation = None
                 if self._match(TokenType.COLON):
                     annotation = self.parse_expression()
-                kwarg = arg(arg=arg_tok.value, annotation=annotation, line=arg_tok.line, col=arg_tok.col)
+                kwarg = arg(
+                    arg=arg_tok.value, annotation=annotation, line=arg_tok.line, col=arg_tok.col
+                )
             else:
                 # Regular parameter (or 'khud')
                 p_name = ""
@@ -304,35 +364,30 @@ class Parser:
                     arg_tok = self._expect(TokenType.IDENTIFIER, "Expected parameter name")
                     p_name = arg_tok.value
                     p_line, p_col = arg_tok.line, arg_tok.col
-                    
+
                 annotation = None
                 if self._match(TokenType.COLON):
                     annotation = self.parse_expression()
-                    
+
                 default_val = None
                 if self._match(TokenType.ASSIGN):
                     default_val = self.parse_expression()
-                    
+
                 args.append(arg(arg=p_name, annotation=annotation, line=p_line, col=p_col))
                 if default_val:
                     defaults.append(default_val)
-                    
+
             if not self._match(TokenType.COMMA):
                 break
-                
+
         return arguments(
-            args=args,
-            defaults=defaults,
-            vararg=vararg,
-            kwarg=kwarg,
-            line=tok.line,
-            col=tok.col
+            args=args, defaults=defaults, vararg=vararg, kwarg=kwarg, line=tok.line, col=tok.col
         )
 
     def parse_class_def(self) -> ClassDef:
         tok = self._expect(TokenType.USTAD, "Expected 'ustad' to define a class")
         name_tok = self._expect(TokenType.IDENTIFIER, "Expected class name")
-        
+
         bases = []
         if self._match(TokenType.LPAREN):
             while not self._check(TokenType.RPAREN, TokenType.EOF):
@@ -340,7 +395,7 @@ class Parser:
                 if not self._match(TokenType.COMMA):
                     break
             self._expect(TokenType.RPAREN, "Expected ')' after base classes")
-            
+
         body = self.parse_block()
         return ClassDef(name=name_tok.value, bases=bases, body=body, line=tok.line, col=tok.col)
 
@@ -372,16 +427,24 @@ class Parser:
                 if not self._match(TokenType.COMMA):
                     break
             target = Tuple(elts=elts, line=target.line, col=target.col)
-            
+
         self._expect(TokenType.MEIN, "Expected 'mein' after loop target variables")
         iter_expr = self.parse_expression()
         body = self.parse_block()
-        
+
         orelse = []
         if self._match(TokenType.WARNA):
             orelse = self.parse_block()
-            
-        return For(target=target, iter=iter_expr, body=body, orelse=orelse, is_async=is_async, line=tok.line, col=tok.col)
+
+        return For(
+            target=target,
+            iter=iter_expr,
+            body=body,
+            orelse=orelse,
+            is_async=is_async,
+            line=tok.line,
+            col=tok.col,
+        )
 
     def parse_while(self) -> While:
         tok = self._expect(TokenType.JABTAK, "Expected 'jabtak'")
@@ -396,33 +459,33 @@ class Parser:
         tok = self._expect(TokenType.AGAR, "Expected 'agar'")
         test = self.parse_expression()
         body = self.parse_block()
-        
-        orelse = []
+
+        orelse: list[Stmt] = []
         if self._match(TokenType.SHAYAD):
             orelse = [self.parse_elif()]
         elif self._match(TokenType.WARNA):
             orelse = self.parse_block()
-            
+
         return If(test=test, body=body, orelse=orelse, line=tok.line, col=tok.col)
 
     def parse_elif(self) -> If:
         tok = self._previous_token()
         test = self.parse_expression()
         body = self.parse_block()
-        
-        orelse = []
+
+        orelse: list[Stmt] = []
         if self._match(TokenType.SHAYAD):
             orelse = [self.parse_elif()]
         elif self._match(TokenType.WARNA):
             orelse = self.parse_block()
-            
+
         return If(test=test, body=body, orelse=orelse, line=tok.line, col=tok.col)
 
     def parse_match(self) -> Match:
         tok = self._expect(TokenType.AGAR_MATCH, "Expected 'agar_match'")
         subject = self.parse_expression()
         self._expect(TokenType.COLON, "Expected ':' after agar_match subject")
-        
+
         cases = []
         if self._match(TokenType.NEWLINE):
             self._expect(TokenType.INDENT, "Expected indented block after 'agar_match'")
@@ -436,17 +499,17 @@ class Parser:
             self._expect(TokenType.DEDENT, "Expected DEDENT at the end of 'agar_match' block")
         else:
             cases.append(self.parse_match_case())
-            
+
         return Match(subject=subject, cases=cases, line=tok.line, col=tok.col)
 
     def parse_match_case(self) -> match_case:
         tok = self._expect(TokenType.KAAND, "Expected 'kaand'")
         pattern = self.parse_pattern()
-        
+
         guard = None
         if self._match(TokenType.AGAR):
             guard = self.parse_expression()
-            
+
         body = self.parse_block()
         return match_case(pattern=pattern, guard=guard, body=body, line=tok.line, col=tok.col)
 
@@ -454,7 +517,9 @@ class Parser:
         pattern = self.parse_pattern_or()
         if self._match(TokenType.AS):
             name_tok = self._expect(TokenType.IDENTIFIER, "Expected name after 'as'")
-            pattern = MatchAs(pattern=pattern, name=name_tok.value, line=pattern.line, col=pattern.col)
+            pattern = MatchAs(
+                pattern=pattern, name=name_tok.value, line=pattern.line, col=pattern.col
+            )
         return pattern
 
     def parse_pattern_or(self) -> Pattern:
@@ -526,7 +591,7 @@ class Parser:
             if tok.value == "_":
                 self._advance()
                 return MatchAs(pattern=None, name=None, line=tok.line, col=tok.col)
-            
+
             dotted = self.parse_dotted_name()
             if self._match(TokenType.LPAREN):
                 patterns = []
@@ -545,11 +610,20 @@ class Parser:
                     if not self._match(TokenType.COMMA):
                         break
                 self._expect(TokenType.RPAREN, "Expected ')' after class pattern arguments")
-                return MatchClass(cls=dotted, patterns=patterns, kwd_attrs=kwd_attrs, kwd_patterns=kwd_patterns, line=dotted.line, col=dotted.col)
+                return MatchClass(
+                    cls=dotted,
+                    patterns=patterns,
+                    kwd_attrs=kwd_attrs,
+                    kwd_patterns=kwd_patterns,
+                    line=dotted.line,
+                    col=dotted.col,
+                )
             elif isinstance(dotted, Attribute):
                 return MatchValue(value=dotted, line=dotted.line, col=dotted.col)
-            else:
+            elif isinstance(dotted, Name):
                 return MatchAs(pattern=None, name=dotted.id, line=dotted.line, col=dotted.col)
+            else:
+                raise self._error(f"Unexpected dotted name type in pattern: {type(dotted).__name__}")
         elif self._match(TokenType.LBRACKET):
             line, col = self._previous_token().line, self._previous_token().col
             patterns = []
@@ -581,7 +655,9 @@ class Parser:
             rest = None
             while not self._check(TokenType.RBRACE):
                 if self._match(TokenType.DOUBLESTAR):
-                    rest_tok = self._expect(TokenType.IDENTIFIER, "Expected identifier after '**' in dict pattern")
+                    rest_tok = self._expect(
+                        TokenType.IDENTIFIER, "Expected identifier after '**' in dict pattern"
+                    )
                     rest = rest_tok.value
                     break
                 else:
@@ -608,7 +684,7 @@ class Parser:
     def parse_try(self) -> Try:
         tok = self._expect(TokenType.KOSHISH, "Expected 'koshish'")
         body = self.parse_block()
-        
+
         handlers = []
         while self._match(TokenType.GADBAD):
             handler_tok = self._previous_token()
@@ -620,17 +696,32 @@ class Parser:
                     name_tok = self._expect(TokenType.IDENTIFIER, "Expected name after 'as'")
                     exc_name = name_tok.value
             exc_body = self.parse_block()
-            handlers.append(ExceptHandler(type=exc_type, name=exc_name, body=exc_body, line=handler_tok.line, col=handler_tok.col))
-            
+            handlers.append(
+                ExceptHandler(
+                    type=exc_type,
+                    name=exc_name,
+                    body=exc_body,
+                    line=handler_tok.line,
+                    col=handler_tok.col,
+                )
+            )
+
         orelse = []
         if self._match(TokenType.WARNA):
             orelse = self.parse_block()
-            
+
         finalbody = []
         if self._match(TokenType.AAKHIR_ME):
             finalbody = self.parse_block()
-            
-        return Try(body=body, handlers=handlers, orelse=orelse, finalbody=finalbody, line=tok.line, col=tok.col)
+
+        return Try(
+            body=body,
+            handlers=handlers,
+            orelse=orelse,
+            finalbody=finalbody,
+            line=tok.line,
+            col=tok.col,
+        )
 
     def parse_raise(self) -> Raise:
         tok = self._expect(TokenType.UDAO, "Expected 'udao'")
@@ -673,7 +764,7 @@ class Parser:
             while self._match(TokenType.DOT):
                 parts.append(self._expect(TokenType.IDENTIFIER, "Expected submodule name").value)
             m_name = ".".join(parts)
-            
+
             asname = None
             if self._match(TokenType.AS):
                 asname = self._expect(TokenType.IDENTIFIER, "Expected alias").value
@@ -685,20 +776,20 @@ class Parser:
 
     def parse_import_from(self) -> ImportFrom:
         tok = self._expect(TokenType.SE, "Expected 'se'")
-        
+
         level = 0
         while self._match(TokenType.DOT):
             level += 1
-            
+
         m_name = None
         if self._check(TokenType.IDENTIFIER):
             parts = [self._advance().value]
             while self._match(TokenType.DOT):
                 parts.append(self._expect(TokenType.IDENTIFIER, "Expected submodule name").value)
             m_name = ".".join(parts)
-            
+
         self._expect(TokenType.LAO, "Expected 'lao' after from-module")
-        
+
         names = []
         if self._match(TokenType.STAR):
             names.append(alias(name="*", asname=None, line=tok.line, col=tok.col))
@@ -709,12 +800,14 @@ class Parser:
                 asname = None
                 if self._match(TokenType.AS):
                     asname = self._expect(TokenType.IDENTIFIER, "Expected alias").value
-                names.append(alias(name=name_tok.value, asname=asname, line=name_tok.line, col=name_tok.col))
+                names.append(
+                    alias(name=name_tok.value, asname=asname, line=name_tok.line, col=name_tok.col)
+                )
                 if not self._match(TokenType.COMMA):
                     break
             if has_parens:
                 self._expect(TokenType.RPAREN, "Expected ')' after import list")
-                
+
         self._expect_newline_or_eof()
         return ImportFrom(module=m_name, names=names, level=level, line=tok.line, col=tok.col)
 
@@ -743,7 +836,7 @@ class Parser:
 
     def parse_expr_statement_or_assignment(self) -> Stmt:
         expr = self.parse_expression()
-        
+
         # Check for assignment
         if self._match(TokenType.ASSIGN):
             targets = [expr]
@@ -753,7 +846,7 @@ class Parser:
                 value = self.parse_expression()
             self._expect_newline_or_eof()
             return Assign(targets=targets, value=value, line=expr.line, col=expr.col)
-            
+
         # Check for augmented assignment (+=, -=, etc.)
         aug_assign_tokens = {
             TokenType.PLUS_ASSIGN: "+",
@@ -770,14 +863,14 @@ class Parser:
             TokenType.RSHIFT_ASSIGN: ">>",
             TokenType.AT_ASSIGN: "@",
         }
-        
+
         if self._current_token().type in aug_assign_tokens:
             tok = self._advance()
             op = aug_assign_tokens[tok.type]
             value = self.parse_expression()
             self._expect_newline_or_eof()
             return AugAssign(target=expr, op=op, value=value, line=expr.line, col=expr.col)
-            
+
         # Check for annotated assignment, e.g. x: int = 10
         if self._match(TokenType.COLON):
             annotation = self.parse_expression()
@@ -785,8 +878,10 @@ class Parser:
             if self._match(TokenType.ASSIGN):
                 value = self.parse_expression()
             self._expect_newline_or_eof()
-            return AnnAssign(target=expr, annotation=annotation, value=value, line=expr.line, col=expr.col)
-            
+            return AnnAssign(
+                target=expr, annotation=annotation, value=value, line=expr.line, col=expr.col
+            )
+
         # Standard expression statement
         self._expect_newline_or_eof()
         return ExprStmt(value=expr, line=expr.line, col=expr.col)
@@ -797,24 +892,24 @@ class Parser:
         # 1. Lambda functions (chota_funkshan)
         if self._check(TokenType.CHOTA_FUNKSHAN):
             return self.parse_lambda()
-            
+
         # 2. BULAWO prefix sugar: bulawo func(args)
         if self._match(TokenType.BULAWO):
-            tok = self._previous_token()
+            self._previous_token()
             expr = self.parse_primary()
             if not isinstance(expr, Call):
                 raise self._error("'bulawo' keyword ke baad function call hona chahiye")
             return expr
 
         expr = self.parse_logical_or()
-        
+
         # 3. Ternary operator (x if cond else y) -> expr agar cond warna orelse
         if self._match(TokenType.AGAR):
             cond = self.parse_logical_or()
             self._expect(TokenType.WARNA, "Expected 'warna' in ternary expression")
             orelse = self.parse_expression()
             return IfExp(body=expr, test=cond, orelse=orelse, line=expr.line, col=expr.col)
-            
+
         return expr
 
     def parse_lambda(self) -> Lambda:
@@ -827,7 +922,12 @@ class Parser:
                 break
         self._expect(TokenType.COLON, "Expected ':' after lambda parameters")
         body = self.parse_expression()
-        return Lambda(args=arguments(args=args_list, line=tok.line, col=tok.col), body=body, line=tok.line, col=tok.col)
+        return Lambda(
+            args=arguments(args=args_list, line=tok.line, col=tok.col),
+            body=body,
+            line=tok.line,
+            col=tok.col,
+        )
 
     def parse_logical_or(self) -> Expr:
         expr = self.parse_logical_and()
@@ -854,7 +954,7 @@ class Parser:
         expr = self.parse_bitwise_or()
         ops = []
         comparators = []
-        
+
         comp_tokens = {
             TokenType.EQ: "==",
             TokenType.NEQ: "!=",
@@ -867,14 +967,16 @@ class Parser:
             TokenType.HAI: "hai",
             TokenType.NAHI_HAI: "nahi_hai",
         }
-        
+
         while self._current_token().type in comp_tokens:
             tok = self._advance()
             ops.append(comp_tokens[tok.type])
             comparators.append(self.parse_bitwise_or())
-            
+
         if ops:
-            return Compare(left=expr, ops=ops, comparators=comparators, line=expr.line, col=expr.col)
+            return Compare(
+                left=expr, ops=ops, comparators=comparators, line=expr.line, col=expr.col
+            )
         return expr
 
     def parse_bitwise_or(self) -> Expr:
@@ -945,7 +1047,7 @@ class Parser:
             tok = self._previous_token()
             value = self.parse_unary()
             return Await(value=value, line=tok.line, col=tok.col)
-            
+
         return self.parse_power()
 
     def parse_power(self) -> Expr:
@@ -957,7 +1059,7 @@ class Parser:
 
     def parse_primary(self) -> Expr:
         expr = self.parse_atom()
-        
+
         while True:
             if self._match(TokenType.LPAREN):
                 # Call
@@ -968,7 +1070,9 @@ class Parser:
                         id_tok = self._advance()
                         self._advance()  # '='
                         val = self.parse_expression()
-                        keywords.append(keyword(arg=id_tok.value, value=val, line=id_tok.line, col=id_tok.col))
+                        keywords.append(
+                            keyword(arg=id_tok.value, value=val, line=id_tok.line, col=id_tok.col)
+                        )
                     else:
                         args.append(self.parse_expression())
                     if not self._match(TokenType.COMMA):
@@ -985,7 +1089,7 @@ class Parser:
                 expr = Subscript(value=expr, slice=slice_expr, line=expr.line, col=expr.col)
             else:
                 break
-                
+
         return expr
 
     def parse_slice(self) -> Expr:
@@ -993,7 +1097,7 @@ class Parser:
         first = None
         if not self._check(TokenType.COLON, TokenType.RBRACKET):
             first = self.parse_expression()
-            
+
         if self._match(TokenType.COLON):
             upper = None
             if not self._check(TokenType.COLON, TokenType.RBRACKET):
@@ -1010,7 +1114,7 @@ class Parser:
 
     def parse_atom(self) -> Expr:
         tok = self._current_token()
-        
+
         if self._match(TokenType.INT):
             v_str = self._previous_token().value
             if v_str.startswith(("0x", "0X")):
@@ -1022,29 +1126,29 @@ class Parser:
             else:
                 val = int(v_str)
             return Constant(value=val, line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.FLOAT):
             return Constant(value=float(self._previous_token().value), line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.STRING):
             return Constant(value=self._previous_token().value, line=tok.line, col=tok.col)
-            
+
         elif self._check(TokenType.FSTRING):
             f_tok = self._advance()
             return self.parse_fstring(f_tok)
-            
+
         elif self._match(TokenType.SAHI):
             return Constant(value=True, line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.GALAT):
             return Constant(value=False, line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.KUCH_NAHI):
             return Constant(value=None, line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.KHUD):
             return Name(id="self", line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.IDENTIFIER):
             return Name(id=self._previous_token().value, line=tok.line, col=tok.col)
 
@@ -1053,24 +1157,24 @@ class Parser:
             return Name(id="bolo", line=tok.line, col=tok.col)
         elif self._match(TokenType.POOCHHO):
             return Name(id="poochho", line=tok.line, col=tok.col)
-            
+
         elif self._match(TokenType.LBRACKET):
             return self.parse_list_or_comp()
-            
+
         elif self._match(TokenType.LBRACE):
             return self.parse_dict_or_set_or_comp()
-            
+
         elif self._match(TokenType.LPAREN):
             # Tuple, grouped expression, or generator expression
             if self._match(TokenType.RPAREN):
                 return Tuple(elts=[], line=tok.line, col=tok.col)
-                
+
             first = self.parse_expression()
             if self._check(TokenType.GHUMO):
                 generators = self.parse_comprehensions()
                 self._expect(TokenType.RPAREN, "Expected ')' at end of generator expression")
                 return GeneratorExp(elt=first, generators=generators, line=tok.line, col=tok.col)
-                
+
             if self._match(TokenType.COMMA):
                 elts = [first]
                 while not self._check(TokenType.RPAREN, TokenType.EOF):
@@ -1079,21 +1183,23 @@ class Parser:
                         break
                 self._expect(TokenType.RPAREN, "Expected ')' at end of tuple")
                 return Tuple(elts=elts, line=tok.line, col=tok.col)
-                
+
             self._expect(TokenType.RPAREN, "Expected ')' after grouped expression")
             return first
-            
+
         elif self._match(TokenType.ELLIPSIS):
             return Constant(value=..., line=tok.line, col=tok.col)
-            
-        raise self._error(f"Ye expression kya hai bhai? Unexpected token: {tok.value or tok.type.name}")
+
+        raise self._error(
+            f"Ye expression kya hai bhai? Unexpected token: {tok.value or tok.type.name}"
+        )
 
     def parse_fstring(self, token: Token) -> Expr:
         parts = []
         val = token.value
         pos = 0
         while pos < len(val):
-            if val[pos] == "{" and (pos == 0 or val[pos-1] != "\\"):
+            if val[pos] == "{" and (pos == 0 or val[pos - 1] != "\\"):
                 # Start of expression
                 pos += 1
                 start = pos
@@ -1107,47 +1213,54 @@ class Parser:
                             break
                     pos += 1
                 if pos >= len(val):
-                    raise ParseError("f-string expression brace band nahi hua", token.line, token.col)
+                    raise ParseError(
+                        "f-string expression brace band nahi hua", token.line, token.col
+                    )
                 expr_str = val[start:pos]
                 pos += 1  # skip '}'
-                
+
                 # Lex and Parse the expression inside {}
                 from ..lexer.lexer import Lexer
+
                 sub_lexer = Lexer(expr_str, filename=self._filename)
                 sub_lexer._line = token.line
                 sub_lexer._col = token.col + start
                 sub_tokens = sub_lexer.tokenize()
                 if sub_tokens and sub_tokens[-1].type == TokenType.EOF:
                     sub_tokens.pop()
-                    
+
                 if not sub_tokens:
                     raise ParseError("f-string expression khali hai", token.line, token.col)
-                    
-                sub_parser = Parser(sub_tokens, filename=self._filename, source=self._source_line_at(token.line))
+
+                sub_parser = Parser(
+                    sub_tokens, filename=self._filename, source=self._source_line_at(token.line)
+                )
                 expr = sub_parser.parse_expression()
                 parts.append(FormattedValue(value=expr, line=token.line, col=token.col + start))
             else:
                 # String constant part
                 start = pos
-                while pos < len(val) and not (val[pos] == "{" and (pos == 0 or val[pos-1] != "\\")):
+                while pos < len(val) and not (
+                    val[pos] == "{" and (pos == 0 or val[pos - 1] != "\\")
+                ):
                     pos += 1
                 segment = val[start:pos]
                 segment = segment.replace("\\{", "{").replace("\\}", "}")
                 parts.append(Constant(value=segment, line=token.line, col=token.col + start))
-                
+
         return JoinedStr(values=parts, line=token.line, col=token.col)
 
     def parse_list_or_comp(self) -> Expr:
         tok = self._previous_token()
         if self._match(TokenType.RBRACKET):
             return List(elts=[], line=tok.line, col=tok.col)
-            
+
         first = self.parse_expression()
         if self._check(TokenType.GHUMO):
             generators = self.parse_comprehensions()
             self._expect(TokenType.RBRACKET, "Expected ']' at end of list comprehension")
             return ListComp(elt=first, generators=generators, line=tok.line, col=tok.col)
-            
+
         elts = [first]
         while self._match(TokenType.COMMA):
             if self._check(TokenType.RBRACKET):
@@ -1160,7 +1273,7 @@ class Parser:
         tok = self._previous_token()
         if self._match(TokenType.RBRACE):
             return Dict(keys=[], values=[], line=tok.line, col=tok.col)
-            
+
         first = self.parse_expression()
         if self._match(TokenType.COLON):
             # Dict or DictComp
@@ -1168,9 +1281,11 @@ class Parser:
             if self._check(TokenType.GHUMO):
                 generators = self.parse_comprehensions()
                 self._expect(TokenType.RBRACE, "Expected '}' at end of dict comprehension")
-                return DictComp(key=first, value=val, generators=generators, line=tok.line, col=tok.col)
-                
-            keys = [first]
+                return DictComp(
+                    key=first, value=val, generators=generators, line=tok.line, col=tok.col
+                )
+
+            keys: list[Expr | None] = [first]
             values = [val]
             while self._match(TokenType.COMMA):
                 if self._check(TokenType.RBRACE):
@@ -1188,7 +1303,7 @@ class Parser:
                 generators = self.parse_comprehensions()
                 self._expect(TokenType.RBRACE, "Expected '}' at end of set comprehension")
                 return SetComp(elt=first, generators=generators, line=tok.line, col=tok.col)
-                
+
             elts = [first]
             while self._match(TokenType.COMMA):
                 if self._check(TokenType.RBRACE):
@@ -1206,7 +1321,7 @@ class Parser:
                 self._advance()
                 self._expect(TokenType.GHUMO, "Expected 'ghumo' after 'tez' in comprehension")
                 is_async = True
-                
+
             target = self.parse_primary()
             if self._match(TokenType.COMMA):
                 elts = [target]
@@ -1215,11 +1330,13 @@ class Parser:
                     if not self._match(TokenType.COMMA):
                         break
                 target = Tuple(elts=elts, line=target.line, col=target.col)
-                
+
             self._expect(TokenType.MEIN, "Expected 'mein' in comprehension")
             iter_expr = self.parse_expression()
             ifs = []
             while self._match(TokenType.AGAR):
                 ifs.append(self.parse_expression())
-            generators.append(comprehension(target=target, iter=iter_expr, ifs=ifs, is_async=is_async))
+            generators.append(
+                comprehension(target=target, iter=iter_expr, ifs=ifs, is_async=is_async)
+            )
         return generators

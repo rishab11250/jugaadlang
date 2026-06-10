@@ -1,6 +1,7 @@
 """
 jokes — JugaadLang Programmer Jokes Module.
 """
+
 import random
 
 JOKES = [

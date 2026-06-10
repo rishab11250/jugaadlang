@@ -1,6 +1,7 @@
 """
 crypto — JugaadLang Cryptography Module.
 """
+
 import hashlib
 import base64
 

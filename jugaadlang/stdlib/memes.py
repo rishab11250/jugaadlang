@@ -1,6 +1,7 @@
 """
 memes — JugaadLang Programmer Memes Module.
 """
+
 import random
 
 MEMES = [

@@ -1,21 +1,39 @@
 """
 Tests for JugaadLang Parser.
 """
+
 from jugaadlang.lexer.lexer import Lexer
 from jugaadlang.parser.parser import Parser
 from jugaadlang.ast_nodes.nodes import (
-    Module, ExprStmt, Call, Name, Assign, If, Constant, FunctionDef,
-    ClassDef, Slice, Subscript, Lambda, IfExp, Await,
-    Match, match_case, MatchAs, MatchValue, MatchSingleton, MatchSequence, MatchMapping, MatchClass
+    Module,
+    ExprStmt,
+    Call,
+    Name,
+    Assign,
+    If,
+    Constant,
+    FunctionDef,
+    ClassDef,
+    Slice,
+    Subscript,
+    Lambda,
+    IfExp,
+    Await,
+    Match,
+    MatchAs,
+    MatchValue,
+    MatchSingleton,
+    MatchSequence,
+    MatchClass,
 )
 
 
 def test_parse_expression_stmt():
-    src = "bolo(\"hello\")"
+    src = 'bolo("hello")'
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     assert isinstance(ast_mod, Module)
     assert len(ast_mod.body) == 1
     stmt = ast_mod.body[0]
@@ -30,7 +48,7 @@ def test_parse_assignment():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, Assign)
     assert len(stmt.targets) == 1
@@ -45,7 +63,7 @@ def test_parse_if_statement():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, If)
     assert isinstance(stmt.test, Constant)
@@ -57,7 +75,7 @@ def test_parse_function_def():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, FunctionDef)
     assert stmt.name == "add"
@@ -71,7 +89,7 @@ def test_parse_class_inheritance():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, ClassDef)
     assert stmt.name == "Child"
@@ -85,7 +103,7 @@ def test_parse_slicing():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, ExprStmt)
     sub = stmt.value
@@ -93,9 +111,9 @@ def test_parse_slicing():
     assert isinstance(sub.value, Name)
     assert sub.value.id == "x"
     assert isinstance(sub.slice, Slice)
-    assert sub.slice.lower.value == 1
-    assert sub.slice.upper.value == 5
-    assert sub.slice.step.value == 2
+    assert sub.slice.lower is not None and sub.slice.lower.value == 1  # ty: ignore[unresolved-attribute]
+    assert sub.slice.upper is not None and sub.slice.upper.value == 5  # ty: ignore[unresolved-attribute]
+    assert sub.slice.step is not None and sub.slice.step.value == 2  # ty: ignore[unresolved-attribute]
 
 
 def test_parse_lambda():
@@ -103,7 +121,7 @@ def test_parse_lambda():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, ExprStmt)
     lam = stmt.value
@@ -118,7 +136,7 @@ def test_parse_ternary():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, ExprStmt)
     ternary = stmt.value
@@ -136,11 +154,11 @@ def test_parse_async_await():
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, FunctionDef)
     assert stmt.is_async is True
-    
+
     await_stmt = stmt.body[0]
     assert isinstance(await_stmt, ExprStmt)
     assert isinstance(await_stmt.value, Await)
@@ -164,36 +182,36 @@ agar_match x:
     tokens = Lexer(src).tokenize()
     parser = Parser(tokens, source=src)
     ast_mod = parser.parse()
-    
+
     stmt = ast_mod.body[0]
     assert isinstance(stmt, Match)
     assert len(stmt.cases) == 5
-    
+
     # Check cases
     case0 = stmt.cases[0]
     assert isinstance(case0.pattern, MatchValue)
     assert isinstance(case0.pattern.value, Constant)
     assert case0.pattern.value.value == 1
-    
+
     case1 = stmt.cases[1]
     assert isinstance(case1.pattern, MatchSingleton)
     assert case1.pattern.value is True
     assert isinstance(case1.guard, Name)
     assert case1.guard.id == "x"
-    
+
     case2 = stmt.cases[2]
     assert isinstance(case2.pattern, MatchSequence)
     assert len(case2.pattern.patterns) == 2
     assert isinstance(case2.pattern.patterns[0], MatchAs)
     assert case2.pattern.patterns[0].name == "a"
-    
+
     case3 = stmt.cases[3]
     assert isinstance(case3.pattern, MatchClass)
-    assert case3.pattern.cls.id == "Point"
+    assert isinstance(case3.pattern, MatchClass) and case3.pattern.cls.id == "Point"  # ty: ignore[unresolved-attribute]
     assert len(case3.pattern.patterns) == 1
     assert case3.pattern.kwd_attrs == ["y"]
     assert isinstance(case3.pattern.kwd_patterns[0], MatchValue)
-    
+
     case4 = stmt.cases[4]
     assert isinstance(case4.pattern, MatchAs)
     assert case4.pattern.name is None

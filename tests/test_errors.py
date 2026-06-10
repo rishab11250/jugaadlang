@@ -1,6 +1,7 @@
 """
 Tests for JugaadLang Funny Errors.
 """
+
 from jugaadlang.errors.messages import format_error
 
 
@@ -26,7 +27,7 @@ def test_zero_division_formatting():
 
 def test_type_error_formatting():
     try:
-        "string" + 5
+        "string" + 5  # ty: ignore[unsupported-operator]
     except TypeError as e:
         formatted = format_error(e, '"string" + 5')
         assert "Type mismatch ho gaya" in formatted
@@ -53,7 +54,7 @@ def test_key_error_formatting():
 
 def test_attribute_error_formatting():
     try:
-        object().non_existent_attr
+        object().non_existent_attr  # ty: ignore[unresolved-attribute]
     except AttributeError as e:
         formatted = format_error(e, "obj.non_existent_attr")
         assert "Attribute mila hi nahi" in formatted

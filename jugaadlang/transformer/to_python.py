@@ -1,21 +1,78 @@
 """
 JugaadLang Transformer — Converts JugaadLang AST to Python standard library AST.
 """
+
 from __future__ import annotations
 import ast
 from typing import Any
 
 from ..ast_nodes.nodes import (
-    Module, Stmt, Expr, FunctionDef, ClassDef, Return, Delete, Assign,
-    AugAssign, AnnAssign, For, While, If, With, Raise, Try, Assert,
-    Import, ImportFrom, Global, Nonlocal, ExprStmt, Pass, Break,
-    Continue, PoochhoStmt, BoolOp, BinOp, UnaryOp, Lambda, IfExp,
-    Dict, Set, ListComp, SetComp, DictComp, GeneratorExp, Await,
-    Yield, YieldFrom, Compare, Call, FormattedValue, JoinedStr,
-    Constant, Attribute, Subscript, Starred, Name, List, Tuple,
-    Slice, comprehension, arg, arguments, keyword, alias, withitem,
-    ExceptHandler, Match, match_case, Pattern, MatchValue, MatchSingleton,
-    MatchAs, MatchOr, MatchSequence, MatchMapping, MatchClass
+    Module,
+    FunctionDef,
+    ClassDef,
+    Return,
+    Delete,
+    Assign,
+    AugAssign,
+    AnnAssign,
+    For,
+    While,
+    If,
+    With,
+    Raise,
+    Try,
+    Assert,
+    Import,
+    ImportFrom,
+    Global,
+    Nonlocal,
+    ExprStmt,
+    Pass,
+    Break,
+    Continue,
+    PoochhoStmt,
+    BoolOp,
+    BinOp,
+    UnaryOp,
+    Lambda,
+    IfExp,
+    Dict,
+    Set,
+    ListComp,
+    SetComp,
+    DictComp,
+    GeneratorExp,
+    Await,
+    Yield,
+    YieldFrom,
+    Compare,
+    Call,
+    FormattedValue,
+    JoinedStr,
+    Constant,
+    Attribute,
+    Subscript,
+    Starred,
+    Name,
+    List,
+    Tuple,
+    Slice,
+    comprehension,
+    arg,
+    arguments,
+    keyword,
+    alias,
+    withitem,
+    ExceptHandler,
+    Match,
+    match_case,
+    MatchValue,
+    MatchSingleton,
+    MatchAs,
+    MatchOr,
+    MatchSequence,
+    MatchMapping,
+    MatchClass,
 )
 
 # ── Operator Mappings ────────────────────────────────────────────────────────
@@ -80,11 +137,11 @@ class JugaadToPythonTransformer:
         """Dispatches node visiting recursively."""
         if node is None:
             return None
-            
+
         method_name = f"visit_{type(node).__name__}"
         visitor = getattr(self, method_name, self.generic_visit)
         res = visitor(node, ctx)
-        
+
         # Propagate line and column info to Python AST nodes for accurate error stack traces
         if isinstance(res, ast.AST) and hasattr(node, "line") and hasattr(node, "col"):
             res.lineno = node.line
@@ -92,11 +149,13 @@ class JugaadToPythonTransformer:
             # Also set end lines if available or copy from start
             res.end_lineno = node.line
             res.end_col_offset = node.col
-            
+
         return res
 
     def generic_visit(self, node: Any, ctx: Any = None) -> Any:
-        raise NotImplementedError(f"Transformer visitor visit_{type(node).__name__} is not implemented")
+        raise NotImplementedError(
+            f"Transformer visitor visit_{type(node).__name__} is not implemented"
+        )
 
     # ── Visitor Methods ───────────────────────────────────────────────
 
@@ -111,22 +170,14 @@ class JugaadToPythonTransformer:
         body = [self.visit(stmt) for stmt in node.body]
         decorators = [self.visit(dec) for dec in node.decorator_list]
         returns = self.visit(node.returns) if node.returns else None
-        
+
         if node.is_async:
             return ast.AsyncFunctionDef(
-                name=name,
-                args=args,
-                body=body,
-                decorator_list=decorators,
-                returns=returns
+                name=name, args=args, body=body, decorator_list=decorators, returns=returns
             )
         else:
             return ast.FunctionDef(
-                name=name,
-                args=args,
-                body=body,
-                decorator_list=decorators,
-                returns=returns
+                name=name, args=args, body=body, decorator_list=decorators, returns=returns
             )
 
     def visit_arguments(self, node: arguments, ctx: Any = None) -> ast.arguments:
@@ -134,7 +185,7 @@ class JugaadToPythonTransformer:
         py_defaults = [self.visit(def_val) for def_val in node.defaults]
         py_vararg = self.visit(node.vararg) if node.vararg else None
         py_kwarg = self.visit(node.kwarg) if node.kwarg else None
-        
+
         return ast.arguments(
             posonlyargs=[],
             args=py_args,
@@ -142,7 +193,7 @@ class JugaadToPythonTransformer:
             kwonlyargs=[],
             kw_defaults=[],
             kwarg=py_kwarg,
-            defaults=py_defaults
+            defaults=py_defaults,
         )
 
     def visit_arg(self, node: arg, ctx: Any = None) -> ast.arg:
@@ -156,11 +207,7 @@ class JugaadToPythonTransformer:
         body = [self.visit(stmt) for stmt in node.body]
         decorators = [self.visit(dec) for dec in node.decorator_list]
         return ast.ClassDef(
-            name=node.name,
-            bases=bases,
-            keywords=[],
-            body=body,
-            decorator_list=decorators
+            name=node.name, bases=bases, keywords=[], body=body, decorator_list=decorators
         )
 
     def visit_Return(self, node: Return, ctx: Any = None) -> ast.Return:
@@ -193,7 +240,7 @@ class JugaadToPythonTransformer:
         iter_expr = self.visit(node.iter)
         body = [self.visit(stmt) for stmt in node.body]
         orelse = [self.visit(stmt) for stmt in node.orelse]
-        
+
         if node.is_async:
             return ast.AsyncFor(target=target, iter=iter_expr, body=body, orelse=orelse)
         else:
@@ -278,11 +325,7 @@ class JugaadToPythonTransformer:
 
     def visit_PoochhoStmt(self, node: PoochhoStmt, ctx: Any = None) -> ast.Assign:
         target = self.visit(node.target, ast.Store())
-        input_call = ast.Call(
-            func=ast.Name(id="input", ctx=ast.Load()),
-            args=[],
-            keywords=[]
-        )
+        input_call = ast.Call(func=ast.Name(id="input", ctx=ast.Load()), args=[], keywords=[])
         return ast.Assign(targets=[target], value=input_call)
 
     def visit_BoolOp(self, node: BoolOp, ctx: Any = None) -> ast.BoolOp:
@@ -362,7 +405,7 @@ class JugaadToPythonTransformer:
 
     def visit_Compare(self, node: Compare, ctx: Any = None) -> ast.Compare:
         left = self.visit(node.left)
-        ops = [COMP_OPS[op]() for op in node.ops]
+        ops: list[ast.cmpop] = [COMP_OPS[op]() for op in node.ops]
         comparators = [self.visit(c) for c in node.comparators]
         return ast.Compare(left=left, ops=ops, comparators=comparators)
 
@@ -505,4 +548,6 @@ class JugaadToPythonTransformer:
         cls = self.visit(node.cls)
         patterns = [self.visit(p) for p in node.patterns]
         kwd_patterns = [self.visit(p) for p in node.kwd_patterns]
-        return ast.MatchClass(cls=cls, patterns=patterns, kwd_attrs=node.kwd_attrs, kwd_patterns=kwd_patterns)
+        return ast.MatchClass(
+            cls=cls, patterns=patterns, kwd_attrs=node.kwd_attrs, kwd_patterns=kwd_patterns
+        )

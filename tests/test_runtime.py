@@ -1,7 +1,7 @@
 """
 Tests for JugaadLang Runtime/Interpreter.
 """
-import pytest
+
 import os
 from jugaadlang.runtime.interpreter import JugaadInterpreter
 
@@ -129,9 +129,10 @@ banao hello_test():
     wapas "working"
 """
     interpreter.run(code)
-    
+
     # Verify that the route was correctly registered in web default app
     import sys
+
     web_module = sys.modules["web"]
     assert "/test" in web_module._default_app.routes
     handler, methods = web_module._default_app.routes["/test"]
@@ -174,16 +175,16 @@ def test_lockfile_generation(tmp_path):
     old_cwd = os.getcwd()
     os.chdir(tmp_path)
     try:
-        with patch("subprocess.run") as mock_run, patch("importlib.metadata.version", return_value="1.2.3"):
+        with patch("subprocess.run"), patch("importlib.metadata.version", return_value="1.2.3"):
             JugaadPackageManager.install("dummy-pkg")
-            
+
             lock_file = tmp_path / "jug.lock"
             assert lock_file.exists()
             with open(lock_file, "r") as f:
                 data = json.load(f)
             assert "packages" in data
             assert data["packages"]["dummy-pkg"] == "1.2.3"
-            
+
             JugaadPackageManager.remove("dummy-pkg")
             with open(lock_file, "r") as f:
                 data = json.load(f)
@@ -220,16 +221,16 @@ val_type = prakar("test") == shabd
 def test_cli_typecheck(tmp_path):
     from click.testing import CliRunner
     from jug_cli.main import typecheck
-    
+
     # 1. Test valid file
     file_ok = tmp_path / "test_ok.jug"
     file_ok.write_text("naam: shabd = 'Aaman'\numar: purnank = 20\n", encoding="utf-8")
-    
+
     runner = CliRunner()
     result = runner.invoke(typecheck, [str(file_ok)])
     assert result.exit_code == 0
     assert "Type check passed" in result.output
-    
+
     # 2. Test invalid file (type mismatch)
     file_err = tmp_path / "test_err.jug"
     file_err.write_text("naam: shabd = 'Aaman'\numar: purnank = 'twenty'\n", encoding="utf-8")
@@ -255,7 +256,7 @@ gadbad ZeroDivisionError jaise e:
 
 def test_all_keywords_covered():
     interpreter = JugaadInterpreter()
-    
+
     # 1. Test ke_saath (with) context manager
     interpreter.run("""
 ustad Manager:

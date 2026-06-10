@@ -11,9 +11,9 @@ Supports:
   - All operators including **, //, ->, :=, ==, !=, <=, >=
   - Full Unicode + emoji support in identifiers and strings
 """
+
 from __future__ import annotations
 
-import re
 from typing import Iterator
 
 from .tokens import Token, TokenType, KEYWORDS
@@ -33,6 +33,7 @@ class LexerError(Exception):
 #  Character helpers
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def _is_id_start(ch: str) -> bool:
     """Can this character start an identifier?"""
     return ch.isalpha() or ch == "_" or (ord(ch) > 127)
@@ -46,6 +47,7 @@ def _is_id_cont(ch: str) -> bool:
 # ─────────────────────────────────────────────────────────────────────────────
 #  Lexer
 # ─────────────────────────────────────────────────────────────────────────────
+
 
 class Lexer:
     """
@@ -107,10 +109,7 @@ class Lexer:
         return ""
 
     def _error(self, msg: str) -> LexerError:
-        return LexerError(
-            msg, self._line, self._col,
-            self._source_line_at(self._line)
-        )
+        return LexerError(msg, self._line, self._col, self._source_line_at(self._line))
 
     # ── Main generator ────────────────────────────────────────────────
 
@@ -126,7 +125,6 @@ class Lexer:
           5. Emit EOF at the end.
         """
         at_line_start = True
-        pending_tokens: list[Token] = []
 
         while self._pos < len(self.source):
             line, col = self._line, self._col
@@ -192,7 +190,7 @@ class Lexer:
 
             # ── Comments ──────────────────────────────────────────
             if ch == "#":
-                comment = self._scan_line_comment()
+                self._scan_line_comment()
                 # Don't emit COMMENT tokens — just skip
                 continue
 
@@ -243,21 +241,24 @@ class Lexer:
         while self._pos < len(self.source) and self.source[self._pos] != "\n":
             self._pos += 1
             self._col += 1
-        return self.source[start:self._pos]
+        return self.source[start : self._pos]
 
     def _scan_line_comment_slash(self) -> None:
         # Skip "//"
-        self._advance(); self._advance()
+        self._advance()
+        self._advance()
         while self._pos < len(self.source) and self.source[self._pos] != "\n":
             self._advance()
 
     def _scan_block_comment(self) -> None:
         # Skip "/*"
         line, col = self._line, self._col
-        self._advance(); self._advance()
+        self._advance()
+        self._advance()
         while self._pos < len(self.source):
             if self.source[self._pos] == "*" and self._peek() == "/":
-                self._advance(); self._advance()
+                self._advance()
+                self._advance()
                 return
             self._advance()
         raise LexerError("Block comment band nahi hua (*/ missing)", line, col)
@@ -275,38 +276,61 @@ class Lexer:
 
         # Check for triple quote
         if self._current() == quote_char and self._peek() == quote_char:
-            self._advance(); self._advance()
+            self._advance()
+            self._advance()
             triple = True
 
         buf: list[str] = []
         while True:
             if self._pos >= len(self.source):
-                raise LexerError("String khatam nahi hua (closing quote missing)", line, col,
-                                  self._source_line_at(line))
+                raise LexerError(
+                    "String khatam nahi hua (closing quote missing)",
+                    line,
+                    col,
+                    self._source_line_at(line),
+                )
 
             ch = self.source[self._pos]
 
             if triple:
-                if (ch == quote_char and
-                        self._pos + 1 < len(self.source) and self.source[self._pos + 1] == quote_char and
-                        self._pos + 2 < len(self.source) and self.source[self._pos + 2] == quote_char):
-                    self._advance(); self._advance(); self._advance()
+                if (
+                    ch == quote_char
+                    and self._pos + 1 < len(self.source)
+                    and self.source[self._pos + 1] == quote_char
+                    and self._pos + 2 < len(self.source)
+                    and self.source[self._pos + 2] == quote_char
+                ):
+                    self._advance()
+                    self._advance()
+                    self._advance()
                     break
             else:
                 if ch == quote_char:
                     self._advance()
                     break
                 if ch == "\n":
-                    raise LexerError("Single-line string mein newline nahi dal sakte", line, col,
-                                      self._source_line_at(line))
+                    raise LexerError(
+                        "Single-line string mein newline nahi dal sakte",
+                        line,
+                        col,
+                        self._source_line_at(line),
+                    )
 
             if ch == "\\":
                 self._advance()
                 esc = self._advance()
                 escape_map = {
-                    "n": "\n", "t": "\t", "r": "\r",
-                    "\\": "\\", "'": "'", '"': '"',
-                    "0": "\0", "a": "\a", "b": "\b", "f": "\f", "v": "\v",
+                    "n": "\n",
+                    "t": "\t",
+                    "r": "\r",
+                    "\\": "\\",
+                    "'": "'",
+                    '"': '"',
+                    "0": "\0",
+                    "a": "\a",
+                    "b": "\b",
+                    "f": "\f",
+                    "v": "\v",
                 }
                 if esc in escape_map:
                     buf.append(escape_map[esc])
@@ -339,36 +363,51 @@ class Lexer:
 
         if self._current() == "0" and self._peek() in ("x", "X"):
             # Hex
-            self._advance(); self._advance()
-            while self._pos < len(self.source) and (self.source[self._pos] in "0123456789abcdefABCDEF_"):
+            self._advance()
+            self._advance()
+            while self._pos < len(self.source) and (
+                self.source[self._pos] in "0123456789abcdefABCDEF_"
+            ):
                 self._advance()
-            yield self._make(TokenType.INT, self.source[start:self._pos].replace("_", ""), line, col)
+            yield self._make(
+                TokenType.INT, self.source[start : self._pos].replace("_", ""), line, col
+            )
             return
 
         if self._current() == "0" and self._peek() in ("o", "O"):
             # Octal
-            self._advance(); self._advance()
+            self._advance()
+            self._advance()
             while self._pos < len(self.source) and self.source[self._pos] in "01234567_":
                 self._advance()
-            yield self._make(TokenType.INT, self.source[start:self._pos].replace("_", ""), line, col)
+            yield self._make(
+                TokenType.INT, self.source[start : self._pos].replace("_", ""), line, col
+            )
             return
 
         if self._current() == "0" and self._peek() in ("b", "B"):
             # Binary
-            self._advance(); self._advance()
+            self._advance()
+            self._advance()
             while self._pos < len(self.source) and self.source[self._pos] in "01_":
                 self._advance()
-            yield self._make(TokenType.INT, self.source[start:self._pos].replace("_", ""), line, col)
+            yield self._make(
+                TokenType.INT, self.source[start : self._pos].replace("_", ""), line, col
+            )
             return
 
         # Decimal / float
-        while self._pos < len(self.source) and (self.source[self._pos].isdigit() or self.source[self._pos] == "_"):
+        while self._pos < len(self.source) and (
+            self.source[self._pos].isdigit() or self.source[self._pos] == "_"
+        ):
             self._advance()
 
         if self._pos < len(self.source) and self.source[self._pos] == "." and self._peek() != ".":
             is_float = True
             self._advance()
-            while self._pos < len(self.source) and (self.source[self._pos].isdigit() or self.source[self._pos] == "_"):
+            while self._pos < len(self.source) and (
+                self.source[self._pos].isdigit() or self.source[self._pos] == "_"
+            ):
                 self._advance()
 
         # Optional exponent
@@ -380,7 +419,7 @@ class Lexer:
             while self._pos < len(self.source) and self.source[self._pos].isdigit():
                 self._advance()
 
-        raw = self.source[start:self._pos].replace("_", "")
+        raw = self.source[start : self._pos].replace("_", "")
         ttype = TokenType.FLOAT if is_float else TokenType.INT
         yield self._make(ttype, raw, line, col)
 
@@ -390,7 +429,7 @@ class Lexer:
         start = self._pos
         while self._pos < len(self.source) and _is_id_cont(self.source[self._pos]):
             self._advance()
-        word = self.source[start:self._pos]
+        word = self.source[start : self._pos]
         ttype = KEYWORDS.get(word, TokenType.IDENTIFIER)
         return self._make(ttype, word, line, col)
 
@@ -398,23 +437,25 @@ class Lexer:
 
     def _scan_operator(self, line: int, col: int) -> Token | None:
         ch = self._current()
-        nxt = self._peek()
 
         def adv1(t: TokenType, v: str) -> Token:
             self._advance()
             return self._make(t, v, line, col)
 
         def adv2(t: TokenType, v: str) -> Token:
-            self._advance(); self._advance()
+            self._advance()
+            self._advance()
             return self._make(t, v, line, col)
 
         def adv3(t: TokenType, v: str) -> Token:
-            self._advance(); self._advance(); self._advance()
+            self._advance()
+            self._advance()
+            self._advance()
             return self._make(t, v, line, col)
 
         # Two-char then three-char operators first
-        three = self.source[self._pos:self._pos + 3]
-        two   = self.source[self._pos:self._pos + 2]
+        three = self.source[self._pos : self._pos + 3]
+        two = self.source[self._pos : self._pos + 2]
 
         three_map = {
             "**=": TokenType.DOUBLESTAR_ASSIGN,

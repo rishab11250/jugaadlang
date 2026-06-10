@@ -1,6 +1,7 @@
 """
 ganit — JugaadLang Mathematics Module (Hindi wrappers for Python math).
 """
+
 import math
 
 # Constants
@@ -36,8 +37,16 @@ sqrt = math.sqrt
 ceil = math.ceil
 floor = math.floor
 abs = abs
-square = lambda x: x * x
-cube = lambda x: x * x * x
+
+
+def square(x):
+    return x * x
+
+
+def cube(x):
+    return x * x * x
+
+
 factorial = math.factorial
 gcd = math.gcd
 degrees = math.degrees

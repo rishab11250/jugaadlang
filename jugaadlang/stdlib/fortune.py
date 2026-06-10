@@ -1,6 +1,7 @@
 """
 fortune — JugaadLang Developer Fortune Teller Module.
 """
+
 import random
 
 FORTUNES = [

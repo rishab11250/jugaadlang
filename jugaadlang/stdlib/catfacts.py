@@ -1,6 +1,7 @@
 """
 catfacts — JugaadLang Cat Facts Module.
 """
+
 import random
 
 FACTS = [

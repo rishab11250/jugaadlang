@@ -1,6 +1,7 @@
 """
 motivation — JugaadLang Developer Motivation Module.
 """
+
 import random
 
 QUOTES = [

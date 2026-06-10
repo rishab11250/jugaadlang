@@ -1,6 +1,7 @@
 """
 samay — JugaadLang Date and Time Module.
 """
+
 import time
 import datetime
 

@@ -2,6 +2,7 @@
 chai — JugaadLang Chai Module.
 """
 
+
 def piyo() -> None:
     """Prints a beautiful ASCII art cup of tea and a friendly advice."""
     print("""

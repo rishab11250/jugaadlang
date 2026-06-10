@@ -1,6 +1,7 @@
 """
 JugaadORM — SQLite-backed Object-Relational Mapper for JugaadLang.
 """
+
 from __future__ import annotations
 import sqlite3
 from typing import Any, Optional, Type, TypeVar
@@ -10,6 +11,7 @@ T = TypeVar("T", bound="Model")
 
 class Field:
     """Base Field type."""
+
     def __init__(self, sql_type: str, primary_key: bool = False, default: Any = None) -> None:
         self.sql_type = sql_type
         self.primary_key = primary_key
@@ -18,24 +20,28 @@ class Field:
 
 class String(Field):
     """Text column."""
+
     def __init__(self, default: Optional[str] = None) -> None:
         super().__init__("TEXT", default=default)
 
 
 class Integer(Field):
     """Integer column."""
+
     def __init__(self, primary_key: bool = False, default: Optional[int] = None) -> None:
         super().__init__("INTEGER", primary_key=primary_key, default=default)
 
 
 class Float(Field):
     """Float/Real column."""
+
     def __init__(self, default: Optional[float] = None) -> None:
         super().__init__("REAL", default=default)
 
 
 class Boolean(Field):
     """Boolean column mapped to integer (0 or 1)."""
+
     def __init__(self, default: Optional[bool] = None) -> None:
         val = None if default is None else (1 if default else 0)
         super().__init__("INTEGER", default=val)
@@ -45,7 +51,8 @@ class Model:
     """
     Base class for JugaadORM models.
     """
-    id = Integer(primary_key=True)
+
+    id: Any = Integer(primary_key=True)
     _db_path: str = "jugaad.db"
 
     def __init__(self, **kwargs: Any) -> None:
@@ -56,7 +63,7 @@ class Model:
                     self._fields[name] = attr
                     # Set default
                     setattr(self, name, kwargs.get(name, attr.default))
-        
+
         # Ensure id is initialized
         if "id" not in kwargs:
             self.id = None
@@ -114,9 +121,9 @@ class Model:
         """Save (insert or update) record to database."""
         # Ensure table exists
         self.banao_table()
-        
+
         field_names = [name for name in self._fields.keys() if name != "id"]
-        
+
         with self.connect() as conn:
             try:
                 cursor = conn.cursor()
@@ -159,7 +166,7 @@ class Model:
         with cls.connect() as conn:
             cursor = conn.execute(f"SELECT * FROM {cls.table_name()}")
             rows = cursor.fetchall()
-            
+
             results = []
             for row in rows:
                 obj = cls(**dict(row))
@@ -173,14 +180,14 @@ class Model:
         cls.banao_table()
         if not kwargs:
             return cls.sab()
-            
+
         where_clause = " AND ".join([f"{k} = ?" for k in kwargs.keys()])
         values = list(kwargs.values())
-        
+
         with cls.connect() as conn:
             cursor = conn.execute(f"SELECT * FROM {cls.table_name()} WHERE {where_clause}", values)
             rows = cursor.fetchall()
-            
+
             results = []
             for row in rows:
                 obj = cls(**dict(row))

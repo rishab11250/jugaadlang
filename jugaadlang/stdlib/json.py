@@ -1,8 +1,12 @@
 """
 json — JugaadLang JSON parser and stringifier.
 """
+
+from __future__ import annotations
+
 import sys
 import os
+from typing import Any, Optional
 
 # Temporarily remove local dir from path to import the real stdlib json
 local_dir = os.path.dirname(__file__)
@@ -14,7 +18,7 @@ for p in list(sys.path):
         sys.path.remove(p)
         removed_paths.append(p)
 
-import json as _real_json
+import json as _real_json  # noqa: E402
 
 # Restore path
 for p in removed_paths:
