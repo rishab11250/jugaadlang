@@ -182,6 +182,7 @@ def format_error(exc: Exception, source: str = "", filename: str = "<stdin>") ->
             idx_name = None
             try:
                 import ast
+
                 if source_line:
                     tree = ast.parse(source_line.strip())
                     for node in ast.walk(tree):
@@ -195,7 +196,7 @@ def format_error(exc: Exception, source: str = "", filename: str = "<stdin>") ->
                             elif hasattr(node, "slice") and isinstance(node.slice, ast.Name):
                                 idx_name = node.slice.id
                             break
-                    
+
                     tb = exc.__traceback__
                     frame = None
                     while tb:
@@ -214,13 +215,14 @@ def format_error(exc: Exception, source: str = "", filename: str = "<stdin>") ->
                             idx_val = g_dict[idx_name]
             except Exception:
                 pass
-            
+
             if list_obj is not None and idx_val is not None:
                 title = "📭 List mein itna nahi hai!"
-                body = (f"→ Index {idx_val} maanga, list mein sirf {len(list_obj)} items. Hisaab lagao!\n\n"
-                        f"Your list: {list_obj}\n"
-                        f"You asked for: index {idx_val} 😶")
-
+                body = (
+                    f"→ Index {idx_val} maanga, list mein sirf {len(list_obj)} items. Hisaab lagao!\n\n"
+                    f"Your list: {list_obj}\n"
+                    f"You asked for: index {idx_val} 😶"
+                )
 
         console.print(f"[bold red]{title}[/bold red]")
         if line_no:

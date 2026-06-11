@@ -25,7 +25,7 @@ function show_help() {
 
 function run_test() {
     echo -e "${YELLOW}⚡ Ensuring dependencies are installed...${NC}"
-    python3 -m pip install -e .[all]
+    uv pip install -e .[all]
     echo -e "${YELLOW}⚡ Running test suite...${NC}"
     python3 -m pytest
     echo -e "${GREEN}✓ Tests completed successfully!${NC}"
@@ -34,7 +34,7 @@ function run_test() {
 function run_build() {
     echo -e "${YELLOW}⚡ Building JugaadLang package...${NC}"
     # Ensure build package is installed
-    python3 -m pip install --upgrade build
+    uv pip install --upgrade build
     # Clean previous build artifacts
     rm -rf build/ dist/ *.egg-info
     # Build package
@@ -44,7 +44,7 @@ function run_build() {
 
 function run_install() {
     echo -e "${YELLOW}⚡ Installing JugaadLang locally...${NC}"
-    python3 -m pip install -e .[all]
+    uv pip install -e .[all]
     echo -e "${GREEN}✓ Package installed successfully in editable mode!${NC}"
     echo -e "You can now run '${BLUE}jug${NC}' command from anywhere!"
 }
