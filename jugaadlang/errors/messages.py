@@ -66,7 +66,7 @@ FUNNY_ERRORS = {
         "body": "Galat data-type use kiya hai. Computation shock me chala gaya.",
     },
     "IndexError": {
-        "title": "🎯 Index out of bounds!",
+        "title": "📭 List mein itna nahi hai!",
         "body": "List ke bahar chala gaya! Itna bada index kahan se mila?",
     },
     "KeyError": {
@@ -173,6 +173,54 @@ def format_error(exc: Exception, source: str = "", filename: str = "<stdin>") ->
             var_name = match.group(1) if match else "variable"
             title = f"🕵️ Variable '{var_name}' dhundte dhundte thak gaya."
             body = f"'{var_name}' mila hi nahi.\n\n" + info["body"]
+
+        # IndexError specific extraction
+        if exc_type_name == "IndexError":
+            list_obj = None
+            idx_val = None
+            list_name = None
+            idx_name = None
+            try:
+                import ast
+                if source_line:
+                    tree = ast.parse(source_line.strip())
+                    for node in ast.walk(tree):
+                        if isinstance(node, ast.Subscript):
+                            if isinstance(node.value, ast.Name):
+                                list_name = node.value.id
+                            elif isinstance(node.value, ast.List):
+                                list_name = "<list literal>"
+                            if hasattr(node, "slice") and isinstance(node.slice, ast.Constant):
+                                idx_val = node.slice.value
+                            elif hasattr(node, "slice") and isinstance(node.slice, ast.Name):
+                                idx_name = node.slice.id
+                            break
+                    
+                    tb = exc.__traceback__
+                    frame = None
+                    while tb:
+                        frame = tb.tb_frame
+                        tb = tb.tb_next
+                    if frame:
+                        l_dict = frame.f_locals
+                        g_dict = frame.f_globals
+                        if list_name and list_name in l_dict:
+                            list_obj = l_dict[list_name]
+                        elif list_name and list_name in g_dict:
+                            list_obj = g_dict[list_name]
+                        if idx_name and idx_name in l_dict:
+                            idx_val = l_dict[idx_name]
+                        elif idx_name and idx_name in g_dict:
+                            idx_val = g_dict[idx_name]
+            except Exception:
+                pass
+            
+            if list_obj is not None and idx_val is not None:
+                title = "📭 List mein itna nahi hai!"
+                body = (f"→ Index {idx_val} maanga, list mein sirf {len(list_obj)} items. Hisaab lagao!\n\n"
+                        f"Your list: {list_obj}\n"
+                        f"You asked for: index {idx_val} 😶")
+
 
         console.print(f"[bold red]{title}[/bold red]")
         if line_no:

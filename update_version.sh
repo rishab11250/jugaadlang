@@ -55,6 +55,15 @@ with open('website/index.html', 'w') as f: f.write(content)
 "
 echo "✅ Updated website/index.html"
 
+# 5. Update jugaadlang/repl/repl.py
+python3 -c "
+import re
+with open('jugaadlang/repl/repl.py', 'r') as f: content = f.read()
+content = re.sub(r'JugaadLang v[0-9.]+', f'JugaadLang v$NEW_VERSION', content)
+with open('jugaadlang/repl/repl.py', 'w') as f: f.write(content)
+"
+echo "✅ Updated jugaadlang/repl/repl.py"
+
 echo "🎉 All components updated to v$NEW_VERSION successfully!"
 echo "Next steps:"
 echo "  1. git add ."

@@ -36,11 +36,16 @@ def test_type_error_formatting():
 
 def test_index_error_formatting():
     try:
-        [][0]
+        vals = ["🍎", "🍌", "🍇"]
+        vals[10]
     except IndexError as e:
-        formatted = format_error(e, "vals[0]")
-        assert "Index out of bounds" in formatted
-        assert "List ke bahar chala gaya" in formatted
+        e.line = 1
+        formatted = format_error(e, "vals[10]")
+        assert "List mein itna nahi hai!" in formatted
+        assert "maanga" in formatted
+        assert "list mein sirf" in formatted
+        assert "items. Hisaab lagao!" in formatted
+        assert "Your list:" in formatted
 
 
 def test_key_error_formatting():
