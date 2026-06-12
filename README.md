@@ -20,6 +20,13 @@ JugaadLang transpiles directly to native Python AST, meaning it runs with zero r
 [![JugaadLang Release](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/release.yml)
 [![CodeQL](https://github.com/JugaadLang/jugaadlang/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/github-code-scanning/codeql)
 
+[![VS Code Extension](https://github.com/JugaadLang/jugaadlang/actions/workflows/vscode-extension.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/vscode-extension.yml)
+[![PR Create Automate Message](https://github.com/JugaadLang/jugaadlang/actions/workflows/pr-create-automate-message.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/pr-create-automate-message.yml)
+[![Pull Request Labeler](https://github.com/JugaadLang/jugaadlang/actions/workflows/autolabler.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/autolabler.yml)
+[![Issue Create Automate Message](https://github.com/JugaadLang/jugaadlang/actions/workflows/issue-create-automate-message.yml/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/issue-create-automate-message.yml)
+[![Dependency Graph](https://github.com/JugaadLang/jugaadlang/actions/workflows/dependabot/update-graph/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/dependabot/update-graph)
+[![Dependabot Updates](https://github.com/JugaadLang/jugaadlang/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/JugaadLang/jugaadlang/actions/workflows/dependabot/dependabot-updates)
+
 ![Windows](https://img.shields.io/badge/Windows-Supported-blue)
 ![Linux](https://img.shields.io/badge/Linux-Supported-green)
 ![macOS](https://img.shields.io/badge/macOS-Supported-lightgrey)
