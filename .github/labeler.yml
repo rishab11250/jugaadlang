@@ -1,0 +1,31 @@
+docs:
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**/*', '*.md']
+
+testing:
+  - changed-files:
+    - any-glob-to-any-file: ['tests/**/*']
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file: ['pyproject.toml', 'uv.lock', 'package.json', 'package-lock.json', '**/dependabot.yml']
+
+docker:
+  - changed-files:
+    - any-glob-to-any-file: ['docker/**/*', 'Dockerfile']
+
+website:
+  - changed-files:
+    - any-glob-to-any-file: ['website/**/*']
+
+vscode-extension:
+  - changed-files:
+    - any-glob-to-any-file: ['vscode_extension/**/*']
+
+github-actions:
+  - changed-files:
+    - any-glob-to-any-file: ['.github/workflows/**/*']
+
+core:
+  - changed-files:
+    - any-glob-to-any-file: ['jugaadlang/**/*', 'jug_cli/**/*']
