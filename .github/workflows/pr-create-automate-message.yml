@@ -18,5 +18,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Thank you for submitting a pull request! We will review it shortly. Please ensure your code passes all CI checks and follows our contribution guidelines."
+              body: "Namaste! 🙏 Thanks for submitting this PR and sharing your awesome *jugaad* with us! We'll review your code shortly. Please make sure your hacks are solid, all CI checks are passing, and it follows our contribution guidelines. May your code compile on the first try! 🚀"
             })
