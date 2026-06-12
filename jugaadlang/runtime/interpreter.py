@@ -7,6 +7,7 @@ import ast
 import sys
 import os
 import random
+import time
 from typing import Any
 
 from ..lexer.lexer import Lexer
@@ -17,6 +18,109 @@ from ..errors.messages import format_error
 
 
 # ── Built-in functions ────────────────────────────────────────────────────────
+
+def kismat(start: int, end: int) -> int:
+    """Return a random number between start and end."""
+    return random.randint(start, end)
+
+
+def sikka() -> str:
+    """Return 'Head' or 'Tail'."""
+    return random.choice(["Head", "Tail"])
+
+
+def saaf() -> None:
+    """Clear terminal."""
+    os.system("clear" if os.name == "posix" else "cls")
+
+
+def ruk(seconds: float) -> None:
+    """Sleep for given seconds."""
+    time.sleep(seconds)
+
+
+def bahar() -> None:
+    """Exit program."""
+    sys.exit()
+
+
+def namaste() -> None:
+    """Displays a welcome banner."""
+    banner = """
+       __                             ________                 
+      / /_  ______ _____ _____ _____/ / / / /___ _____  ____ 
+ __  / / / / / __ `/ __ `/ __ `/ __  / / / / __ `/ __ \\/ __ `
+/ /_/ / /_/ / /_/ / /_/ / /_/ / /_/ / / / / /_/ / / / / /_/ /
+\\____/\\__,_/\\__, /\\__,_/\\__,_/\\__,_/_/_/_/\\__,_/_/ /_/\\__, / 
+           /____/                                    /____/  
+"""
+    print(banner)
+    print("Welcome to JugaadLang! The desi way to code. 🇮🇳")
+
+
+def debug(variable: Any) -> None:
+    """Debug information."""
+    print(f"🐛 Debug: {repr(variable)} (Type: {type(variable).__name__})")
+
+
+def version() -> None:
+    """Show JugaadLang version."""
+    from ..__init__ import __version__
+    print(f"JugaadLang Version: {__version__}")
+
+
+def madad() -> None:
+    """Show available commands and functions."""
+    help_text = """
+📚 JugaadLang Full Help Menu 📚
+
+--- Standard I/O ---
+bolo(x)            : Print x to console.
+poochho(prompt)    : Read input from console.
+
+--- Data Types & Conversion ---
+purnank(x)         : Convert to Integer.
+shabd(x)           : Convert to String / Text.
+suchi(x)           : Convert to List.
+kosh(x)            : Convert to Dictionary.
+satyata(x)         : Convert to Boolean (True/False).
+prakar(x)          : Get type of x.
+
+--- Math & Logic ---
+yog(x)             : Sum.
+adhiktam(a, b)     : Max value.
+nyuntam(a, b)      : Min value.
+maan(x)            : Absolute value.
+lambaee(x)         : Length of x.
+
+--- Random Functions ---
+kismat(start, end) : Returns a random number.
+sikka()            : Returns "Head" or "Tail".
+
+--- System Functions ---
+saaf()             : Clear terminal.
+ruk(seconds)       : Sleep for `seconds` seconds.
+bahar()            : Exit program.
+
+--- Fun & Desi Functions ---
+namaste()          : Displays a welcome banner.
+chai()             : Motivational message.
+jugaad()           : Random coding tip.
+himmat()           : Hidden feature message.
+ghaas_chhoo()      : Touch grass message.
+bachao()           : StackOverflow rescue.
+fortune()          : Random tech fortune.
+nazar()            : Ward off evil eye.
+ashirwad()         : Success blessing.
+paisa_wasool()     : Value for money message.
+kundli()           : Code horoscope.
+
+--- Developer Functions ---
+debug(variable)    : Print debug information about a variable.
+version()          : Show JugaadLang version.
+madad()            : Show this help menu.
+"""
+    print(help_text)
 
 
 def chai() -> None:
@@ -127,6 +231,14 @@ class JugaadInterpreter:
             "bolo": print,
             "poochho": input,
             # Built-in funny functions
+            "kismat": kismat,
+            "sikka": sikka,
+            "saaf": saaf,
+            "ruk": ruk,
+            "bahar": bahar,
+            "namaste": namaste,
+            "debug": debug,
+            "version": version,
             "chai": chai,
             "himmat": himmat,
             "ghaas_chhoo": ghaas_chhoo,
@@ -157,7 +269,7 @@ class JugaadInterpreter:
             "chhano": filter,
             "gun_lao": getattr,
             "gun_hai": hasattr,
-            "madad": help,
+            "madad": madad,
             "pehchan": id,
             "purnank": int,
             "prakar_hai": isinstance,
