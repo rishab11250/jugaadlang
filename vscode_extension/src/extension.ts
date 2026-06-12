@@ -236,6 +236,51 @@ const KEYWORD_MAP: Record<string, KeywordInfo> = {
     description: 'The ultimate jugaad — creative problem solving function.',
     hindiQuote: '🔧 "Jugaad hai toh solution hai — desi innovation zindabad!"',
   },
+  kismat: {
+    python: 'kismat(start, end) — JugaadLang stdlib',
+    description: 'Returns a random number between start and end.',
+    hindiQuote: '🎲 "Kismat pe bharosa mat kar, code likh!"',
+  },
+  sikka: {
+    python: 'sikka() — JugaadLang stdlib',
+    description: 'Flips a coin and returns Head or Tail.',
+    hindiQuote: '🪙 "Sikka uchhalo, Head aaya toh ship, Tail aaya toh debug!"',
+  },
+  saaf: {
+    python: 'saaf() — JugaadLang stdlib',
+    description: 'Clears the terminal screen.',
+    hindiQuote: '🧹 "Sab saaf kar do, naye sire se shuru karte hain!"',
+  },
+  ruk: {
+    python: 'ruk(seconds) — JugaadLang stdlib',
+    description: 'Pauses execution for the specified number of seconds.',
+    hindiQuote: '⏸️ "Ruk ja bhai, processor ko thodi saans lene de!"',
+  },
+  bahar: {
+    python: 'bahar() — JugaadLang stdlib',
+    description: 'Exits the program immediately.',
+    hindiQuote: '🚪 "Chalo bahar niklo, khel khatam!"',
+  },
+  namaste: {
+    python: 'namaste() — JugaadLang stdlib',
+    description: 'Displays a beautiful JugaadLang ASCII welcome banner.',
+    hindiQuote: '🙏 "Namaste! Desi coding ki duniya mein swagat hai!"',
+  },
+  debug: {
+    python: 'debug(variable) — JugaadLang stdlib',
+    description: 'Prints out useful debugging information about a variable.',
+    hindiQuote: '🐛 "Debug karna seekh lo, aadha dard wahin khatam!"',
+  },
+  version: {
+    python: 'version() — JugaadLang stdlib',
+    description: 'Displays the current installed version of JugaadLang.',
+    hindiQuote: '🏷️ "Naya version, nayi umeed, naye bugs!"',
+  },
+  madad: {
+    python: 'madad() — JugaadLang stdlib',
+    description: 'Shows a massive custom Help Menu for JugaadLang functions.',
+    hindiQuote: '📚 "Madad chahiye? Lo aagaya help menu!"',
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

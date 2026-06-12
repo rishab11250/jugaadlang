@@ -266,7 +266,7 @@ class JugaadREPL:
         """Launch the REPL loop."""
         # Print welcome banner
         console.print(
-            "[bold orange1]JugaadLang v1.0.3 — Modern Programming Language in Hindi 🇮🇳[/bold orange1]"
+            "[bold orange1]JugaadLang v1.1.0 — Modern Programming Language in Hindi 🇮🇳[/bold orange1]"
         )
         console.print(
             "[dim]Type code and press Enter. Enter blank line to execute block. Ctrl+D to exit.[/dim]\n"

@@ -306,5 +306,50 @@
       "\tkhud._${1:attribute} = value"
     ],
     "description": "Property getter/setter → Python @property"
+  },
+  "Kismat Randomizer": {
+    "prefix": "kismat",
+    "body": ["kismat(${1:start}, ${2:end})$0"],
+    "description": "Returns a random number between start and end."
+  },
+  "Sikka Coin Flip": {
+    "prefix": "sikka",
+    "body": ["sikka()$0"],
+    "description": "Flips a coin and returns Head or Tail."
+  },
+  "Saaf Terminal Clear": {
+    "prefix": "saaf",
+    "body": ["saaf()$0"],
+    "description": "Clears the terminal screen."
+  },
+  "Ruk Sleep Timer": {
+    "prefix": "ruk",
+    "body": ["ruk(${1:seconds})$0"],
+    "description": "Pauses execution for the specified number of seconds."
+  },
+  "Bahar Exit": {
+    "prefix": "bahar",
+    "body": ["bahar()$0"],
+    "description": "Exits the program immediately."
+  },
+  "Namaste Banner": {
+    "prefix": "namaste",
+    "body": ["namaste()$0"],
+    "description": "Displays a beautiful JugaadLang ASCII welcome banner."
+  },
+  "Debug Inspector": {
+    "prefix": "debug",
+    "body": ["debug(${1:variable})$0"],
+    "description": "Prints out useful debugging information about a variable."
+  },
+  "Version Check": {
+    "prefix": "version",
+    "body": ["version()$0"],
+    "description": "Displays the current installed version of JugaadLang."
+  },
+  "Madad Help Menu": {
+    "prefix": "madad",
+    "body": ["madad()$0"],
+    "description": "Shows a massive custom Help Menu for JugaadLang functions."
   }
 }

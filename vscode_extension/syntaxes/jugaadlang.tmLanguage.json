@@ -327,7 +327,7 @@
         },
         {
           "name": "support.function.jugaad.jugaadlang",
-          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad|nazar|ashirwad|dhanya_waad|bhagwan_bhala_kare|paisa_wasool|bas_kar_bhai|chilla_mat|kundli)\\b"
+          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad|nazar|ashirwad|dhanya_waad|bhagwan_bhala_kare|paisa_wasool|bas_kar_bhai|chilla_mat|kundli|kismat|sikka|saaf|ruk|bahar|namaste|debug|version)\\b"
         }
       ]
     },
