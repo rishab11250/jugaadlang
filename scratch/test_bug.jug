@@ -1,0 +1,5 @@
+banao namaste(name:shabd) :
+    """Yaha likho apna documentation. Ekdum mast!"""
+    wapas f"Namaste, {name}! Kaise ho?"
+
+bolo(namaste("Ravi"))
