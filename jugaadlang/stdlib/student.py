@@ -1,6 +1,5 @@
 import random
 import time
-import sys
 
 def bahana() -> str:
     """Returns a creative, random excuse for not completing an assignment."""
@@ -36,8 +35,8 @@ def proxy_attendance(name: str) -> None:
     """Simulates a proxy attendance entry."""
     print(f"🤖 Booting up Proxy Attendance Script for {name}...")
     time.sleep(1)
-    print(f"🕵️ Bypassing university firewall...")
+    print("🕵️ Bypassing university firewall...")
     time.sleep(1)
-    print(f"🎙️ Simulating voice 'Present Sir!'...")
+    print("🎙️ Simulating voice 'Present Sir!'...")
     time.sleep(1)
     print(f"✅ Attendance marked for {name}. Proxy successful! 😎")
