@@ -315,6 +315,21 @@ KEYWORDS_LIST = [
     "hatao",
     "gair_local",
     "ke_saath",
+    "whatsapp",
+    "whatsapp.bhejo",
+    "whatsapp.spam",
+    "student",
+    "student.bahana",
+    "student.cgpa_calc",
+    "student.proxy_attendance",
+    "love",
+    "love.flirt",
+    "love.date_idea",
+    "love.sorry_message",
+    "dev",
+    "dev.fake_commit",
+    "dev.coffee_break",
+    "dev.blame_someone_else",
 ]
 completer = WordCompleter(KEYWORDS_LIST, ignore_case=True)
 

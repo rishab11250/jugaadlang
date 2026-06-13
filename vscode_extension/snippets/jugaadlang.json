@@ -616,5 +616,82 @@
       "leetcode_bachao()$0"
     ],
     "description": "JugaadLang fun builtin: leetcode_bachao"
+  },
+  "whatsapp.bhejo": {
+    "prefix": "whatsapp.bhejo",
+    "body": [
+      "whatsapp.bhejo(${1:phone}, ${2:message})$0"
+    ],
+    "description": "JugaadLang Stdlib: whatsapp.bhejo"
+  },
+  "whatsapp.spam": {
+    "prefix": "whatsapp.spam",
+    "body": [
+      "whatsapp.spam(${1:phone}, ${2:message}, ${3:count})$0"
+    ],
+    "description": "JugaadLang Stdlib: whatsapp.spam"
+  },
+  "student.bahana": {
+    "prefix": "student.bahana",
+    "body": [
+      "student.bahana()$0"
+    ],
+    "description": "JugaadLang Stdlib: student.bahana"
+  },
+  "student.cgpa_calc": {
+    "prefix": "student.cgpa_calc",
+    "body": [
+      "student.cgpa_calc([${1:grades}])$0"
+    ],
+    "description": "JugaadLang Stdlib: student.cgpa_calc"
+  },
+  "student.proxy_attendance": {
+    "prefix": "student.proxy_attendance",
+    "body": [
+      "student.proxy_attendance(${1:name})$0"
+    ],
+    "description": "JugaadLang Stdlib: student.proxy_attendance"
+  },
+  "love.flirt": {
+    "prefix": "love.flirt",
+    "body": [
+      "love.flirt()$0"
+    ],
+    "description": "JugaadLang Stdlib: love.flirt"
+  },
+  "love.date_idea": {
+    "prefix": "love.date_idea",
+    "body": [
+      "love.date_idea()$0"
+    ],
+    "description": "JugaadLang Stdlib: love.date_idea"
+  },
+  "love.sorry_message": {
+    "prefix": "love.sorry_message",
+    "body": [
+      "love.sorry_message(${1:name})$0"
+    ],
+    "description": "JugaadLang Stdlib: love.sorry_message"
+  },
+  "dev.fake_commit": {
+    "prefix": "dev.fake_commit",
+    "body": [
+      "dev.fake_commit()$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.fake_commit"
+  },
+  "dev.coffee_break": {
+    "prefix": "dev.coffee_break",
+    "body": [
+      "dev.coffee_break(${1:minutes})$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.coffee_break"
+  },
+  "dev.blame_someone_else": {
+    "prefix": "dev.blame_someone_else",
+    "body": [
+      "dev.blame_someone_else()$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.blame_someone_else"
   }
 }
