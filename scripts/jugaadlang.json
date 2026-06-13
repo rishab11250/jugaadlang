@@ -7,10 +7,6 @@
         "64bit": {
             "url": "https://github.com/JugaadLang/jugaadlang/releases/download/v1.1.1/jug-windows-amd64.exe#/jug.exe",
             "hash": "0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        "arm64": {
-            "url": "https://github.com/JugaadLang/jugaadlang/releases/download/v1.1.1/jug-windows-arm64.exe#/jug.exe",
-            "hash": "0000000000000000000000000000000000000000000000000000000000000000"
         }
     },
     "bin": "jug.exe",
