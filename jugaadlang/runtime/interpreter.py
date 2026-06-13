@@ -15,6 +15,7 @@ from ..parser.parser import Parser
 from ..transformer.to_python import JugaadToPythonTransformer
 from ..ast_nodes.nodes import ExprStmt
 from ..errors.messages import format_error
+from .fun_builtins import FUN_BUILTINS
 
 
 # ── Built-in functions ────────────────────────────────────────────────────────
@@ -56,11 +57,6 @@ def namaste() -> None:
 """
     print(banner)
     print("Welcome to JugaadLang! The desi way to code. 🇮🇳")
-
-
-def debug(variable: Any) -> None:
-    """Debug information."""
-    print(f"🐛 Debug: {repr(variable)} (Type: {type(variable).__name__})")
 
 
 def version() -> None:
@@ -123,19 +119,9 @@ madad()            : Show this help menu.
     print(help_text)
 
 
-def chai() -> None:
-    """Print a funny message about Chai."""
-    print("☕ Chai pi lo. (Chai is life!)")
-
-
 def himmat() -> None:
     """Print a hidden feature message."""
     print("🔥 Hidden feature detected. Aapke andar himmat hai!")
-
-
-def ghaas_chhoo() -> None:
-    """Print a touch grass message."""
-    print("🌱 Bahar ghoom aao. Go touch some grass!")
 
 
 def bachao() -> None:
@@ -166,50 +152,14 @@ def jugaad_help() -> None:
     print(random.choice(tips))
 
 
-def nazar() -> None:
-    """Print a ward off evil eye message."""
-    print("🧿 Nazar suraksha kavach active! Bad vibes/bugs blocked. 🧿")
-
-
-def ashirwad() -> None:
-    """Print a parent blessings message."""
-    print("👵 Sadbhavna aur aashirwad active! Success rate boosted to 100%! 👵")
-
-
 def dhanya_waad() -> None:
     """Print a polite but funny Indian thank you."""
     print("🙏 Dhanyawaad! Code chalaane ke liye aapka aabhari hoon. Keep coding! 🙏")
 
 
-def bhagwan_bhala_kare() -> None:
-    """Print a prayer for the bug to resolve itself."""
-    print("📿 Hey bhagwan, iss error ko apne aap thik kar do! Please! 📿")
-
-
-def paisa_wasool() -> None:
-    """Print a success message showing value for money."""
-    print("💸 Paisa Wasool! JugaadLang is 100% free and open-source, your money is safe! 💸")
-
-
-def bas_kar_bhai() -> None:
-    """Print a message to stop coding and sleep."""
-    print("🛑 Bas kar bhai! Kitna code likhega? So ja thodi der. 🛑")
-
-
 def chilla_mat() -> None:
     """Print a message to calm down when compiler throws errors."""
     print("🤫 Chilla mat, deep breath le aur debug kar. 🤫")
-
-
-def kundli() -> None:
-    """Print a horoscope check on the current file."""
-    fortunes = [
-        "🪐 Kundli checking: Variable declarations are in alignment, but Shani is strong on line 12.",
-        "🪐 Rahu is transit-blocking your loop indices. Add some chai to clear the path.",
-        "🪐 Guru is blessing your logic. Code will transpile with high-quality vibes.",
-        "🪐 Ketu is casting a shadow on your imports. Check your local stdlibs.",
-    ]
-    print(random.choice(fortunes))
 
 
 # ── Interpreter ───────────────────────────────────────────────────────────────
@@ -237,22 +187,12 @@ class JugaadInterpreter:
             "ruk": ruk,
             "bahar": bahar,
             "namaste": namaste,
-            "debug": debug,
             "version": version,
-            "chai": chai,
             "himmat": himmat,
-            "ghaas_chhoo": ghaas_chhoo,
             "bachao": bachao,
-            "fortune": fortune,
             "jugaad": jugaad_help,
-            "nazar": nazar,
-            "ashirwad": ashirwad,
             "dhanya_waad": dhanya_waad,
-            "bhagwan_bhala_kare": bhagwan_bhala_kare,
-            "paisa_wasool": paisa_wasool,
-            "bas_kar_bhai": bas_kar_bhai,
             "chilla_mat": chilla_mat,
-            "kundli": kundli,
             # Mappings for builtins
             "maan": abs,
             "sab": all,
@@ -290,6 +230,7 @@ class JugaadInterpreter:
             "yog": sum,
             "prakar": type,
         }
+        self.globals.update(FUN_BUILTINS)
 
         # Set up stdlib import path
         stdlib_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "stdlib"))
