@@ -1,0 +1,237 @@
+name: Publish Binaries and Packages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-linux:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: amd64
+          - os: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          
+      - name: Install dependencies
+        run: |
+          pip install -e .
+          pip install pyinstaller
+          
+      - name: Build Binary
+        run: pyinstaller --onefile --name jug scripts/jug_entry.py
+        
+      - name: Set up Ruby (for fpm)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          
+      - name: Install fpm
+        run: gem install fpm
+        
+      - name: Build DEB and Pacman packages
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          if [ -z "$VERSION" ]; then VERSION="1.0.0"; fi
+          mkdir -p package_root/usr/bin
+          cp dist/jug package_root/usr/bin/
+          chmod +x package_root/usr/bin/jug
+          
+          # DEB
+          fpm -s dir -t deb -n jugaadlang -v $VERSION \
+            --description "JugaadLang - The Hindi-keyword programming language." \
+            --maintainer "jugaadlang@atomicmail.io" \
+            -C package_root .
+            
+          # Pacman
+          fpm -s dir -t pacman -n jugaadlang -v $VERSION \
+            --description "JugaadLang - The Hindi-keyword programming language." \
+            --maintainer "jugaadlang@atomicmail.io" \
+            -C package_root .
+            
+          mkdir artifacts
+          cp *.deb *.pkg.tar.zst dist/jug artifacts/
+          mv artifacts/jug artifacts/jug-linux-${{ matrix.arch }}
+          
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: artifacts/*
+
+  build-macos:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            arch: arm64
+          - os: macos-13
+            arch: amd64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          
+      - name: Install dependencies
+        run: |
+          pip install -e .
+          pip install pyinstaller
+          
+      - name: Build Binary
+        run: pyinstaller --onefile --name jug scripts/jug_entry.py
+        
+      - name: Package PKG
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          if [ -z "$VERSION" ]; then VERSION="1.0.0"; fi
+          mkdir -p mac_root/usr/local/bin
+          cp dist/jug mac_root/usr/local/bin/
+          chmod +x mac_root/usr/local/bin/jug
+          
+          pkgbuild --root mac_root \
+                   --identifier dev.jugaadlang.jug \
+                   --version $VERSION \
+                   --install-location / \
+                   jugaadlang-v${VERSION}-macos-${{ matrix.arch }}.pkg
+                   
+      - name: Install create-dmg
+        run: brew install create-dmg
+        
+      - name: Package DMG
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          if [ -z "$VERSION" ]; then VERSION="1.0.0"; fi
+          mkdir dmg_root
+          cp dist/jug dmg_root/
+          
+          create-dmg \
+            --volname "JugaadLang Installer" \
+            "jugaadlang-v${VERSION}-macos-${{ matrix.arch }}.dmg" \
+            "dmg_root/" || true
+            
+          if [ ! -f "jugaadlang-v${VERSION}-macos-${{ matrix.arch }}.dmg" ]; then
+            hdiutil create -volname "JugaadLang Installer" -srcfolder dmg_root -ov -format UDZO "jugaadlang-v${VERSION}-macos-${{ matrix.arch }}.dmg"
+          fi
+            
+          mkdir artifacts
+          cp *.pkg *.dmg dist/jug artifacts/
+          mv artifacts/jug artifacts/jug-macos-${{ matrix.arch }}
+          
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: artifacts/*
+
+  build-windows:
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            py_arch: x64
+          - arch: arm64
+            py_arch: arm64
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          architecture: ${{ matrix.py_arch }}
+          
+      - name: Install dependencies
+        run: |
+          pip install -e .
+          pip install pyinstaller
+          
+      - name: Build Binary
+        run: pyinstaller --onefile --name jug scripts/jug_entry.py
+        
+      - name: Build Installer (Inno Setup)
+        run: |
+          $VERSION = $env:GITHUB_REF_NAME.TrimStart('v')
+          if ($VERSION -eq "") { $VERSION = "1.0.0" }
+          iscc /DMyAppVersion=$VERSION /DMyArch=${{ matrix.arch }} scripts\jugaadlang.iss
+          
+      - name: Collect artifacts
+        run: |
+          mkdir artifacts
+          cp dist\jug.exe artifacts\jug-windows-${{ matrix.arch }}.exe
+          cp dist\jugaadlang-setup-*.exe artifacts\
+          
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: artifacts/*
+
+  publish-package-managers:
+    needs: [build-linux, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Update Homebrew Tap
+        uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: jugaadlang
+          homebrew-tap: jugaadlang/homebrew-tap
+          download-url: https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-macos-amd64
+        env:
+          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        continue-on-error: true
+          
+      - name: Checkout Scoop Bucket
+        uses: actions/checkout@v4
+        with:
+          repository: jugaadlang/scoop-bucket
+          token: ${{ secrets.SCOOP_BUCKET_TOKEN }}
+          path: scoop-bucket
+        continue-on-error: true
+          
+      - name: Update Scoop Manifest
+        run: |
+          if [ ! -d "scoop-bucket" ]; then exit 0; fi
+          VERSION=${GITHUB_REF_NAME#v}
+          URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-windows-amd64.exe"
+          HASH=$(curl -sL $URL | sha256sum | awk '{print $1}')
+          
+          cd scoop-bucket
+          jq ".version = \"$VERSION\" | .architecture.\"64bit\".url = \"$URL\" | .architecture.\"64bit\".hash = \"$HASH\"" jugaadlang.json > jugaadlang.tmp.json
+          mv jugaadlang.tmp.json jugaadlang.json
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jugaadlang.json
+          git commit -m "Update jugaadlang to version $VERSION"
+          git push
+        continue-on-error: true
+
+      - name: Publish to Winget
+        uses: vedantmgoyal2009/winget-releaser@v2
+        with:
+          identifier: JugaadLang.JugaadLang
+          installers-regex: '\.exe$'
+          token: ${{ secrets.WINGET_TOKEN }}
+        continue-on-error: true

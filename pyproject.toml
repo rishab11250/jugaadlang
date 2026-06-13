@@ -50,9 +50,9 @@ all = ["jugaadlang[web,dev]"]
 jug = "jug_cli.main:main"
 
 [project.urls]
-Homepage = "https://jugaadlang.dev"
+Homepage = "https://jugaadlang.netlify.app"
 Repository = "https://github.com/jugaadlang/jugaadlang"
-Documentation = "https://docs.jugaadlang.dev"
+Documentation = "https://jugaadlang.netlify.app"
 "Bug Tracker" = "https://github.com/jugaadlang/jugaadlang/issues"
 
 [tool.setuptools.packages.find]

@@ -54,3 +54,6 @@ node_modules/
 
 # Local REPL history
 .jugaadlang/
+jug.spec
+build/
+dist/
