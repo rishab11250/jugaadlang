@@ -1,6 +1,4 @@
 import random
-import time
-import sys
 
 # ☕ Daily Life
 def chai() -> None:

@@ -1,6 +1,5 @@
 import webbrowser
 import urllib.parse
-import time
 
 def bhejo(phone: str, message: str) -> None:
     """
