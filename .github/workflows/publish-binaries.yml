@@ -40,8 +40,11 @@ jobs:
         with:
           ruby-version: '3.2'
           
-      - name: Install fpm
-        run: gem install fpm
+      - name: Install fpm and system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libarchive-tools
+          gem install fpm
         
       - name: Build DEB and Pacman packages
         run: |
