@@ -1,6 +1,7 @@
 import random
 import time
 
+
 def bahana() -> str:
     """Returns a creative, random excuse for not completing an assignment."""
     excuses = [
@@ -14,12 +15,13 @@ def bahana() -> str:
     print(f"🤥 Excuse Generated: {excuse}")
     return excuse
 
+
 def cgpa_calc(grades_list: list) -> float:
     """Calculates CGPA from a list of grades (10-point scale)."""
     if not grades_list:
         print("❌ Koi grades nahi hain. 0 CGPA.")
         return 0.0
-    
+
     total = sum(grades_list)
     cgpa = total / len(grades_list)
     print(f"🎓 Your CGPA is: {cgpa:.2f}")
@@ -30,6 +32,7 @@ def cgpa_calc(grades_list: list) -> float:
     else:
         print("📚 Padhai pe dhyaan do.")
     return cgpa
+
 
 def proxy_attendance(name: str) -> None:
     """Simulates a proxy attendance entry."""

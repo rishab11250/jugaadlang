@@ -2,6 +2,7 @@ import random
 import time
 import sys
 
+
 def fake_commit() -> str:
     """Returns a generic, believable commit message."""
     commits = [
@@ -17,21 +18,22 @@ def fake_commit() -> str:
     print(f"📝 Suggested Commit Message: '{commit}'")
     return commit
 
+
 def coffee_break(minutes: int = 5) -> None:
     """
-    Renders a fake 'Compiling...' progress bar in the terminal 
+    Renders a fake 'Compiling...' progress bar in the terminal
     that takes exactly 'minutes' to complete.
     """
     seconds = minutes * 60
     print(f"☕ Initiating {minutes} minute Coffee Break sequence...")
     print("💻 Terminal will now look busy. Go grab a coffee!")
-    
+
     total_steps = 50
     sleep_per_step = seconds / total_steps
-    
+
     sys.stdout.write("Compiling C++ Dependencies: [")
     sys.stdout.flush()
-    
+
     try:
         for i in range(total_steps):
             time.sleep(sleep_per_step)
@@ -43,6 +45,7 @@ def coffee_break(minutes: int = 5) -> None:
 
     print("] 100% DONE")
     print("✅ Build Successful! Welcome back.")
+
 
 def blame_someone_else() -> str:
     """Returns a random excuse for why the code is broken."""

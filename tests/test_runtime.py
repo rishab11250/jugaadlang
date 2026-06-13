@@ -21,11 +21,11 @@ def test_interpreter_eval_expr():
 
 def test_interpreter_builtins(capsys):
     interpreter = JugaadInterpreter()
-    
+
     interpreter.run("chai()")
     captured = capsys.readouterr()
     assert "Chai ready hai" in captured.out
-    
+
     interpreter.run("motivation()")
     captured = capsys.readouterr()
     assert "Keep coding" in captured.out
