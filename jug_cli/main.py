@@ -18,7 +18,7 @@ console_stderr = Console(color_system="truecolor", force_terminal=True, stderr=T
 
 
 @click.group()
-@click.version_option(version="1.1.3", message="JugaadLang v%(version)s 🇮🇳")
+@click.version_option(version="1.1.4", message="JugaadLang v%(version)s 🇮🇳")
 def main() -> None:
     """JugaadLang — The Hindi-keyword programming language. 🚀"""
     pass
