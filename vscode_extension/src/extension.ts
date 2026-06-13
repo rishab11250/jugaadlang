@@ -281,6 +281,181 @@ const KEYWORD_MAP: Record<string, KeywordInfo> = {
     description: 'Shows a massive custom Help Menu for JugaadLang functions.',
     hindiQuote: '📚 "Madad chahiye? Lo aagaya help menu!"',
   },
+  pani_pilo: {
+    python: 'pani_pilo() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: pani_pilo',
+    hindiQuote: '🎉 "pani_pilo ka maza lo!"',
+  },
+  soja: {
+    python: 'soja() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: soja',
+    hindiQuote: '🎉 "soja ka maza lo!"',
+  },
+  crush: {
+    python: 'crush() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: crush',
+    hindiQuote: '🎉 "crush ka maza lo!"',
+  },
+  proposal: {
+    python: 'proposal(name) — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: proposal',
+    hindiQuote: '🎉 "proposal ka maza lo!"',
+  },
+  couple_days: {
+    python: 'couple_days() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: couple_days',
+    hindiQuote: '🎉 "couple_days ka maza lo!"',
+  },
+  breakup: {
+    python: 'breakup() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: breakup',
+    hindiQuote: '🎉 "breakup ka maza lo!"',
+  },
+  love_percentage: {
+    python: 'love_percentage(name1, name2) — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: love_percentage',
+    hindiQuote: '🎉 "love_percentage ka maza lo!"',
+  },
+  attendance: {
+    python: 'attendance() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: attendance',
+    hindiQuote: '🎉 "attendance ka maza lo!"',
+  },
+  assignment: {
+    python: 'assignment() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: assignment',
+    hindiQuote: '🎉 "assignment ka maza lo!"',
+  },
+  exam_mode: {
+    python: 'exam_mode() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: exam_mode',
+    hindiQuote: '🎉 "exam_mode ka maza lo!"',
+  },
+  cgpa: {
+    python: 'cgpa() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: cgpa',
+    hindiQuote: '🎉 "cgpa ka maza lo!"',
+  },
+  bunk: {
+    python: 'bunk() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: bunk',
+    hindiQuote: '🎉 "bunk ka maza lo!"',
+  },
+  motivation: {
+    python: 'motivation() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: motivation',
+    hindiQuote: '🎉 "motivation ka maza lo!"',
+  },
+  stackoverflow: {
+    python: 'stackoverflow() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: stackoverflow',
+    hindiQuote: '🎉 "stackoverflow ka maza lo!"',
+  },
+  deploy: {
+    python: 'deploy() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: deploy',
+    hindiQuote: '🎉 "deploy ka maza lo!"',
+  },
+  git_push: {
+    python: 'git_push() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: git_push',
+    hindiQuote: '🎉 "git_push ka maza lo!"',
+  },
+  ludo: {
+    python: 'ludo() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: ludo',
+    hindiQuote: '🎉 "ludo ka maza lo!"',
+  },
+  snake_game: {
+    python: 'snake_game() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: snake_game',
+    hindiQuote: '🎉 "snake_game ka maza lo!"',
+  },
+  tic_tac_toe: {
+    python: 'tic_tac_toe() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: tic_tac_toe',
+    hindiQuote: '🎉 "tic_tac_toe ka maza lo!"',
+  },
+  rock_paper_scissors: {
+    python: 'rock_paper_scissors() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: rock_paper_scissors',
+    hindiQuote: '🎉 "rock_paper_scissors ka maza lo!"',
+  },
+  guess_number: {
+    python: 'guess_number() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: guess_number',
+    hindiQuote: '🎉 "guess_number ka maza lo!"',
+  },
+  hangman: {
+    python: 'hangman() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: hangman',
+    hindiQuote: '🎉 "hangman ka maza lo!"',
+  },
+  meme: {
+    python: 'meme() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: meme',
+    hindiQuote: '🎉 "meme ka maza lo!"',
+  },
+  joke: {
+    python: 'joke() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: joke',
+    hindiQuote: '🎉 "joke ka maza lo!"',
+  },
+  roast: {
+    python: 'roast() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: roast',
+    hindiQuote: '🎉 "roast ka maza lo!"',
+  },
+  pomodoro: {
+    python: 'pomodoro(minutes) — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: pomodoro',
+    hindiQuote: '🎉 "pomodoro ka maza lo!"',
+  },
+  todo: {
+    python: 'todo() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: todo',
+    hindiQuote: '🎉 "todo ka maza lo!"',
+  },
+  habit_tracker: {
+    python: 'habit_tracker() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: habit_tracker',
+    hindiQuote: '🎉 "habit_tracker ka maza lo!"',
+  },
+  focus_mode: {
+    python: 'focus_mode() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: focus_mode',
+    hindiQuote: '🎉 "focus_mode ka maza lo!"',
+  },
+  study_with_me: {
+    python: 'study_with_me() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: study_with_me',
+    hindiQuote: '🎉 "study_with_me ka maza lo!"',
+  },
+  ai_bhai: {
+    python: 'ai_bhai(prompt) — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: ai_bhai',
+    hindiQuote: '🎉 "ai_bhai ka maza lo!"',
+  },
+  resume_banao: {
+    python: 'resume_banao() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: resume_banao',
+    hindiQuote: '🎉 "resume_banao ka maza lo!"',
+  },
+  interview_prep: {
+    python: 'interview_prep() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: interview_prep',
+    hindiQuote: '🎉 "interview_prep ka maza lo!"',
+  },
+  roadmap: {
+    python: 'roadmap(topic) — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: roadmap',
+    hindiQuote: '🎉 "roadmap ka maza lo!"',
+  },
+  leetcode_bachao: {
+    python: 'leetcode_bachao() — JugaadLang fun builtin',
+    description: 'JugaadLang fun builtin: leetcode_bachao',
+    hindiQuote: '🎉 "leetcode_bachao ka maza lo!"',
+  },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
