@@ -1,6 +1,7 @@
 import random
 import time
 
+
 def flirt() -> str:
     """Returns a cheesy programmer pickup line."""
     lines = [
@@ -14,6 +15,7 @@ def flirt() -> str:
     print(f"💘 Pickup Line: {line}")
     return line
 
+
 def date_idea() -> str:
     """Returns a budget-friendly jugaad date idea."""
     ideas = [
@@ -26,6 +28,7 @@ def date_idea() -> str:
     idea = random.choice(ideas)
     print(f"🗓️ Date Idea: {idea}")
     return idea
+
 
 def sorry_message(name: str) -> str:
     """Generates a dramatic apology message."""

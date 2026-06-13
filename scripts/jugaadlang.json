@@ -1,0 +1,18 @@
+{
+    "version": "1.1.1",
+    "description": "JugaadLang - The Hindi-keyword programming language.",
+    "homepage": "https://jugaadlang.netlify.app",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/JugaadLang/jugaadlang/releases/download/v1.1.1/jug-windows-amd64.exe#/jug.exe",
+            "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "arm64": {
+            "url": "https://github.com/JugaadLang/jugaadlang/releases/download/v1.1.1/jug-windows-arm64.exe#/jug.exe",
+            "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+    },
+    "bin": "jug.exe",
+    "checkver": "github"
+}

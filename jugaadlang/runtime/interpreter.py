@@ -20,6 +20,7 @@ from .fun_builtins import FUN_BUILTINS
 
 # ── Built-in functions ────────────────────────────────────────────────────────
 
+
 def kismat(start: int, end: int) -> int:
     """Return a random number between start and end."""
     return random.randint(start, end)
@@ -62,6 +63,7 @@ def namaste() -> None:
 def version() -> None:
     """Show JugaadLang version."""
     from ..__init__ import __version__
+
     print(f"JugaadLang Version: {__version__}")
 
 

@@ -1,6 +1,7 @@
 import webbrowser
 import urllib.parse
 
+
 def bhejo(phone: str, message: str) -> None:
     """
     Opens WhatsApp Web and pre-fills the message to the specified number.
@@ -12,10 +13,13 @@ def bhejo(phone: str, message: str) -> None:
     webbrowser.open(url)
     print("✅ WhatsApp Web opened. Please press 'Send' manually when it loads.")
 
+
 def spam(phone: str, message: str, count: int) -> None:
     """
     Spam function simulated for JugaadLang.
     """
     print(f"⚠️ SPAM WARNING: Preparing to send {count} messages to {phone}.")
-    print("In true Jugaad style, this will just open one pre-filled tab, you'll have to spam it manually to avoid getting banned!")
+    print(
+        "In true Jugaad style, this will just open one pre-filled tab, you'll have to spam it manually to avoid getting banned!"
+    )
     bhejo(phone, message)
