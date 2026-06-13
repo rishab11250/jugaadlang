@@ -186,8 +186,36 @@ jobs:
         with:
           files: artifacts/*
 
+  build-vscode-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: ./vscode_extension/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./vscode_extension
+
+      - name: Package Extension
+        run: |
+          npm install -g @vscode/vsce
+          vsce package
+        working-directory: ./vscode_extension
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./vscode_extension/*.vsix
+
   publish-package-managers:
-    needs: [build-linux, build-macos, build-windows]
+    needs: [build-linux, build-macos, build-windows, build-vscode-extension]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
