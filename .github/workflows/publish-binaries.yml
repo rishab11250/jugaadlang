@@ -214,11 +214,14 @@ jobs:
         run: |
           if [ ! -d "scoop-bucket" ]; then exit 0; fi
           VERSION=${GITHUB_REF_NAME#v}
-          URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-windows-amd64.exe"
-          HASH=$(curl -sL $URL | sha256sum | awk '{print $1}')
+          URL_AMD64="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-windows-amd64.exe"
+          HASH_AMD64=$(curl -sL $URL_AMD64 | sha256sum | awk '{print $1}')
+          
+          URL_ARM64="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-windows-arm64.exe"
+          HASH_ARM64=$(curl -sL $URL_ARM64 | sha256sum | awk '{print $1}')
           
           cd scoop-bucket
-          jq ".version = \"$VERSION\" | .architecture.\"64bit\".url = \"$URL\" | .architecture.\"64bit\".hash = \"$HASH\"" jugaadlang.json > jugaadlang.tmp.json
+          jq ".version = \"$VERSION\" | .architecture.\"64bit\".url = \"$URL_AMD64\" | .architecture.\"64bit\".hash = \"$HASH_AMD64\" | .architecture.arm64.url = \"$URL_ARM64\" | .architecture.arm64.hash = \"$HASH_ARM64\"" jugaadlang.json > jugaadlang.tmp.json
           mv jugaadlang.tmp.json jugaadlang.json
           
           git config user.name "github-actions[bot]"
