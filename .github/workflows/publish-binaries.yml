@@ -220,21 +220,25 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Update Homebrew Tap
-        uses: mislav/bump-homebrew-formula-action@v3
+        uses: dawidd6/action-homebrew-bump-formula@v4
+        if: env.HOMEBREW_TOKEN != ''
         with:
-          formula-name: jugaadlang
-          homebrew-tap: JugaadLang/homebrew-tap
-          download-url: https://github.com/${{ github.repository }}/archive/refs/tags/${{ github.ref_name }}.tar.gz
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          tap: JugaadLang/homebrew-tap
+          formula: jugaadlang
         env:
-          COMMITTER_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          HOMEBREW_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         continue-on-error: true
           
       - name: Checkout Scoop Bucket
         uses: actions/checkout@v4
+        if: env.SCOOP_TOKEN != ''
         with:
           repository: jugaadlang/scoop-bucket
           token: ${{ secrets.SCOOP_BUCKET_TOKEN }}
           path: scoop-bucket
+        env:
+          SCOOP_TOKEN: ${{ secrets.SCOOP_BUCKET_TOKEN }}
         continue-on-error: true
           
       - name: Update Scoop Manifest
@@ -257,8 +261,11 @@ jobs:
 
       - name: Publish to Winget
         uses: vedantmgoyal2009/winget-releaser@v2
+        if: env.WINGET_TOKEN != ''
         with:
           identifier: JugaadLang.JugaadLang
           installers-regex: '\.exe$'
           token: ${{ secrets.WINGET_TOKEN }}
+        env:
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
         continue-on-error: true
