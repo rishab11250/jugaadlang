@@ -132,6 +132,15 @@ Namaste Duniya 🚀
 
 ### Install
 
+**Option A: Using Homebrew (Recommended)**
+
+```bash
+brew tap jugaadlang/tap
+brew install jugaadlang
+```
+
+**Option B: Using pip**
+
 ```bash
 pip3 install jugaadlang
 ```
@@ -153,6 +162,15 @@ jug run hello.jg
 # 🍎 macOS
 
 ### Install
+
+**Option A: Using Homebrew (Recommended)**
+
+```bash
+brew tap jugaadlang/tap
+brew install jugaadlang
+```
+
+**Option B: Using pip**
 
 ```bash
 pip3 install jugaadlang
