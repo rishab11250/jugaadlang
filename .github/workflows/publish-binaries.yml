@@ -223,8 +223,8 @@ jobs:
         uses: mislav/bump-homebrew-formula-action@v3
         with:
           formula-name: jugaadlang
-          homebrew-tap: jugaadlang/homebrew-tap
-          download-url: https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/jug-macos-arm64
+          homebrew-tap: JugaadLang/homebrew-tap
+          download-url: https://github.com/${{ github.repository }}/archive/refs/tags/${{ github.ref_name }}.tar.gz
         env:
           COMMITTER_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         continue-on-error: true
