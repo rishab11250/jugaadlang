@@ -336,15 +336,10 @@ class Lexer:
                     buf.append(escape_map[esc])
                 elif esc == "u":
                     # \uXXXX
-                    hex_chars = ""
-                    for _ in range(4):
-                        hex_chars += self._advance()
-                    buf.append(chr(int(hex_chars, 16)))
+                    buf.append(self._scan_hex_escape(4, "u", line, col))
                 elif esc == "x":
-                    hex_chars = ""
-                    for _ in range(2):
-                        hex_chars += self._advance()
-                    buf.append(chr(int(hex_chars, 16)))
+                    # \xXX
+                    buf.append(self._scan_hex_escape(2, "x", line, col))
                 else:
                     buf.append("\\")
                     buf.append(esc)
@@ -354,6 +349,36 @@ class Lexer:
         raw = "".join(buf)
         ttype = TokenType.FSTRING if is_fstring else TokenType.STRING
         return self._make(ttype, raw, line, col)
+
+    def _scan_hex_escape(self, n_digits: int, esc_char: str, line: int, col: int) -> str:
+        """Read `n_digits` hex digits for a \\u or \\x escape and return the decoded char.
+
+        Raises a proper LexerError (instead of letting IndexError/ValueError from
+        truncated or malformed escapes escape as raw Python exceptions) when the
+        source ends early or the digits aren't valid hex.
+        """
+        hex_chars = ""
+        for _ in range(n_digits):
+            if self._pos >= len(self.source):
+                raise LexerError(
+                    f"String khatam nahi hua (\\{esc_char} escape adhoora hai, "
+                    f"{n_digits} hex digits chahiye)",
+                    line,
+                    col,
+                    self._source_line_at(line),
+                )
+            hex_chars += self._advance()
+
+        try:
+            return chr(int(hex_chars, 16))
+        except ValueError:
+            raise LexerError(
+                f"Galat \\{esc_char} escape sequence: {hex_chars!r} "
+                f"({n_digits} hex digits hone chahiye)",
+                line,
+                col,
+                self._source_line_at(line),
+            ) from None
 
     # ── Number scanner ────────────────────────────────────────────────
 
