@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" style="color-scheme: light;">
 <head>
+  <script>
+    (function() {
+      var localTheme = localStorage.getItem('theme');
+      if (localTheme) {
+        document.documentElement.setAttribute('data-theme', localTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 — Page gayab ho gayi! | JugaadLang</title>
@@ -55,6 +65,55 @@
       --bg-footer: rgba(235, 235, 239, 0.4);
     }
 
+    [data-theme="dark"] {
+      --bg-primary: #0F1115;
+      --bg-secondary: #181C22;
+      --bg-tertiary: #222831;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.07);
+      --text-primary: #F5F5F5;
+      --text-secondary: #C9CDD2;
+      --text-muted: #8888AA;
+      --border: #343A40;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --bg-nav: rgba(15, 17, 21, 0.85);
+      --bg-scrolled: rgba(15, 17, 21, 0.98);
+      --bg-footer: #181C22;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+      --gradient-hero: linear-gradient(135deg, #0F1115 0%, #181C22 50%, #222831 100%);
+      
+      /* Code block and terminal themes */
+      --bg-code: #181C22;
+      --bg-code-header: rgba(0, 0, 0, 0.3);
+      --border-code: #343A40;
+      --text-code: #F5F5F5;
+      --text-code-muted: #8888AA;
+      
+      --bg-terminal: #181C22;
+      --bg-terminal-bar: rgba(0, 0, 0, 0.3);
+      --border-terminal: #343A40;
+      --text-terminal: #F5F5F5;
+      --text-terminal-muted: #8888AA;
+      
+      --bg-copy-btn: rgba(255, 255, 255, 0.08);
+      --border-copy-btn: #343A40;
+      
+      /* Syntax highlighting */
+      --s-keyword: #FF9933;
+      --s-string: #2ECC71;
+      --s-comment: #7F8C8D;
+      --s-number: #4FC3F7;
+      --s-function: #9B59B6;
+      --s-operator: #FF6B6B;
+      --s-plain: #F5F5F5;
+      
+      /* Terminal colors */
+      --t-cmd: #F5F5F5;
+      --t-output: #C9CDD2;
+      --t-hint: #8888AA;
+      --t-muted: #555577;
+    }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -69,6 +128,7 @@
       text-align: center;
       padding: 6rem 0 0;
       position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* Animated Background */
@@ -483,6 +543,43 @@
       vertical-align: middle;
       flex-shrink: 0;
     }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 100;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: var(--radius-full);
+      padding: 0.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      width: 40px;
+      height: 40px;
+    }
+    .theme-toggle:hover {
+      background: rgba(255, 153, 51, 0.1);
+      color: var(--accent-saffron);
+      border-color: var(--accent-saffron);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent-saffron);
+      outline-offset: 2px;
+    }
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    [data-theme="dark"] .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon,
+    :root:not([data-theme="dark"]) .icon-moon { display: none; }
   </style>
 </head>
 <body>
@@ -500,6 +597,12 @@
   <img src="assets/icon.svg?v=4" alt="JugaadLang Logo" class="nav-logo-img">
   <span class="nav-logo-text">JugaadLang</span>
 </a>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" id="theme-toggle-404" aria-label="Toggle dark mode" type="button">
+  <svg class="icon-sun" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</button>
 
 <!-- Main 404 Content -->
 <div class="container">
@@ -620,6 +723,31 @@
       alert('🎉 Jugaad code unlock ho gaya! Wah bhai wah! Ab asli kaam karo. 😂');
     }
   });
+
+  // ===== THEME MANAGER =====
+  (function() {
+    const toggle404 = document.getElementById('theme-toggle-404');
+    
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    function handleToggle() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    if (toggle404) toggle404.addEventListener('click', handleToggle);
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  })();
 </script>
 
 </body>
