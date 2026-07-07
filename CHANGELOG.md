@@ -2,6 +2,42 @@
 
 All notable changes to **JugaadLang** will be documented in this file.
 
+## [1.1.0] - 2026-06-12
+
+### Added
+- **Native Built-in Functions**:
+  - `kismat(start, end)`: Random number generation.
+  - `sikka()`: Coin flip returning "Head" or "Tail".
+  - `saaf()`: Cross-platform terminal clear.
+  - `ruk(seconds)`: Pause execution.
+  - `bahar()`: Exit the program safely.
+  - `namaste()`: Displays a beautiful JugaadLang ASCII welcome banner.
+  - `debug(variable)`: Specialized built-in function to print types and representation.
+  - `version()`: Prints the active JugaadLang version.
+  - `madad()`: A massive custom Help Menu covering Data Types, System I/O, Math, and Desi Funny functions (replaces standard Python help).
+- **GitHub Infrastructure**:
+  - `dependabot.yml` for automated updates across pip, npm, Docker, and Actions.
+  - Custom automated desi welcome messages for issues and PRs.
+  - PR Autolabeler based on file routing.
+  - YAML Issue Forms for structured bug reports and feature requests.
+
+### Fixed
+- **VS Code Extension**: Resolved a strict peer dependency conflict between `@typescript-eslint/parser` and `@typescript-eslint/eslint-plugin` in `package.json` locking versions to `^8.61.0`.
+- **Version Skew**: Fixed an issue where the hardcoded `__version__` string inside `jugaadlang/__init__.py` would fall out of sync with `pyproject.toml`.
+- **Release Automation**: Updated `update_version.sh` to correctly bump `jugaadlang/__init__.py` during future release cuts.
+
+## [1.0.3] - 2026-06-11
+### Fixed
+- General bug fixes and patches to stabilize the `1.0` release series.
+
+## [1.0.2] - 2026-06-10
+### Fixed
+- Minor patches and hotfixes following the `1.0.1` pre-release.
+
+## [1.0.1] - 2026-06-10
+### Added
+- Pre-release build introducing minor enhancements to core components.
+
 ## [1.0.0] - 2026-06-09
 
 ### Added

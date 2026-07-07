@@ -475,7 +475,6 @@ class JugaadToPythonTransformer:
             "chhano": "filter",
             "gun_lao": "getattr",
             "gun_hai": "hasattr",
-            "madad": "help",
             "pehchan": "id",
             "purnank": "int",
             "prakar_hai": "isinstance",

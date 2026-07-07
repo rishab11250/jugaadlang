@@ -1,0 +1,3 @@
+# Ekdum simple example
+naam = "Ravi"
+bolo("Namaste, " + naam + "!")

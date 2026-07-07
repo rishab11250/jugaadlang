@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jugaadlang"
-version = "1.0.3"
+version = "1.1.5"
 description = "JugaadLang — A Hindi-keyword programming language for Indian developers"
 readme = "README.md"
 license = "MIT"
@@ -50,9 +50,9 @@ all = ["jugaadlang[web,dev]"]
 jug = "jug_cli.main:main"
 
 [project.urls]
-Homepage = "https://jugaadlang.dev"
+Homepage = "https://jugaadlang.netlify.app"
 Repository = "https://github.com/jugaadlang/jugaadlang"
-Documentation = "https://docs.jugaadlang.dev"
+Documentation = "https://jugaadlang.netlify.app"
 "Bug Tracker" = "https://github.com/jugaadlang/jugaadlang/issues"
 
 [tool.setuptools.packages.find]

@@ -1,8 +1,10 @@
 {
   "Print Statement": {
     "prefix": "bolo",
-    "body": ["bolo(\"$1\")$0"],
-    "description": "bolo(\"...\") → Python: print(\"...\")"
+    "body": [
+      "bolo(\"$1\")$0"
+    ],
+    "description": "bolo(\"...\") \u2192 Python: print(\"...\")"
   },
   "If Statement": {
     "prefix": "agar",
@@ -10,7 +12,7 @@
       "agar ${1:condition}:",
       "\t${2:theek_hai}"
     ],
-    "description": "agar ... → Python: if ..."
+    "description": "agar ... \u2192 Python: if ..."
   },
   "If-Else Statement": {
     "prefix": "agar-warna",
@@ -20,7 +22,7 @@
       "warna:",
       "\t${3:theek_hai}"
     ],
-    "description": "agar...warna → Python: if...else"
+    "description": "agar...warna \u2192 Python: if...else"
   },
   "If-Elif-Else Statement": {
     "prefix": "agar-shayad-warna",
@@ -32,7 +34,7 @@
       "warna:",
       "\t${5:theek_hai}"
     ],
-    "description": "agar...shayad...warna → Python: if...elif...else"
+    "description": "agar...shayad...warna \u2192 Python: if...elif...else"
   },
   "Function Definition": {
     "prefix": "banao",
@@ -42,17 +44,17 @@
       "\t${4:theek_hai}",
       "\twapas ${5:kuch_nahi}"
     ],
-    "description": "banao ... → Python: def ..."
+    "description": "banao ... \u2192 Python: def ..."
   },
   "Async Function Definition": {
     "prefix": "tez-banao",
     "body": [
       "tez banao ${1:function_name}(${2:params}):",
-      "\t\"\"\"${3:Async wala function — thoda intezaar karo!}\"\"\"",
+      "\t\"\"\"${3:Async wala function \u2014 thoda intezaar karo!}\"\"\"",
       "\t${4:result} = intezaar ${5:coroutine}",
       "\twapas ${4:result}"
     ],
-    "description": "tez banao → Python: async def"
+    "description": "tez banao \u2192 Python: async def"
   },
   "Class Definition": {
     "prefix": "ustad",
@@ -66,7 +68,7 @@
       "\tbanao ${8:method_name}(khud):",
       "\t\twapas khud.${6:attribute}"
     ],
-    "description": "ustad → Python: class"
+    "description": "ustad \u2192 Python: class"
   },
   "Class with Inheritance": {
     "prefix": "class-inherit",
@@ -81,7 +83,7 @@
       "\tbanao ${9:method_name}(khud):",
       "\t\twapas super().${9:method_name}()"
     ],
-    "description": "ustad with inheritance → Python: class Child(Parent)"
+    "description": "ustad with inheritance \u2192 Python: class Child(Parent)"
   },
   "For Loop": {
     "prefix": "ghumo",
@@ -89,7 +91,7 @@
       "ghumo ${1:item} mein ${2:iterable}:",
       "\t${3:theek_hai}"
     ],
-    "description": "ghumo...mein → Python: for...in"
+    "description": "ghumo...mein \u2192 Python: for...in"
   },
   "For Loop with Range": {
     "prefix": "ghumo-range",
@@ -97,7 +99,7 @@
       "ghumo ${1:i} mein range(${2:10}):",
       "\t${3:bolo(${1:i})}"
     ],
-    "description": "ghumo...mein range() → Python: for i in range()"
+    "description": "ghumo...mein range() \u2192 Python: for i in range()"
   },
   "While Loop": {
     "prefix": "jabtak",
@@ -105,7 +107,7 @@
       "jabtak ${1:condition}:",
       "\t${2:theek_hai}"
     ],
-    "description": "jabtak → Python: while"
+    "description": "jabtak \u2192 Python: while"
   },
   "Try-Except": {
     "prefix": "koshish",
@@ -115,7 +117,7 @@
       "gadbad ${2:Exception} jaise ${3:e}:",
       "\t${4:bolo(f\"Gadbad ho gayi: {${3:e}}\")}"
     ],
-    "description": "koshish...gadbad → Python: try...except"
+    "description": "koshish...gadbad \u2192 Python: try...except"
   },
   "Try-Except-Finally": {
     "prefix": "koshish-aakhir",
@@ -127,7 +129,7 @@
       "aakhir_me:",
       "\t${5:# hamesha chalta hai}"
     ],
-    "description": "koshish...gadbad...aakhir_me → Python: try...except...finally"
+    "description": "koshish...gadbad...aakhir_me \u2192 Python: try...except...finally"
   },
   "Try-Except-Else-Finally": {
     "prefix": "koshish-full",
@@ -141,42 +143,42 @@
       "aakhir_me:",
       "\t${6:# cleanup karo}"
     ],
-    "description": "Full try-except-else-finally → Python equivalent"
+    "description": "Full try-except-else-finally \u2192 Python equivalent"
   },
   "Lambda Function": {
     "prefix": "chota_funkshan",
     "body": [
       "chota_funkshan ${1:x}: ${2:x * 2}"
     ],
-    "description": "chota_funkshan → Python: lambda"
+    "description": "chota_funkshan \u2192 Python: lambda"
   },
   "Main Boilerplate": {
     "prefix": "main",
     "body": [
-      "# ${1:Main entry point — JugaadLang mein swagat hai!}",
+      "# ${1:Main entry point \u2014 JugaadLang mein swagat hai!}",
       "",
       "banao ${2:main}():",
-      "\t\"\"\"Main function — yahan se shuru hota hai sab kuch.\"\"\"",
+      "\t\"\"\"Main function \u2014 yahan se shuru hota hai sab kuch.\"\"\"",
       "\t${3:bolo(\"Jai JugaadLang!\")}",
       "",
       "agar __name__ == \"__main__\":",
       "\t${2:main}()"
     ],
-    "description": "Main boilerplate — Python: if __name__ == '__main__'"
+    "description": "Main boilerplate \u2014 Python: if __name__ == '__main__'"
   },
   "Hello World": {
     "prefix": "hello",
     "body": [
       "# JugaadLang mein pehla program!",
-      "bolo(\"Namaste Duniya! 🇮🇳\")"
+      "bolo(\"Namaste Duniya! \ud83c\uddee\ud83c\uddf3\")"
     ],
-    "description": "Hello World in JugaadLang — Namaste Duniya!"
+    "description": "Hello World in JugaadLang \u2014 Namaste Duniya!"
   },
   "Fibonacci Function": {
     "prefix": "fibonacci",
     "body": [
       "banao fibonacci(n):",
-      "\t\"\"\"Fibonacci sequence — desi andaz mein!\"\"\"",
+      "\t\"\"\"Fibonacci sequence \u2014 desi andaz mein!\"\"\"",
       "\tagar n <= 1:",
       "\t\twapas n",
       "\twapas fibonacci(n - 1) + fibonacci(n - 2)",
@@ -196,7 +198,7 @@
       "",
       "@app.route('/${1:endpoint}', methods=['GET'])",
       "banao ${2:get_data}():",
-      "\t\"\"\"${3:API endpoint — desi jugaad!}\"\"\"",
+      "\t\"\"\"${3:API endpoint \u2014 desi jugaad!}\"\"\"",
       "\tdata = {",
       "\t\t'${4:message}': '${5:Jai JugaadLang!}',",
       "\t\t'sahi': sahi",
@@ -206,45 +208,45 @@
       "agar __name__ == '__main__':",
       "\tapp.run(debug=sahi)"
     ],
-    "description": "Basic Flask API → Python Flask boilerplate"
+    "description": "Basic Flask API \u2192 Python Flask boilerplate"
   },
   "List Comprehension": {
     "prefix": "list-ghumo",
     "body": [
       "${1:result} = [${2:expression} ghumo ${3:item} mein ${4:iterable}]"
     ],
-    "description": "List comprehension → Python: [expr for item in iterable]"
+    "description": "List comprehension \u2192 Python: [expr for item in iterable]"
   },
   "Dict Comprehension": {
     "prefix": "dict-ghumo",
     "body": [
       "${1:result} = {${2:key}: ${3:value} ghumo ${4:item} mein ${5:iterable}}"
     ],
-    "description": "Dict comprehension → Python: {k: v for item in iterable}"
+    "description": "Dict comprehension \u2192 Python: {k: v for item in iterable}"
   },
   "Import Statement": {
     "prefix": "lao",
     "body": [
       "lao ${1:module}"
     ],
-    "description": "lao → Python: import"
+    "description": "lao \u2192 Python: import"
   },
   "From Import": {
     "prefix": "se-lao",
     "body": [
       "${1:module} se lao ${2:name}"
     ],
-    "description": "...se lao → Python: from ... import ..."
+    "description": "...se lao \u2192 Python: from ... import ..."
   },
   "Generator Function": {
     "prefix": "baanto",
     "body": [
       "banao ${1:generator}(${2:n}):",
-      "\t\"\"\"Generator function — ek ek karke deta hai!\"\"\"",
+      "\t\"\"\"Generator function \u2014 ek ek karke deta hai!\"\"\"",
       "\tghumo ${3:i} mein range(${2:n}):",
       "\t\tbaanto ${3:i}"
     ],
-    "description": "baanto → Python: yield (generator)"
+    "description": "baanto \u2192 Python: yield (generator)"
   },
   "Context Manager": {
     "prefix": "ke-saath",
@@ -253,7 +255,7 @@
       "\t${3:content} = ${2:f}.read()",
       "\tbolo(${3:content})"
     ],
-    "description": "ke_saath → Python: with ... as ..."
+    "description": "ke_saath \u2192 Python: with ... as ..."
   },
   "Dataclass": {
     "prefix": "data-ustad",
@@ -262,12 +264,12 @@
       "",
       "@dataclass",
       "ustad ${1:DataClass}:",
-      "\t\"\"\"${2:Data class — clean aur simple!}\"\"\"",
+      "\t\"\"\"${2:Data class \u2014 clean aur simple!}\"\"\"",
       "\t${3:name}: str = ''",
       "\t${4:value}: int = 0",
       "\t${5:items}: list = field(default_factory=list)"
     ],
-    "description": "Dataclass → Python @dataclass"
+    "description": "Dataclass \u2192 Python @dataclass"
   },
   "Type Hints": {
     "prefix": "banao-typed",
@@ -283,14 +285,14 @@
     "body": [
       "assert ${1:condition}, \"${2:Yeh condition fail ho gayi!\""
     ],
-    "description": "assert → Python: assert (pakka matlab 'make sure')"
+    "description": "assert \u2192 Python: assert (pakka matlab 'make sure')"
   },
   "Delete Statement": {
     "prefix": "hatao",
     "body": [
       "del ${1:variable}"
     ],
-    "description": "del → Python: del (hatao = remove)"
+    "description": "del \u2192 Python: del (hatao = remove)"
   },
   "Property Decorator": {
     "prefix": "property-banao",
@@ -305,6 +307,391 @@
       "\t\"\"\"Set ${1:attribute}.\"\"\"",
       "\tkhud._${1:attribute} = value"
     ],
-    "description": "Property getter/setter → Python @property"
+    "description": "Property getter/setter \u2192 Python @property"
+  },
+  "Kismat Randomizer": {
+    "prefix": "kismat",
+    "body": [
+      "kismat(${1:start}, ${2:end})$0"
+    ],
+    "description": "Returns a random number between start and end."
+  },
+  "Sikka Coin Flip": {
+    "prefix": "sikka",
+    "body": [
+      "sikka()$0"
+    ],
+    "description": "Flips a coin and returns Head or Tail."
+  },
+  "Saaf Terminal Clear": {
+    "prefix": "saaf",
+    "body": [
+      "saaf()$0"
+    ],
+    "description": "Clears the terminal screen."
+  },
+  "Ruk Sleep Timer": {
+    "prefix": "ruk",
+    "body": [
+      "ruk(${1:seconds})$0"
+    ],
+    "description": "Pauses execution for the specified number of seconds."
+  },
+  "Bahar Exit": {
+    "prefix": "bahar",
+    "body": [
+      "bahar()$0"
+    ],
+    "description": "Exits the program immediately."
+  },
+  "Namaste Banner": {
+    "prefix": "namaste",
+    "body": [
+      "namaste()$0"
+    ],
+    "description": "Displays a beautiful JugaadLang ASCII welcome banner."
+  },
+  "Debug Inspector": {
+    "prefix": "debug",
+    "body": [
+      "debug(${1:variable})$0"
+    ],
+    "description": "Prints out useful debugging information about a variable."
+  },
+  "Version Check": {
+    "prefix": "version",
+    "body": [
+      "version()$0"
+    ],
+    "description": "Displays the current installed version of JugaadLang."
+  },
+  "Madad Help Menu": {
+    "prefix": "madad",
+    "body": [
+      "madad()$0"
+    ],
+    "description": "Shows a massive custom Help Menu for JugaadLang functions."
+  },
+  "pani_pilo": {
+    "prefix": "pani_pilo",
+    "body": [
+      "pani_pilo()$0"
+    ],
+    "description": "JugaadLang fun builtin: pani_pilo"
+  },
+  "soja": {
+    "prefix": "soja",
+    "body": [
+      "soja()$0"
+    ],
+    "description": "JugaadLang fun builtin: soja"
+  },
+  "crush": {
+    "prefix": "crush",
+    "body": [
+      "crush()$0"
+    ],
+    "description": "JugaadLang fun builtin: crush"
+  },
+  "proposal": {
+    "prefix": "proposal",
+    "body": [
+      "proposal(${1:name})$0"
+    ],
+    "description": "JugaadLang fun builtin: proposal"
+  },
+  "couple_days": {
+    "prefix": "couple_days",
+    "body": [
+      "couple_days()$0"
+    ],
+    "description": "JugaadLang fun builtin: couple_days"
+  },
+  "breakup": {
+    "prefix": "breakup",
+    "body": [
+      "breakup()$0"
+    ],
+    "description": "JugaadLang fun builtin: breakup"
+  },
+  "love_percentage": {
+    "prefix": "love_percentage",
+    "body": [
+      "love_percentage(${1:name1}, ${2:name2})$0"
+    ],
+    "description": "JugaadLang fun builtin: love_percentage"
+  },
+  "attendance": {
+    "prefix": "attendance",
+    "body": [
+      "attendance()$0"
+    ],
+    "description": "JugaadLang fun builtin: attendance"
+  },
+  "assignment": {
+    "prefix": "assignment",
+    "body": [
+      "assignment()$0"
+    ],
+    "description": "JugaadLang fun builtin: assignment"
+  },
+  "exam_mode": {
+    "prefix": "exam_mode",
+    "body": [
+      "exam_mode()$0"
+    ],
+    "description": "JugaadLang fun builtin: exam_mode"
+  },
+  "cgpa": {
+    "prefix": "cgpa",
+    "body": [
+      "cgpa()$0"
+    ],
+    "description": "JugaadLang fun builtin: cgpa"
+  },
+  "bunk": {
+    "prefix": "bunk",
+    "body": [
+      "bunk()$0"
+    ],
+    "description": "JugaadLang fun builtin: bunk"
+  },
+  "motivation": {
+    "prefix": "motivation",
+    "body": [
+      "motivation()$0"
+    ],
+    "description": "JugaadLang fun builtin: motivation"
+  },
+  "stackoverflow": {
+    "prefix": "stackoverflow",
+    "body": [
+      "stackoverflow()$0"
+    ],
+    "description": "JugaadLang fun builtin: stackoverflow"
+  },
+  "deploy": {
+    "prefix": "deploy",
+    "body": [
+      "deploy()$0"
+    ],
+    "description": "JugaadLang fun builtin: deploy"
+  },
+  "git_push": {
+    "prefix": "git_push",
+    "body": [
+      "git_push()$0"
+    ],
+    "description": "JugaadLang fun builtin: git_push"
+  },
+  "ludo": {
+    "prefix": "ludo",
+    "body": [
+      "ludo()$0"
+    ],
+    "description": "JugaadLang fun builtin: ludo"
+  },
+  "snake_game": {
+    "prefix": "snake_game",
+    "body": [
+      "snake_game()$0"
+    ],
+    "description": "JugaadLang fun builtin: snake_game"
+  },
+  "tic_tac_toe": {
+    "prefix": "tic_tac_toe",
+    "body": [
+      "tic_tac_toe()$0"
+    ],
+    "description": "JugaadLang fun builtin: tic_tac_toe"
+  },
+  "rock_paper_scissors": {
+    "prefix": "rock_paper_scissors",
+    "body": [
+      "rock_paper_scissors()$0"
+    ],
+    "description": "JugaadLang fun builtin: rock_paper_scissors"
+  },
+  "guess_number": {
+    "prefix": "guess_number",
+    "body": [
+      "guess_number()$0"
+    ],
+    "description": "JugaadLang fun builtin: guess_number"
+  },
+  "hangman": {
+    "prefix": "hangman",
+    "body": [
+      "hangman()$0"
+    ],
+    "description": "JugaadLang fun builtin: hangman"
+  },
+  "meme": {
+    "prefix": "meme",
+    "body": [
+      "meme()$0"
+    ],
+    "description": "JugaadLang fun builtin: meme"
+  },
+  "joke": {
+    "prefix": "joke",
+    "body": [
+      "joke()$0"
+    ],
+    "description": "JugaadLang fun builtin: joke"
+  },
+  "roast": {
+    "prefix": "roast",
+    "body": [
+      "roast()$0"
+    ],
+    "description": "JugaadLang fun builtin: roast"
+  },
+  "pomodoro": {
+    "prefix": "pomodoro",
+    "body": [
+      "pomodoro(${1:minutes})$0"
+    ],
+    "description": "JugaadLang fun builtin: pomodoro"
+  },
+  "todo": {
+    "prefix": "todo",
+    "body": [
+      "todo()$0"
+    ],
+    "description": "JugaadLang fun builtin: todo"
+  },
+  "habit_tracker": {
+    "prefix": "habit_tracker",
+    "body": [
+      "habit_tracker()$0"
+    ],
+    "description": "JugaadLang fun builtin: habit_tracker"
+  },
+  "focus_mode": {
+    "prefix": "focus_mode",
+    "body": [
+      "focus_mode()$0"
+    ],
+    "description": "JugaadLang fun builtin: focus_mode"
+  },
+  "study_with_me": {
+    "prefix": "study_with_me",
+    "body": [
+      "study_with_me()$0"
+    ],
+    "description": "JugaadLang fun builtin: study_with_me"
+  },
+  "ai_bhai": {
+    "prefix": "ai_bhai",
+    "body": [
+      "ai_bhai(${1:prompt})$0"
+    ],
+    "description": "JugaadLang fun builtin: ai_bhai"
+  },
+  "resume_banao": {
+    "prefix": "resume_banao",
+    "body": [
+      "resume_banao()$0"
+    ],
+    "description": "JugaadLang fun builtin: resume_banao"
+  },
+  "interview_prep": {
+    "prefix": "interview_prep",
+    "body": [
+      "interview_prep()$0"
+    ],
+    "description": "JugaadLang fun builtin: interview_prep"
+  },
+  "roadmap": {
+    "prefix": "roadmap",
+    "body": [
+      "roadmap(${1:topic})$0"
+    ],
+    "description": "JugaadLang fun builtin: roadmap"
+  },
+  "leetcode_bachao": {
+    "prefix": "leetcode_bachao",
+    "body": [
+      "leetcode_bachao()$0"
+    ],
+    "description": "JugaadLang fun builtin: leetcode_bachao"
+  },
+  "whatsapp.bhejo": {
+    "prefix": "whatsapp.bhejo",
+    "body": [
+      "whatsapp.bhejo(${1:phone}, ${2:message})$0"
+    ],
+    "description": "JugaadLang Stdlib: whatsapp.bhejo"
+  },
+  "whatsapp.spam": {
+    "prefix": "whatsapp.spam",
+    "body": [
+      "whatsapp.spam(${1:phone}, ${2:message}, ${3:count})$0"
+    ],
+    "description": "JugaadLang Stdlib: whatsapp.spam"
+  },
+  "student.bahana": {
+    "prefix": "student.bahana",
+    "body": [
+      "student.bahana()$0"
+    ],
+    "description": "JugaadLang Stdlib: student.bahana"
+  },
+  "student.cgpa_calc": {
+    "prefix": "student.cgpa_calc",
+    "body": [
+      "student.cgpa_calc([${1:grades}])$0"
+    ],
+    "description": "JugaadLang Stdlib: student.cgpa_calc"
+  },
+  "student.proxy_attendance": {
+    "prefix": "student.proxy_attendance",
+    "body": [
+      "student.proxy_attendance(${1:name})$0"
+    ],
+    "description": "JugaadLang Stdlib: student.proxy_attendance"
+  },
+  "love.flirt": {
+    "prefix": "love.flirt",
+    "body": [
+      "love.flirt()$0"
+    ],
+    "description": "JugaadLang Stdlib: love.flirt"
+  },
+  "love.date_idea": {
+    "prefix": "love.date_idea",
+    "body": [
+      "love.date_idea()$0"
+    ],
+    "description": "JugaadLang Stdlib: love.date_idea"
+  },
+  "love.sorry_message": {
+    "prefix": "love.sorry_message",
+    "body": [
+      "love.sorry_message(${1:name})$0"
+    ],
+    "description": "JugaadLang Stdlib: love.sorry_message"
+  },
+  "dev.fake_commit": {
+    "prefix": "dev.fake_commit",
+    "body": [
+      "dev.fake_commit()$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.fake_commit"
+  },
+  "dev.coffee_break": {
+    "prefix": "dev.coffee_break",
+    "body": [
+      "dev.coffee_break(${1:minutes})$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.coffee_break"
+  },
+  "dev.blame_someone_else": {
+    "prefix": "dev.blame_someone_else",
+    "body": [
+      "dev.blame_someone_else()$0"
+    ],
+    "description": "JugaadLang Stdlib: dev.blame_someone_else"
   }
 }

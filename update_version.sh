@@ -64,6 +64,15 @@ with open('jugaadlang/repl/repl.py', 'w') as f: f.write(content)
 "
 echo "✅ Updated jugaadlang/repl/repl.py"
 
+# 6. Update jugaadlang/__init__.py
+python3 -c "
+import re
+with open('jugaadlang/__init__.py', 'r') as f: content = f.read()
+content = re.sub(r'__version__ = \"[0-9.]+\"', f'__version__ = \"$NEW_VERSION\"', content)
+with open('jugaadlang/__init__.py', 'w') as f: f.write(content)
+"
+echo "✅ Updated jugaadlang/__init__.py"
+
 echo "🎉 All components updated to v$NEW_VERSION successfully!"
 echo "Next steps:"
 echo "  1. git add ."

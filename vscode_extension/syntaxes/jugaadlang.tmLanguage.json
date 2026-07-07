@@ -327,7 +327,7 @@
         },
         {
           "name": "support.function.jugaad.jugaadlang",
-          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad|nazar|ashirwad|dhanya_waad|bhagwan_bhala_kare|paisa_wasool|bas_kar_bhai|chilla_mat|kundli)\\b"
+          "match": "\\b(chai|himmat|ghaas_chhoo|bachao|fortune|jugaad|nazar|ashirwad|dhanya_waad|bhagwan_bhala_kare|paisa_wasool|bas_kar_bhai|chilla_mat|kundli|kismat|sikka|saaf|ruk|bahar|namaste|debug|version|pani_pilo|soja|crush|proposal|couple_days|breakup|love_percentage|attendance|assignment|exam_mode|cgpa|bunk|motivation|stackoverflow|deploy|git_push|ludo|snake_game|tic_tac_toe|rock_paper_scissors|guess_number|hangman|meme|joke|roast|pomodoro|todo|habit_tracker|focus_mode|study_with_me|ai_bhai|resume_banao|interview_prep|roadmap|leetcode_bachao)\\b"
         }
       ]
     },

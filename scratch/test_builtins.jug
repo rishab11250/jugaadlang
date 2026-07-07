@@ -1,0 +1,25 @@
+# Testing the new Built-in Functions
+
+bolo("--- Fun Functions ---")
+namaste()
+chai()
+jugaad()
+
+bolo("\n--- Random Functions ---")
+bolo("Random 1 to 100: " + shabd(kismat(1, 100)))
+bolo("Coin Flip: " + sikka())
+
+bolo("\n--- Developer Functions ---")
+debug(42)
+debug("Jugaad")
+version()
+
+bolo("\n--- Help Menu ---")
+madad()
+
+bolo("\n--- System Functions ---")
+bolo("Sleeping for 1 second...")
+ruk(1)
+bolo("Exiting program!")
+bahar()
+bolo("This should not print")
