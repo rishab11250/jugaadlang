@@ -354,7 +354,7 @@ class Lexer:
         """Read `n_digits` hex digits for a \\u or \\x escape and return the decoded char.
 
         Raises a proper LexerError (instead of letting IndexError/ValueError from
-        truncated or malformed escapes escape as raw Python exceptions) when the
+        truncated or malformed escapes propagate as raw Python exceptions) when the
         source ends early or the digits aren't valid hex.
         """
         hex_chars = ""
