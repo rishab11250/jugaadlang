@@ -2,8 +2,10 @@
 Tests for JugaadLang Lexer.
 """
 
+import pytest
+
 from jugaadlang.lexer.tokens import TokenType
-from jugaadlang.lexer.lexer import Lexer
+from jugaadlang.lexer.lexer import Lexer, LexerError
 
 
 def test_basic_tokens():
@@ -79,3 +81,19 @@ def test_string_escapes():
 
     assert tokens[0].type == TokenType.STRING
     assert tokens[0].value == "hello\nworld\tunicode☕"
+
+
+@pytest.mark.parametrize(
+    "src",
+    [
+        '"\\u12"',  # truncated \u escape (source ends early)
+        '"\\x1"',  # truncated \x escape (source ends early)
+        '"\\uZZZZ"',  # \u with non-hex digits
+        '"\\xZZ"',  # \x with non-hex digits
+    ],
+)
+def test_malformed_unicode_escape_raises_lexer_error(src):
+    # Malformed \u / \x escapes must surface as a LexerError, not an
+    # unhandled IndexError/ValueError from the interpreter internals.
+    with pytest.raises(LexerError):
+        Lexer(src).tokenize()
