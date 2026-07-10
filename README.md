@@ -1,5 +1,6 @@
 <div align="center">
   <h1>JugaadLang 🇮🇳</h1> 
+  <h2> Please🙏 star ⭐ the repo 🤝❤</h2>
    
 <p> Code karo Hindi mein, Duniya hila do! 🚀</p>
 <p align="center" >
