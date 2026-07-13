@@ -263,5 +263,85 @@ def typecheck(file: str) -> None:
         sys.exit(1)
 
 
+@main.command()
+def doctor() -> None:
+    """Diagnose the JugaadLang installation."""
+    from importlib import import_module
+    from importlib.util import find_spec
+
+    from jugaadlang import __version__
+
+    console.print("[bold green]🩺 JugaadLang Doctor[/bold green]")
+    console.print("Diagnosing installation...\n")
+
+    issues = 0
+
+    # Python version
+    py_ok = sys.version_info >= (3, 10)
+    py_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    if py_ok:
+        console.print(f"[green]✓[/green] Python {py_version} (>= 3.10 required)")
+    else:
+        console.print(f"[red]✗[/red] Python {py_version} (>= 3.10 required)")
+        issues += 1
+
+    # JugaadLang version
+    console.print(f"[green]✓[/green] JugaadLang v{__version__}")
+
+    # Core runtime imports
+    core_modules = [
+        "jugaadlang.lexer.lexer",
+        "jugaadlang.parser.parser",
+        "jugaadlang.transformer.to_python",
+        "jugaadlang.runtime.interpreter",
+        "jugaadlang.repl.repl",
+        "jugaadlang.package_manager.manager",
+    ]
+    for mod_name in core_modules:
+        try:
+            import_module(mod_name)
+            console.print(f"[green]✓[/green] Import {mod_name}")
+        except Exception as e:
+            console.print(f"[red]✗[/red] Import {mod_name}: {e}")
+            issues += 1
+
+    # Core pip dependencies
+    core_deps = ["prompt_toolkit", "pygments", "rich", "click", "requests"]
+    for dep in core_deps:
+        if find_spec(dep) is not None:
+            console.print(f"[green]✓[/green] Dependency {dep}")
+        else:
+            console.print(f"[red]✗[/red] Dependency {dep} missing")
+            issues += 1
+
+    # Optional web extras
+    for dep in ("flask", "httpx", "aiohttp"):
+        if find_spec(dep) is not None:
+            console.print(f"[green]✓[/green] Optional web dependency {dep}")
+        else:
+            console.print(
+                f"[yellow]![/yellow] Optional web dependency {dep} not installed "
+                f"(install with `jug install web` or `pip install jugaadlang[web]`)"
+            )
+
+    # Optional mypy for typecheck
+    if find_spec("mypy") is not None:
+        console.print("[green]✓[/green] Optional typecheck dependency mypy")
+    else:
+        console.print(
+            "[yellow]![/yellow] Optional typecheck dependency mypy not installed "
+            "(needed for `jug typecheck`; install with `pip install jugaadlang[dev]`)"
+        )
+
+    console.print()
+    if issues == 0:
+        console.print("[bold green]✓ Sab theek hai! Installation looks healthy.[/bold green]")
+    else:
+        console.print(
+            f"[bold red]✗ {issues} issue(s) found.[/bold red] Fix the failures above and re-run `jug doctor`."
+        )
+        sys.exit(1)
+
+
 if __name__ == "__main__":
     main()

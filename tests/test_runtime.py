@@ -202,6 +202,21 @@ def test_lockfile_generation(tmp_path):
         os.chdir(old_cwd)
 
 
+def test_package_manager_exits_on_pip_failure():
+    import subprocess
+    from unittest.mock import patch
+
+    from jugaadlang.package_manager.manager import JugaadPackageManager
+
+    err = subprocess.CalledProcessError(1, ["pip", "install", "fake"], stderr="not found")
+    with patch("subprocess.run", side_effect=err):
+        try:
+            JugaadPackageManager.install("totally-fake-package-xyz")
+            assert False, "expected SystemExit"
+        except SystemExit as exc:
+            assert exc.code == 1
+
+
 def test_hindi_builtins():
     interpreter = JugaadInterpreter()
     code = """
@@ -225,6 +240,17 @@ val_type = prakar("test") == shabd
     assert interpreter.globals["val_sum"] == 6
     assert interpreter.globals["val_str"] == "123"
     assert interpreter.globals["val_type"] is True
+
+
+def test_cli_doctor():
+    from click.testing import CliRunner
+    from jug_cli.main import doctor
+
+    runner = CliRunner()
+    result = runner.invoke(doctor)
+    assert result.exit_code == 0
+    assert "JugaadLang Doctor" in result.output
+    assert "Sab theek hai" in result.output
 
 
 def test_cli_typecheck(tmp_path):
