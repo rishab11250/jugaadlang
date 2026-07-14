@@ -1927,6 +1927,54 @@
       justify-content: center;
       gap: 0.5rem;
     }
+    /* ===== BACK TO TOP BUTTON ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: var(--radius-full);
+      background: var(--gradient-saffron);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px);
+      transition: var(--transition);
+      z-index: 999;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-3px);
+    }
+    .back-to-top:focus-visible {
+      outline: 2px solid var(--accent-saffron);
+      outline-offset: 2px;
+    }
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+    }
+    @media (max-width: 768px) {
+      .back-to-top {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 42px;
+        height: 42px;
+      }
+    }
     /* =====================================================
        SEARCH FEATURE — Issue #47
        ===================================================== */
@@ -3181,7 +3229,33 @@
     </div>
   </div>
 </footer>
+<!-- ===== BACK TO TOP BUTTON ===== -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"></line>
+    <polyline points="5 12 12 5 19 12"></polyline>
+  </svg>
+</button>
 
+<script>
+// ===== BACK TO TOP BUTTON =====
+(function() {
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (!backToTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
 <!-- ===== JAVASCRIPT ===== -->
 <script>
 // ===== DATA =====
