@@ -2,6 +2,17 @@
 
 All notable changes to **JugaadLang** will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **Test Coverage**: `tests/test_transformer.py` — 120 parametrized tests covering all keyword mappings, built-in name mappings, operators, comprehensions, pattern matching, async/await, classes, and all statement types.
+- **Test Coverage**: `tests/test_stdlib.py` — 47 tests covering all 18 standard library modules (ganit, samay, crypto, faili, json, tantra, chai, dev, fortune, motivation, love, student, jokes, memes, database, web, crypto_module, catfacts, whatsapp).
+- **CI/CD**: OS matrix expanded to `[ubuntu-latest, windows-latest, macos-latest]` in `.github/workflows/ci.yml`.
+- **Coverage Enforcement**: `[tool.coverage.report] fail_under = 60` added to `pyproject.toml`.
+
+### Audit
+- **Full Repository Audit**: `JUGAADLANG_AUDIT_REPORT.md` — 78 findings across 8 domains (architecture, security, performance, testing, documentation, contribution opportunities).
+
 ## [1.1.0] - 2026-06-12
 
 ### Added
