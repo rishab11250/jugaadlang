@@ -2,6 +2,13 @@
 
 All notable changes to **JugaadLang** will be documented in this file.
 
+## [Unreleased]
+
+### Security
+- **Restrict `__builtins__`**: Replaced unrestricted `__builtins__` in the interpreter globals with an explicit allowlist (`_SAFE_BUILTINS`). Dangerous functions (`exec`, `eval`, `compile`, `open`, `__import__`) are no longer accessible from JugaadLang code. Closes issue #53 (vector 3).
+- **Remove `chalao` (exec)**: Removed `"chalao": exec` from the interpreter globals and the `"chalao": "exec"` mapping from the transformer name map. JugaadLang users can no longer execute arbitrary Python code via `chalao()`. Closes issue #53 (vector 1).
+- **Remove `kholo` (open)**: Removed `"kholo": open` from the interpreter globals and the `"kholo": "open"` mapping from the transformer name map. JugaadLang users can no longer open arbitrary files via `kholo()`. Closes issue #53 (vector 2).
+- **Hardened `tantra.shell_chalao`**: Changed from `subprocess.run(command, shell=True)` to `shlex.split(command)` with `shell=False`, preventing shell injection attacks. Closes issue #53 (vector 4).
 ## [1.1.0] - 2026-06-12
 
 ### Added
