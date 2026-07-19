@@ -241,6 +241,8 @@ class JugaadInterpreter:
 
     def run(self, source: str) -> None:
         """Run JugaadLang source code as statements (exec mode)."""
+        from ..events.bus import event_bus
+        event_bus.emit("EXECUTION_STARTED", {"filename": self.filename, "mode": "exec"})
         try:
             # 1. Lexical analysis
             lexer = Lexer(source, self.filename)
@@ -259,6 +261,7 @@ class JugaadInterpreter:
 
             # 5. Execute bytecode in the persistent namespace
             exec(code_obj, self.globals, self.globals)
+            event_bus.emit("EXECUTION_COMPLETED", {"filename": self.filename, "mode": "exec"})
         except Exception as e:
             # Print funny error message and re-raise / handle
             formatted = format_error(e, source, self.filename)
@@ -271,6 +274,8 @@ class JugaadInterpreter:
         If it's a single expression, evaluate and return its value (eval mode).
         Otherwise, execute as standard statements (exec mode).
         """
+        from ..events.bus import event_bus
+        event_bus.emit("EXECUTION_STARTED", {"filename": self.filename, "mode": "eval"})
         try:
             lexer = Lexer(source, self.filename)
             tokens = lexer.tokenize()
@@ -288,13 +293,16 @@ class JugaadInterpreter:
                 ast.fix_missing_locations(py_expr)
 
                 code_obj = compile(py_expr, self.filename, "eval")
-                return eval(code_obj, self.globals, self.globals)
+                result = eval(code_obj, self.globals, self.globals)
+                event_bus.emit("EXECUTION_COMPLETED", {"filename": self.filename, "mode": "eval"})
+                return result
             else:
                 # Compile and execute as a normal module block
                 transformer = JugaadToPythonTransformer(self.filename)
                 py_ast = transformer.transform(ast_mod)
                 code_obj = compile(py_ast, self.filename, "exec")
                 exec(code_obj, self.globals, self.globals)
+                event_bus.emit("EXECUTION_COMPLETED", {"filename": self.filename, "mode": "exec"})
                 return None
         except Exception as e:
             formatted = format_error(e, source, self.filename)
